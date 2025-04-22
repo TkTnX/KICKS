@@ -6,6 +6,7 @@ import { Footer } from "@/components/widgets/Footer"
 import { Header } from "@/components/widgets/Header"
 
 import "./globals.css"
+import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/seo.constants"
 
 const openSans = Open_Sans({
 	variable: "--font-open-sans",
@@ -23,8 +24,11 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-	title: "KICKS | Топовые кроссовки",
-	description: "Лучшие кроссовки для всех"
+	title: {absolute: SITE_NAME, template: `%s | ${SITE_NAME}`},
+	description: SITE_DESCRIPTION,
+	icons: {
+		icon: '/favicon.ico',
+	}
 }
 
 export default function RootLayout({

@@ -1,5 +1,7 @@
 import { Block } from "@/components/entities/Block"
 
+import { IProduct } from "@/shared/types"
+
 import { ProductItem } from "../ui/ProductItem"
 
 // TODO: TEMP
@@ -40,7 +42,11 @@ export const NewDrops = () => {
 			>
 				<div className='grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8'>
 					{products.map(product => (
-						<ProductItem key={product.id} product={product} />
+						<ProductItem
+							key={product.id}
+							// TODO: TEMP TYPE
+							product={product as unknown as IProduct}
+						/>
 					))}
 				</div>
 			</Block>

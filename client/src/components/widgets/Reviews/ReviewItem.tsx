@@ -1,9 +1,10 @@
 import { Star } from "lucide-react"
 import Image from "next/image"
 
+import { IReview } from "@/shared/types"
+
 type Props = {
-	// TODO: TEMP TYPE
-	review: any
+	review: IReview
 }
 
 export const ReviewItem = ({ review }: Props) => {
@@ -20,7 +21,7 @@ export const ReviewItem = ({ review }: Props) => {
 						</p>
 					</div>
 					<Image
-						src={review.user.image}
+						src={review.user.image ?? "/images/no-avatar.jpg"}
 						alt='USER AVATAR'
 						width={64}
 						height={64}
@@ -41,14 +42,16 @@ export const ReviewItem = ({ review }: Props) => {
 					</span>
 				</div>
 			</div>
-			<div className='relative w-full h-[200px] sm:h-[325px]'>
-				<Image
-					src={review.image}
-					alt={review.title}
-					fill
-					className='object-cover'
-				/>
-			</div>
+			{review.image && (
+				<div className='relative w-full h-[200px] sm:h-[325px]'>
+					<Image
+						src={review.image}
+						alt={review.title}
+						fill
+						className='object-cover'
+					/>
+				</div>
+			)}
 		</div>
 	)
 }

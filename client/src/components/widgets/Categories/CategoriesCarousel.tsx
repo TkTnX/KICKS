@@ -8,10 +8,10 @@ import {
 } from "@/components/ui/carousel"
 
 import { CategoryItem } from "./CategoryItem"
+import { ICategory } from "@/shared/types"
 
 type Props = {
-	// TODO: TEMP TYPE
-	categories: any[]
+	categories: ICategory[]
 	onApiReady?: (api: CarouselApi) => void
 	ref?: React.RefObject<CarouselApi | null>
 }

@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import { CarouselApi } from "@/components/ui/carousel"
 
 import { CategoriesCarousel } from "./CategoriesCarousel"
+import { ICategory } from "@/shared/types"
 
 // TODO: TEMP DATA
 const categories = [
@@ -86,7 +87,8 @@ export const Categories = () => {
 						</button>
 					</div>
 				</div>
-				<CategoriesCarousel categories={categories} ref={carouselRef} />
+				{/* TODO: TEMP TYPE */}
+				<CategoriesCarousel categories={categories as unknown as ICategory[]} ref={carouselRef} />
 			</div>
 		</div>
 	)

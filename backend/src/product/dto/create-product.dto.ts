@@ -11,7 +11,7 @@ export class CreateProductDto {
   @IsNotEmpty({ message: 'Description is required' })
   description: string;
 
-  gender: EGender;
+  gender?: EGender;
 
   @ArrayMinSize(1, { message: 'At least one image is required' })
   images: string[];
@@ -21,9 +21,9 @@ export class CreateProductDto {
 
   @IsNotEmpty({ message: 'At least one color is required' })
   @ArrayMinSize(1, { message: 'At least one color is required' })
-  colors: Color[];
+  colors: string[];
 
   @IsNotEmpty({ message: 'At least one size is required' })
   @ArrayMinSize(1, { message: 'At least one size is required' })
-  sizes: Size[];
+  sizes: string[];
 }

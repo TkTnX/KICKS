@@ -1,14 +1,13 @@
+import { IProduct } from "@/shared/types"
 import Image from "next/image"
 import Link from "next/link"
 
 type Props = {
-	// TODO: TEMP TYPE
-	product: any
+	product: IProduct
 }
 
 export const ProductItem = ({ product }: Props) => {
-	// TODO: TEMP
-	const isNew = true
+	const isNew = product.createdAt > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 	return (
 		<div>
 			<div className='relative w-full h-[200px] lg:h-[334px] rounded-3xl border-4 border-white overflow-hidden'>

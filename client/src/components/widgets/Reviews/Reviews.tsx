@@ -1,8 +1,8 @@
 import { Block } from "@/components/entities/Block"
 
 import { ReviewItem } from "./ReviewItem"
+import { IReview } from "@/shared/types"
 
-// TODO: TEMP DATA
 const reviews = [
 	{
 		id: 1,
@@ -44,7 +44,8 @@ export const Reviews = () => {
 			<Block title='Reviews' link='/reviews' linkTitle='SEE ALL'>
 				<div className='grid sm:grid-cols-2  lg:grid-cols-3 gap-4 mt-8'>
 					{reviews.map(review => (
-						<ReviewItem key={review.id} review={review} />
+						// TODO: TEMP TYPE
+						<ReviewItem key={review.id} review={review as unknown as IReview} />
 					))}
 				</div>
 			</Block>

@@ -3,7 +3,6 @@ import { Categories } from "@/components/widgets/Categories/Categories"
 import { NewDrops } from "@/components/widgets/NewDrops"
 import { Reviews } from "@/components/widgets/Reviews"
 
-// TODO: Сделать metadata, как в курсе
 
 export default function Home() {
 	return (
