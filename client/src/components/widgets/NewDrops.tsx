@@ -1,5 +1,7 @@
 import { Block } from "@/components/entities/Block"
 
+import { ProductItem } from "../ui/ProductItem"
+
 // TODO: TEMP
 const products = [
 	{
@@ -35,8 +37,13 @@ export const NewDrops = () => {
 				title='Don’t miss out new drops'
 				link='/catalog?sortBy=new'
 				linkTitle='SHOP NEW DROPS'
-				products={products}
-			/>
+			>
+				<div className='grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8'>
+					{products.map(product => (
+						<ProductItem key={product.id} product={product} />
+					))}
+				</div>
+			</Block>
 		</section>
 	)
 }

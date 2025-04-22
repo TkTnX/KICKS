@@ -1,15 +1,13 @@
 import { Link } from "../ui/Link"
-import { ProductItem } from "../ui/ProductItem"
 
 type Props = {
 	title: string
 	link: string
 	linkTitle: string
-	// TODO: TEMP TYPE
-	products: any[]
+	children: React.ReactNode
 }
 
-export const Block = ({ title, link, linkTitle, products }: Props) => {
+export const Block = ({ title, link, linkTitle, children }: Props) => {
 	return (
 		<div>
 			<div className='flex items-end justify-between'>
@@ -18,11 +16,7 @@ export const Block = ({ title, link, linkTitle, products }: Props) => {
 				</h3>
 				<Link href={link}>{linkTitle}</Link>
 			</div>
-			<div className='grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8'>
-				{products.map(product => (
-					<ProductItem key={product.id} product={product} />
-				))}
-			</div>
+			{children}
 		</div>
 	)
 }

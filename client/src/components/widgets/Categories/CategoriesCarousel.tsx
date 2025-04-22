@@ -15,7 +15,6 @@ type Props = {
 	onApiReady?: (api: CarouselApi) => void
 	ref?: React.RefObject<CarouselApi | null>
 }
-// TODO: Доделать адаптив
 export const CategoriesCarousel = ({ categories, onApiReady, ref }: Props) => {
 	const [api, setApi] = useState<CarouselApi>()
 
@@ -32,7 +31,7 @@ export const CategoriesCarousel = ({ categories, onApiReady, ref }: Props) => {
 		>
 			<CarouselContent>
 				{categories.map(category => (
-					<CarouselItem className='basis-1/2' key={category.id}>
+					<CarouselItem className=' md:basis-1/2' key={category.id}>
 						<CategoryItem category={category} />
 					</CarouselItem>
 				))}

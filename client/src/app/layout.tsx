@@ -2,9 +2,10 @@ import type { Metadata } from "next"
 import { Open_Sans, Rubik } from "next/font/google"
 import { Inter } from "next/font/google"
 
+import { Footer } from "@/components/widgets/Footer"
+import { Header } from "@/components/widgets/Header"
 
 import "./globals.css"
-import { Header } from "@/components/widgets/Header"
 
 const openSans = Open_Sans({
 	variable: "--font-open-sans",
@@ -38,6 +39,7 @@ export default function RootLayout({
 			>
 				<Header />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	)

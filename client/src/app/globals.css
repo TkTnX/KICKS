@@ -135,5 +135,5 @@
 }
 
 .container-right {
-	@apply ml-auto max-w-[calc(100vw-160px)] px-2;
+	@apply ml-auto max-w-full lg:max-w-[calc(100vw-160px)] px-2;
 }
