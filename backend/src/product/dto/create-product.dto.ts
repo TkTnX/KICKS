@@ -1,19 +1,23 @@
-import { ArrayMinSize, IsNotEmpty } from 'class-validator';
-import { Color, EGender, Size } from 'generated/prisma';
+import { ArrayMinSize, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {  EGender } from 'generated/prisma';
 
 export class CreateProductDto {
   @IsNotEmpty({ message: 'Title is required' })
+  @IsString({ message: 'Title must be a string' })
   title: string;
 
   @IsNotEmpty({ message: 'Price is required' })
+  @IsInt({ message: 'Price must be an integer' })
   price: number;
 
   @IsNotEmpty({ message: 'Description is required' })
+  @IsString({ message: 'Description must be a string' })
   description: string;
 
   gender?: EGender;
 
   @ArrayMinSize(1, { message: 'At least one image is required' })
+  @IsString({ each: true, message: 'Image must be a string' })
   images: string[];
 
   @IsNotEmpty({ message: 'Category is required' })

@@ -1,16 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma.service';
 
 // TODO: Добавить аутентификацию
 // TODO: gurds для защиты роутов
-
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
-  create(createProductDto: CreateProductDto) {
-    return this.prisma.product.create({
+  async create(createProductDto: CreateProductDto) {
+    return await this.prisma.product.create({
       data: {
         ...createProductDto,
         colors: {
@@ -31,13 +30,18 @@ export class ProductService {
     return this.prisma.product.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.product.findUnique({ where: { id } });
+  async findOne(id: string) {
+    const product = await this.prisma.product.findUnique({ where: { id } });
+    if (!product) throw new NotFoundException('Product not found');
+
+    return product;
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
-    return this.prisma.product.update({
-      where: { id },
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    await this.findOne(id);
+
+    const product = await this.prisma.product.update({
+      where: { id: id },
       data: {
         ...updateProductDto,
         colors: {
@@ -52,9 +56,12 @@ export class ProductService {
         },
       },
     });
+
+    return product;
   }
 
-  delete(id: string) {
-    return this.prisma.product.delete({ where: { id } });
+  async delete(id: string) {
+    await this.findOne(id);
+    return await this.prisma.product.delete({ where: { id } });
   }
 }
