@@ -17,11 +17,7 @@ export interface IProduct {
 	updatedAt: Date
 }
 
-
-
-
 export enum EGender {
 	MEN = "men",
-	WOMEN = "women",
-	KIDS = "kids"
+	WOMEN = "women"
 }

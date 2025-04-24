@@ -1,4 +1,5 @@
 import { Search, ShoppingBasket, User, User2Icon } from "lucide-react"
+import Link from "next/link"
 
 export const HeaderActions = () => {
 	const user = false
@@ -10,9 +11,9 @@ export const HeaderActions = () => {
 			</button>
 
 			{/* TODO: Сделать аутентификацию */}
-			<button className='hover:opacity-80 transition'>
+			<Link href={"/login"} className='hover:opacity-80 transition'>
 				<User className='size-5 sm:size-6' size={24} />
-			</button>
+			</Link>
 
 			{/* TODO: Сделать открытие корзины */}
 			<button className='hover:opacity-80 transition'>
