@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel"
 
 import { CategoryItem } from "./CategoryItem"
-import { ICategory } from "@/shared/types"
+import { ICategory } from "@/types"
 
 type Props = {
 	categories: ICategory[]

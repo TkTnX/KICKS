@@ -1,4 +1,5 @@
 import { IsEmail, IsStrongPassword } from 'class-validator';
+import { EGender } from 'generated/prisma';
 
 export class CreateUserDto {
   @IsEmail({}, { message: 'Wrong email' })
@@ -15,4 +16,7 @@ export class CreateUserDto {
     { message: 'Password is too weak' },
   )
   password: string;
+
+  name: string;
+  gender: EGender;
 }

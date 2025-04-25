@@ -2,10 +2,13 @@ import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { ICategory } from "@/shared/types"
 
 type Props = {
-	category: ICategory
+	category: {
+		image: string
+		name: string
+		slug: string
+	}
 }
 
 export const CategoryItem = ({ category }: Props) => {
@@ -15,7 +18,7 @@ export const CategoryItem = ({ category }: Props) => {
 				<Image
 					// todo: В будущем тут отображать картинку одного из продуктов
 					src={category.image}
-					alt={category.name}
+					alt={"category.name"}
 					fill
 					className='object-cover'
 				/>

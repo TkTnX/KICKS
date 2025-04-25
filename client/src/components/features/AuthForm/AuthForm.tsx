@@ -1,40 +1,30 @@
 "use client"
 
 import { ArrowRight } from "lucide-react"
-import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { EGender } from "@/shared/types"
-import { IAuthForm } from "@/shared/types/auth.interface"
+import { useAuth } from "@/hooks/useAuth"
 
 import { Form } from "../../ui/form"
 
 import { AuthFormField } from "./AuthFormField"
 import { cn } from "@/lib/utils"
+import { EGender } from "@/types"
+import { IAuthForm } from "@/types/auth.interface"
 
 type Props = {
 	type: "login" | "register"
 	className?: string
 }
-
+// TODO: Получение пользователя из бд при загрузке сайта
+// TODO: Переделать в useMutation
 export const AuthForm = ({ type, className }: Props) => {
 	const form = useForm<IAuthForm>()
-	const [gender, setGender] = useState<EGender | null>(null)
-
-	const onSubmit = (data: IAuthForm) => {
-		try {
-			if (type === "register") {
-				console.log(data)
-			} else {
-				console.log(data)
-			}
-		} catch (error) {
-			console.log(error)
-		}
-	}
+	const { onAuth, gender, setGender } = useAuth()
+	const onSubmit = async (data: IAuthForm) => onAuth(type, data)
 
 	return (
 		<Form {...form}>
@@ -50,7 +40,7 @@ export const AuthForm = ({ type, className }: Props) => {
 							</h4>
 							<AuthFormField
 								form={form}
-								name='username'
+								name='name'
 								type='text'
 								placeholder='Username'
 							/>

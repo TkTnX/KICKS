@@ -1,13 +1,15 @@
-import { IProduct } from "@/shared/types"
 import Image from "next/image"
 import Link from "next/link"
+
+import { IProduct } from "@/types"
 
 type Props = {
 	product: IProduct
 }
 
 export const ProductItem = ({ product }: Props) => {
-	const isNew = product.createdAt > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+	const isNew =
+		product.createdAt > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 	return (
 		<div>
 			<div className='relative w-full h-[200px] lg:h-[334px] rounded-3xl border-4 border-white overflow-hidden'>
@@ -18,7 +20,7 @@ export const ProductItem = ({ product }: Props) => {
 				)}
 				<Image
 					className='object-cover'
-					src={product.images[0]}
+					src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0]}`}
 					alt={product.title}
 					fill
 				/>

@@ -1,12 +1,15 @@
 "use client"
 
+import { useQuery } from "@tanstack/react-query"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
 import { CarouselApi } from "@/components/ui/carousel"
 
+import categoriesService from "@/services/categories.service"
+
 import { CategoriesCarousel } from "./CategoriesCarousel"
-import { ICategory } from "@/shared/types"
+import { ICategory } from "@/types"
 
 // TODO: TEMP DATA
 const categories = [
@@ -63,6 +66,21 @@ export const Categories = () => {
 		return () => clearInterval(interval)
 	}, [])
 
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["Categories"],
+		queryFn: () => categoriesService.getCategories()
+	})
+
+	
+	console.log(data)
+
+	if (error)
+		return (
+			<div className='text-center text-red-500'>
+				Error getting categories!
+			</div>
+		)
+
 	return (
 		<div className='mt-32 bg-dark-gray'>
 			<div className='pt-20'>
@@ -88,7 +106,10 @@ export const Categories = () => {
 					</div>
 				</div>
 				{/* TODO: TEMP TYPE */}
-				<CategoriesCarousel categories={categories as unknown as ICategory[]} ref={carouselRef} />
+				<CategoriesCarousel
+					categories={categories as unknown as ICategory[]}
+					ref={carouselRef}
+				/>
 			</div>
 		</div>
 	)

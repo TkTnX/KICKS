@@ -1,12 +1,16 @@
 import type { Metadata } from "next"
 import { Open_Sans, Rubik } from "next/font/google"
 import { Inter } from "next/font/google"
+import { CookiesProvider } from "react-cookie"
+import { ToastContainer } from "react-toastify"
 
+import { Providers } from "@/components/Providers"
 import { Footer } from "@/components/widgets/Footer"
 import { Header } from "@/components/widgets/Header"
 
-import "./globals.css"
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/seo.constants"
+
+import "./globals.css"
 
 const openSans = Open_Sans({
 	variable: "--font-open-sans",
@@ -24,10 +28,10 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-	title: {absolute: SITE_NAME, template: `%s | ${SITE_NAME}`},
+	title: { absolute: SITE_NAME, template: `%s | ${SITE_NAME}` },
 	description: SITE_DESCRIPTION,
 	icons: {
-		icon: '/favicon.ico',
+		icon: "/favicon.ico"
 	}
 }
 
@@ -41,9 +45,11 @@ export default function RootLayout({
 			<body
 				className={`${openSans.variable} ${rubik.variable} ${inter.variable} antialiased`}
 			>
-				<Header />
-				{children}
-				<Footer />
+				<Providers>
+					<Header />
+					{children}
+					<Footer />
+				</Providers>
 			</body>
 		</html>
 	)

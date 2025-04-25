@@ -23,6 +23,8 @@ export class UserService {
       data: {
         email: dto.email,
         password: hashedPassword,
+        name: dto.name,
+        gender: dto.gender,
       },
     });
     const payload = { sub: newUser.id, email: newUser.email };

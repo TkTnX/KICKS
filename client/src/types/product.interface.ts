@@ -18,6 +18,6 @@ export interface IProduct {
 }
 
 export enum EGender {
-	MEN = "men",
-	WOMEN = "women"
+	MEN = "MEN",
+	WOMEN = "WOMEN"
 }

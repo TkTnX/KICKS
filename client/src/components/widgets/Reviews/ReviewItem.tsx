@@ -1,7 +1,7 @@
 import { Star } from "lucide-react"
 import Image from "next/image"
 
-import { IReview } from "@/shared/types"
+import { IReview } from "@/types"
 
 type Props = {
 	review: IReview

@@ -1,5 +1,5 @@
 import { Hero } from "@/components/entities/Hero"
-import { Categories } from "@/components/widgets/Categories/Categories"
+import { Categories } from "@/components/widgets/Categories"
 import { NewDrops } from "@/components/widgets/NewDrops"
 import { Reviews } from "@/components/widgets/Reviews"
 
