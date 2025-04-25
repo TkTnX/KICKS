@@ -3,8 +3,6 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma.service';
 
-// TODO: Добавить аутентификацию
-// TODO: gurds для защиты роутов
 @Injectable()
 export class ProductService {
   constructor(private prisma: PrismaService) {}
@@ -26,8 +24,11 @@ export class ProductService {
     });
   }
 
-  findAll() {
-    return this.prisma.product.findMany();
+  findAll(take?: number) {
+    return this.prisma.product.findMany({
+      orderBy: { createdAt: 'desc' },
+      take,
+    });
   }
 
   async findOne(id: string) {

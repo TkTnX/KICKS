@@ -2,23 +2,19 @@ import { ArrowUpRight } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
+import { ICategory } from "@/types"
 
 type Props = {
-	category: {
-		image: string
-		name: string
-		slug: string
-	}
+	category: ICategory
 }
 
 export const CategoryItem = ({ category }: Props) => {
 	return (
-		<div className=' bg-[#eceef0]'>
+		<div className='h-full  bg-[#eceef0]'>
 			<div className='relative w-full h-[200px] lg:h-[400px] bg-[#eceef0]'>
 				<Image
-					// todo: В будущем тут отображать картинку одного из продуктов
-					src={category.image}
-					alt={"category.name"}
+					src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${category.products[0].images[0]}`}
+					alt={category.products[0].title}
 					fill
 					className='object-cover'
 				/>

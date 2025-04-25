@@ -6,6 +6,7 @@ import { Block } from "@/components/entities/Block"
 
 import productsService from "@/services/products.service"
 
+import { ErrorMessage } from "../entities/ErrorMessage"
 import { ProductItem } from "../ui/ProductItem"
 import { Skeleton } from "../ui/skeleton"
 
@@ -19,12 +20,8 @@ export const NewDrops = () => {
 		queryFn: () => productsService.getProducts(4)
 	})
 
-	if (error)
-		return (
-			<div className='text-center text-xs text-red-500'>
-				Error getting products!
-			</div>
-		)
+	if (error) return <ErrorMessage type='products' error={error.message} />
+
 	return (
 		<section className='container mt-6 sm:mt-20'>
 			<Block

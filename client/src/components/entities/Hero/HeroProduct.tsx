@@ -14,7 +14,6 @@ const lastProduct = {
 }
 
 export const HeroProduct = () => {
-	// TODO: В будущем получать тут самый популярный товар или последний добавленный
 	return (
 		<div className='h-[382px] sm:h-[500px] lg:h-[750px] w-full relative'>
 			<Image
@@ -35,7 +34,7 @@ export const HeroProduct = () => {
 				<p className='font-semibold text-sm sm:text-xl lg:text-2xl text-gray max-w-[200px] sm:max-w-[350px] lg:max-w-[490px]'>
 					{lastProduct.description}
 				</p>
-				<Link href={`/product/${lastProduct.id}`} className='mt-6'>
+				<Link href={`/catalog`} className='mt-6'>
 					SHOP NOW
 				</Link>
 			</div>

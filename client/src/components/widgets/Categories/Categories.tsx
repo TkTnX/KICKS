@@ -1,55 +1,11 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
 import { CarouselApi } from "@/components/ui/carousel"
 
-import categoriesService from "@/services/categories.service"
-
 import { CategoriesCarousel } from "./CategoriesCarousel"
-import { ICategory } from "@/types"
-
-// TODO: TEMP DATA
-const categories = [
-	{
-		id: 1,
-		slug: "lifestyle",
-		title: "Lifestyle shoes",
-		image: "/images/categories/1.jpg"
-	},
-	{
-		id: 2,
-		slug: "basketball",
-		title: "Basketball shoes",
-		image: "/images/categories/1.jpg"
-	},
-	{
-		id: 3,
-		slug: "running",
-		title: "Running shoes",
-		image: "/images/categories/3.jpg"
-	},
-	{
-		id: 4,
-		slug: "training",
-		title: "Training shoes",
-		image: "/images/categories/4.jpg"
-	},
-	{
-		id: 5,
-		slug: "tennis",
-		title: "Tennis shoes",
-		image: "/images/categories/5.jpg"
-	},
-	{
-		id: 6,
-		slug: "football",
-		title: "Football boots",
-		image: "/images/categories/6.jpg"
-	}
-]
 
 export const Categories = () => {
 	const carouselRef = useRef<CarouselApi | null>(null)
@@ -65,21 +21,6 @@ export const Categories = () => {
 
 		return () => clearInterval(interval)
 	}, [])
-
-	const { data, isLoading, error } = useQuery({
-		queryKey: ["Categories"],
-		queryFn: () => categoriesService.getCategories()
-	})
-
-	
-	console.log(data)
-
-	if (error)
-		return (
-			<div className='text-center text-red-500'>
-				Error getting categories!
-			</div>
-		)
 
 	return (
 		<div className='mt-32 bg-dark-gray'>
@@ -105,11 +46,8 @@ export const Categories = () => {
 						</button>
 					</div>
 				</div>
-				{/* TODO: TEMP TYPE */}
-				<CategoriesCarousel
-					categories={categories as unknown as ICategory[]}
-					ref={carouselRef}
-				/>
+
+				<CategoriesCarousel ref={carouselRef} />
 			</div>
 		</div>
 	)

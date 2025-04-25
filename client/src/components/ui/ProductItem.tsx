@@ -11,7 +11,7 @@ export const ProductItem = ({ product }: Props) => {
 	const isNew =
 		product.createdAt > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 	return (
-		<div>
+		<div className='flex flex-col justify-between h-full'>
 			<div className='relative w-full h-[200px] lg:h-[334px] rounded-3xl border-4 border-white overflow-hidden'>
 				{isNew && (
 					<div className='absolute top-0 left-0 rounded-tl-3xl rounded-br-3xl  p-3 vsm:py-3  vsm:px-4 bg-blue text-xs font-semibold text-white z-10'>
