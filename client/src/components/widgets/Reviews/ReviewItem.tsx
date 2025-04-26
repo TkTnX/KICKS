@@ -45,7 +45,10 @@ export const ReviewItem = ({ review }: Props) => {
 			{review.image && (
 				<div className='relative w-full h-[200px] sm:h-[325px]'>
 					<Image
-						src={review.image}
+						src={
+							review.image &&
+							`${process.env.NEXT_PUBLIC_BACKEND_URL}${review.image}`
+						}
 						alt={review.title}
 						fill
 						className='object-cover'

@@ -1,3 +1,4 @@
+import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
@@ -14,33 +15,35 @@ export function useAuth() {
 	const [_, setCookie] = useCookies(["access_token"])
 	const router = useRouter()
 
-	const onAuth = async (type: "login" | "register", data: IAuthForm) => {
-		try {
-			const response = await authService[type]({
-				...data,
-				gender: gender as EGender
-			})
+	const { mutate, isPending, error } = useMutation({
+		mutationFn: async ({ type, data }: { type: "login" | "register"; data: IAuthForm }) => {
+			try {
+				const response = await authService[type]({
+					...data,
+					gender: gender as EGender
+				})
 
-			setCookie("access_token", response.access_token)
-			toast.success(
-				`${type === "register" ? "Registration" : "Login"} successful!`
-			)
-			router.push("/")
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				if (error?.response?.data?.message) {
-					toast.error(
-						typeof error.response.data.message === "string"
-							? error.response.data.message
-							: error.response.data.message[0]
-					)
+				setCookie("access_token", response.access_token)
+				toast.success(
+					`${type === "register" ? "Registration" : "Login"} successful!`
+				)
+				router.push("/")
+			} catch (error) {
+				if (error instanceof AxiosError) {
+					if (error?.response?.data?.message) {
+						toast.error(
+							typeof error.response.data.message === "string"
+								? error.response.data.message
+								: error.response.data.message[0]
+						)
+					}
 				}
 			}
 		}
-	}
+	})
 
 	return useMemo(
-		() => ({ onAuth, gender, setGender }),
-		[onAuth, gender, setGender]
+		() => ({ mutate, isPending, error, gender, setGender }),
+		[mutate, isPending, error, gender, setGender]
 	)
 }

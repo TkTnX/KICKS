@@ -20,11 +20,10 @@ type Props = {
 	className?: string
 }
 // TODO: Получение пользователя из бд при загрузке сайта
-// TODO: Переделать в useMutation
 export const AuthForm = ({ type, className }: Props) => {
 	const form = useForm<IAuthForm>()
-	const { onAuth, gender, setGender } = useAuth()
-	const onSubmit = async (data: IAuthForm) => onAuth(type, data)
+	const { mutate, isPending, error, gender, setGender } = useAuth()
+	const onSubmit = async (data: IAuthForm) => mutate({ type, data })
 
 	return (
 		<Form {...form}>
@@ -39,6 +38,7 @@ export const AuthForm = ({ type, className }: Props) => {
 								Your Name
 							</h4>
 							<AuthFormField
+								disabled={isPending}
 								form={form}
 								name='name'
 								type='text'
@@ -54,6 +54,7 @@ export const AuthForm = ({ type, className }: Props) => {
 										onCheckedChange={() =>
 											setGender(EGender.MEN)
 										}
+										disabled={isPending}
 										id='male'
 									/>
 									<label htmlFor='male'>Male</label>
@@ -64,6 +65,7 @@ export const AuthForm = ({ type, className }: Props) => {
 										onCheckedChange={() =>
 											setGender(EGender.WOMEN)
 										}
+										disabled={isPending}
 										id='female'
 									/>
 									<label htmlFor='female'>Female</label>
@@ -80,12 +82,14 @@ export const AuthForm = ({ type, className }: Props) => {
 					name='email'
 					type='email'
 					placeholder='Email'
+					disabled={isPending}
 				/>
 				<AuthFormField
 					form={form}
 					name='password'
 					type='password'
 					placeholder='Password'
+					disabled={isPending}
 				/>
 				{type === "register" ? (
 					<p className='text-xs font-third font-light'>
@@ -102,7 +106,10 @@ export const AuthForm = ({ type, className }: Props) => {
 					</div>
 				)}
 
-				<Button className='flex items-center justify-between bg-dark-gray rounded-lg py-2 px-4 text-white uppercase text-sm w-full font-bold'>
+				<Button
+					disabled={isPending}
+					className='flex items-center justify-between bg-dark-gray rounded-lg py-2 px-4 text-white uppercase text-sm w-full font-bold disabled:opacity-50 disabled:cursor-not-allowed'
+				>
 					{type === "register" ? "REGISTER" : "EMAIL LOGIN"}
 					<ArrowRight size={16} />
 				</Button>

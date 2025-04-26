@@ -8,5 +8,8 @@ export const URL_CONFIG = {
 	},
 	products: {
 		all: "/products"
+	},
+	reviews: {
+		lastThree: "/reviews/last-three"
 	}
 }

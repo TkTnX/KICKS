@@ -15,9 +15,10 @@ type Props = {
 	type: string
 	placeholder: string
 	form: UseFormReturn<IAuthForm>
+	disabled?: boolean
 }
 
-export const AuthFormField = ({ name, type, placeholder, form }: Props) => {
+export const AuthFormField = ({ name, type, placeholder, form, disabled }: Props) => {
 	return (
 		<FormField
 			control={form.control}
@@ -26,6 +27,7 @@ export const AuthFormField = ({ name, type, placeholder, form }: Props) => {
 				<FormItem>
 					<FormControl>
 						<Input
+							disabled={disabled}
 							{...form.register(
 								name as
 									| "gender"
@@ -33,7 +35,7 @@ export const AuthFormField = ({ name, type, placeholder, form }: Props) => {
 									| "password"
 									| "username"
 							)}
-							className='border border-dark-gray rounded-lg py-2 px-4'
+							className='border border-dark-gray rounded-lg py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed'
 							type={type}
 							placeholder={placeholder}
 						/>

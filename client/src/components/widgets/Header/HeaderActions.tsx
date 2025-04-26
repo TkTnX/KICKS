@@ -10,7 +10,6 @@ export const HeaderActions = () => {
 				<Search className='size-5 sm:size-6' size={24} />
 			</button>
 
-			{/* TODO: Сделать аутентификацию */}
 			<Link href={"/login"} className='hover:opacity-80 transition'>
 				<User className='size-5 sm:size-6' size={24} />
 			</Link>
