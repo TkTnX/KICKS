@@ -4,9 +4,27 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { ReviewModule } from './review/review.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [ProductModule, UserModule, AuthModule, CategoryModule, ReviewModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    JwtModule.registerAsync({
+      useFactory: (configSerivce: ConfigService) => ({
+        secret: configSerivce.getOrThrow<string>('JWT_SECRET'),
+        signOptions: { expiresIn: '7d' },
+      }),
+      inject: [ConfigService],
+    }),
+    ProductModule,
+    UserModule,
+    AuthModule,
+    CategoryModule,
+    ReviewModule,
+  ],
   controllers: [],
   providers: [],
 })

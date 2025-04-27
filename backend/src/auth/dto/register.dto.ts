@@ -1,7 +1,7 @@
 import { IsEmail, IsStrongPassword } from 'class-validator';
 import { EGender } from 'generated/prisma';
 
-export class CreateUserDto {
+export class RegisterDto {
   @IsEmail({}, { message: 'Wrong email' })
   email: string;
 

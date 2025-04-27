@@ -19,7 +19,7 @@ type Props = {
 	type: "login" | "register"
 	className?: string
 }
-// TODO: Получение пользователя из бд при загрузке сайта
+// TODO: выполнять вход в аккаунт
 export const AuthForm = ({ type, className }: Props) => {
 	const form = useForm<IAuthForm>()
 	const { mutate, isPending, error, gender, setGender } = useAuth()

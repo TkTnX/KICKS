@@ -7,6 +7,7 @@ type Props = {
 	review: IReview
 }
 
+
 export const ReviewItem = ({ review }: Props) => {
 	return (
 		<div className='rounded-4xl bg-white first:hidden sm:first:block last:hidden lg:last:block overflow-hidden w-full'>

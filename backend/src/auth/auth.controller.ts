@@ -6,11 +6,15 @@ import {
   HttpStatus,
   Post,
   Req,
-  UseGuards,
+  Res,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto/signIn.dto';
-import { AuthGuard } from './guards/auth.guard';
+import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
+import { Request, Response } from 'express';
+import { Authorization } from './decorators/authorization.decorator';
+import { Authorized } from './decorators/authorized.decorator';
+import { User } from 'generated/prisma';
 
 @Controller('auth')
 export class AuthController {
@@ -18,13 +22,28 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  async signIn(@Body() dto: LoginDto, @Res() res: Response) {
+    const accessToken = await this.authService.signIn(dto, res);
+    return res.json(accessToken);
   }
 
-  @UseGuards(AuthGuard)
+  @Post('register')
+  async register(
+    @Body() dto: RegisterDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.register(dto, res);
+  }
+
+  @Get('refresh')
+  async refresh(@Req() req: Request, @Res() res: Response) {
+    const data = await this.authService.refresh(req, res);
+    return res.json(data);
+  }
+
+  @Authorization()
   @Get('profile')
-  getProfile(@Req() req) {
-    return req.user;
+  getProfile(@Authorized() user: User) {
+    return user;
   }
 }

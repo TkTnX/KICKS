@@ -7,23 +7,35 @@ import { toast } from "react-toastify"
 
 import authService from "@/services/auth.service"
 
+import { axiosInstance } from "@/lib/axiosInstance"
 import { EGender } from "@/types"
 import { IAuthForm } from "@/types/auth.interface"
 
 export function useAuth() {
 	const [gender, setGender] = useState<EGender | null>(null)
-	const [_, setCookie] = useCookies(["access_token"])
+	const [cookies, setCookies] = useCookies()
 	const router = useRouter()
 
+	const getRefreshToken = async () => {
+		const res = await axiosInstance.get("/auth/refresh")
+		setCookies("refreshToken", res.data.accessToken)
+		return res.data.accessToken
+	}
+
 	const { mutate, isPending, error } = useMutation({
-		mutationFn: async ({ type, data }: { type: "login" | "register"; data: IAuthForm }) => {
+		mutationFn: async ({
+			type,
+			data
+		}: {
+			type: "login" | "register"
+			data: IAuthForm
+		}) => {
 			try {
-				const response = await authService[type]({
+				await authService[type]({
 					...data,
 					gender: gender as EGender
 				})
 
-				setCookie("access_token", response.access_token)
 				toast.success(
 					`${type === "register" ? "Registration" : "Login"} successful!`
 				)
@@ -43,7 +55,14 @@ export function useAuth() {
 	})
 
 	return useMemo(
-		() => ({ mutate, isPending, error, gender, setGender }),
-		[mutate, isPending, error, gender, setGender]
+		() => ({
+			mutate,
+			isPending,
+			error,
+			gender,
+			setGender,
+			getRefreshToken
+		}),
+		[mutate, isPending, error, gender, setGender, getRefreshToken]
 	)
 }

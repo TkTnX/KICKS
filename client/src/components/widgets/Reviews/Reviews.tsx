@@ -9,50 +9,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 import reviewsService from "@/services/reviews.service"
 
 import { ReviewItem } from "./ReviewItem"
-import { IReview } from "@/types"
-
-const reviews = [
-	{
-		id: 1,
-		title: "Good Quality",
-		text: "I highly recommend shopping from kicks",
-		rating: 5,
-		image: "/images/reviews/1.jpg",
-		user: {
-			image: "/images/avatar.jpg"
-		}
-	},
-	{
-		id: 2,
-		title: "Good Quality",
-		text: "I highly recommend shopping from kicks",
-		rating: 5,
-		image: "/images/reviews/2.jpg",
-
-		user: {
-			image: "/images/avatar.jpg"
-		}
-	},
-	{
-		id: 3,
-		title: "Good Quality",
-		text: "I highly recommend shopping from kicks",
-		rating: 5,
-		image: "/images/reviews/3.jpg",
-
-		user: {
-			image: "/images/avatar.jpg"
-		}
-	}
-]
 
 export const Reviews = () => {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["reviews"],
 		queryFn: () => reviewsService.getLastThree()
 	})
-
-	console.log(data)
 
 	if (error) return <ErrorMessage error={error.message} type='reviews' />
 	return (
@@ -67,11 +29,7 @@ export const Reviews = () => {
 								/>
 							))
 						: data?.map(review => (
-								// TODO: TEMP TYPE
-								<ReviewItem
-									key={review.id}
-									review={review as unknown as IReview}
-								/>
+								<ReviewItem key={review.id} review={review} />
 							))}
 				</div>
 			</Block>
