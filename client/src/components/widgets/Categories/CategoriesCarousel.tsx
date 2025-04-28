@@ -1,31 +1,39 @@
-import { useQuery } from "@tanstack/react-query"
-import { useEffect, useImperativeHandle, useState } from "react"
+"use client";
 
-import { ErrorMessage } from "@/components/entities/ErrorMessage"
-import {
-	Carousel,
-	CarouselApi,
-	CarouselContent,
-	CarouselItem
-} from "@/components/ui/carousel"
-import { Skeleton } from "@/components/ui/skeleton"
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useImperativeHandle, useState } from "react";
 
-import categoriesService from "@/services/categories.service"
 
-import { CategoryItem } from "./CategoryItem"
+
+import { ErrorMessage } from "@/components/entities/ErrorMessage";
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
+
+
+
+import categoriesService from "@/services/categories.service";
+
+
+
+import { CategoryItem } from "./CategoryItem";
+
+
+
+
 
 type Props = {
 	onApiReady?: (api: CarouselApi) => void
 	ref?: React.RefObject<CarouselApi | null>
+	take?: number 
 }
-export const CategoriesCarousel = ({ onApiReady, ref }: Props) => {
+export const CategoriesCarousel = ({ onApiReady, ref, take }: Props) => {
 	const {
 		data: categories,
 		isLoading,
 		error
 	} = useQuery({
 		queryKey: ["Categories"],
-		queryFn: () => categoriesService.getCategories(4)
+		queryFn: () => categoriesService.getCategories(take)
 	})
 	const [api, setApi] = useState<CarouselApi>()
 

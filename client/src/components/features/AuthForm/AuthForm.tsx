@@ -3,6 +3,7 @@
 import { ArrowRight } from "lucide-react"
 import { useForm } from "react-hook-form"
 
+import { ErrorMessage } from "@/components/entities/ErrorMessage"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
@@ -19,7 +20,6 @@ type Props = {
 	type: "login" | "register"
 	className?: string
 }
-// TODO: выполнять вход в аккаунт
 export const AuthForm = ({ type, className }: Props) => {
 	const form = useForm<IAuthForm>()
 	const { mutate, isPending, error, gender, setGender } = useAuth()
@@ -113,6 +113,9 @@ export const AuthForm = ({ type, className }: Props) => {
 					{type === "register" ? "REGISTER" : "EMAIL LOGIN"}
 					<ArrowRight size={16} />
 				</Button>
+				{error && (
+					<ErrorMessage error={error.message} type={"Auth Error"} />
+				)}
 			</form>
 		</Form>
 	)

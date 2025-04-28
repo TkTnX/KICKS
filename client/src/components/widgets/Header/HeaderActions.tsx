@@ -3,27 +3,20 @@
 import { Search, ShoppingBasket, User } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
-import { useCookies } from "react-cookie"
+import { useEffect } from "react"
 
 import { useAuth } from "@/hooks/useAuth"
 
-import { IUser } from "@/types"
-
 export const HeaderActions = () => {
-	const [cookies] = useCookies()
-	// TODO: TEMP SEARCHING USER
-	const [user, setUser] = useState<IUser | null>(null)
-	const { getRefreshToken } = useAuth()
+	const { getMe, user, setUser } = useAuth()
 
 	useEffect(() => {
-		async function getToken() {
-			const refreshToken = await getRefreshToken()
-
-			setUser(refreshToken)
+		async function checkAuth() {
+			const user = await getMe()
+			setUser(user)
 		}
-		getToken()
-	}, [cookies.refreshToken])
+		checkAuth()
+	}, [])
 
 	return (
 		<div className='flex items-center gap-4  lg:gap-10'>

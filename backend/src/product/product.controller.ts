@@ -12,7 +12,6 @@ import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
-// TODO: Сделать auth guard для некоторых методов
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -32,6 +31,7 @@ export class ProductController {
     return this.productService.findOne(id);
   }
 
+  // TODO: В будущем сделать защиту по РОЛЯМ
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);

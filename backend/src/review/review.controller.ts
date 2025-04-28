@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ReviewService } from './review.service';
 import CreateReviewDto from './dto/create-review.dto';
 import { Review } from 'generated/prisma';
+import { Authorization } from 'src/auth/decorators/authorization.decorator';
 
 @Controller('reviews')
 export class ReviewController {
@@ -12,7 +13,8 @@ export class ReviewController {
     return await this.reviewService.getLastThree();
   }
 
-  // TODO: Добавить защиту от неавторизованных пользователей
+  
+  @Authorization()
   @Post(':productId')
   async create(
     @Param('productId') productId: string,

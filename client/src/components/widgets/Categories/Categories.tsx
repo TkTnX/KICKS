@@ -47,7 +47,7 @@ export const Categories = () => {
 					</div>
 				</div>
 
-				<CategoriesCarousel ref={carouselRef} />
+				<CategoriesCarousel take={4} ref={carouselRef} />
 			</div>
 		</div>
 	)

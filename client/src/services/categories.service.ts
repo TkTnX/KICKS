@@ -9,6 +9,13 @@ class CategoriesService {
 		)
 		return data
 	}
+
+	async getCategoryBySlug(slug: string): Promise<ICategory> {
+		const { data } = await axiosInstance.get(
+			`${URL_CONFIG.categories.all}/${slug}`
+		)
+		return data
+	}
 }
 
 export default new CategoriesService()

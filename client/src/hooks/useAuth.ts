@@ -2,24 +2,22 @@ import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
-import { useCookies } from "react-cookie"
 import { toast } from "react-toastify"
 
 import authService from "@/services/auth.service"
+import userService from "@/services/user.service"
 
-import { axiosInstance } from "@/lib/axiosInstance"
-import { EGender } from "@/types"
+import { EGender, IUser } from "@/types"
 import { IAuthForm } from "@/types/auth.interface"
 
 export function useAuth() {
+	const [user, setUser] = useState<IUser | null>(null)
 	const [gender, setGender] = useState<EGender | null>(null)
-	const [cookies, setCookies] = useCookies()
 	const router = useRouter()
 
-	const getRefreshToken = async () => {
-		const res = await axiosInstance.get("/auth/refresh")
-		setCookies("refreshToken", res.data.accessToken)
-		return res.data.accessToken
+	const getMe = async () => {
+		const res = await userService.getMe()
+		return res
 	}
 
 	const { mutate, isPending, error } = useMutation({
@@ -51,8 +49,13 @@ export function useAuth() {
 					}
 				}
 			}
+		},
+		onSuccess: async () => {
+			const user = await getMe()
+			setUser(user)
 		}
 	})
+
 
 	return useMemo(
 		() => ({
@@ -61,8 +64,10 @@ export function useAuth() {
 			error,
 			gender,
 			setGender,
-			getRefreshToken
+			getMe,
+			user,
+			setUser
 		}),
-		[mutate, isPending, error, gender, setGender, getRefreshToken]
+		[mutate, isPending, error, gender, setGender, getMe, user, setUser]
 	)
 }

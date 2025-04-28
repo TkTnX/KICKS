@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 
 export function middleware(request: NextRequest) {
-	const accessToken = request.cookies.get("access_token")
+	const token = request.cookies.get("refreshToken")
 
-	if (!accessToken && request.nextUrl.pathname.startsWith("/profile")) {
+	if (!token && request.nextUrl.pathname.startsWith("/profile")) {
 		return NextResponse.redirect(new URL("/login", request.url))
 	}
 
 	if (
-		accessToken &&
+		token &&
 		(request.nextUrl.pathname.startsWith("/login") ||
 			request.nextUrl.pathname.startsWith("/register"))
 	) {

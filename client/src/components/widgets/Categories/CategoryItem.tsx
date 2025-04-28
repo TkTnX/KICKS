@@ -25,7 +25,7 @@ export const CategoryItem = ({ category }: Props) => {
 				</h6>
 				<Link
 					className=' w-12 h-12 bg-dark-gray rounded-lg flex items-center justify-center hover:opacity-80 transition'
-					href={`/catalog?category=${category.slug}`}
+					href={`/catalog/${category.slug}`}
 				>
 					<ArrowUpRight color='#fff' />
 				</Link>

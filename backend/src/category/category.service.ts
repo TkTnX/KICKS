@@ -16,8 +16,15 @@ export class CategoryService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(slug: string) {
+    return await this.prisma.category.findFirst({
+      where: {
+        slug,
+      },
+      include: {
+        products: true,
+      },
+    });
   }
 
   remove(id: number) {

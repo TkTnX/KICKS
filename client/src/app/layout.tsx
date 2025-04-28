@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import { Open_Sans, Rubik } from "next/font/google"
 import { Inter } from "next/font/google"
-import { CookiesProvider } from "react-cookie"
-import { ToastContainer } from "react-toastify"
 
 import { Providers } from "@/components/Providers"
 import { Footer } from "@/components/widgets/Footer"

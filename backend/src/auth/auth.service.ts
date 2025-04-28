@@ -31,6 +31,7 @@ export class AuthService {
     if (!comparePassword) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
     return this.auth(res, user.id);
   }
 
@@ -134,5 +135,6 @@ export class AuthService {
       where: { id: userId },
     });
     if (!user) throw new NotFoundException('User not found!');
+    return user;
   }
 }
