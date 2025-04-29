@@ -3,10 +3,16 @@ import { axiosInstance } from "@/lib/axiosInstance"
 import { IProduct } from "@/types"
 
 class ProductsService {
-	async getProducts(take?: number): Promise<IProduct[]> {
-		const { data } = await axiosInstance.get(
-			`${URL_CONFIG.products.all}?take=${take}`
-		)
+	async getProducts(
+		take?: number | null,
+		params?: Record<string, string>
+	): Promise<IProduct[]> {
+		const { data } = await axiosInstance.get(`${URL_CONFIG.products.all}`, {
+			params: {
+				take,
+				...params
+			}
+		})
 		return data
 	}
 }

@@ -22,8 +22,9 @@ export class ProductController {
   }
 
   @Get()
-  findAll(@Query('take') take?: number) {
-    return this.productService.findAll(Number(take));
+  findAll(@Query() params: Record<string, string>) {
+    console.log(params);
+    return this.productService.findAll(params);
   }
 
   @Get(':id')

@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma.service';
+import { EGender } from 'generated/prisma';
 
 @Injectable()
 export class ProductService {
@@ -24,10 +25,16 @@ export class ProductService {
     });
   }
 
-  findAll(take?: number) {
+  findAll(params: Record<string, string>) {
+    console.log(params);
     return this.prisma.product.findMany({
       orderBy: { createdAt: 'desc' },
-      take,
+      take: +params.take || undefined,
+      where: {
+        ...(params.category && { category: { name: params.category } }),
+        ...(params.gender && { gender: params.gender as EGender }),
+        ...(params.price && { price: { gte: +params.price } }),
+      },
     });
   }
 
