@@ -102,6 +102,6 @@ enum ERole {
 }
 
 enum EGender {
-  MEN   @map("men")
-  WOMEN @map("women")
+  MEN   
+  WOMEN 
 }

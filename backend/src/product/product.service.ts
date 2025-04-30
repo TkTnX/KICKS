@@ -2,7 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma.service';
-import { EGender } from 'generated/prisma';
+import { EGender, Prisma } from 'generated/prisma';
+import { getOrderBy } from './helpers/getOrderBy';
+import { getWhere } from './helpers/getWhere';
 
 @Injectable()
 export class ProductService {
@@ -25,16 +27,26 @@ export class ProductService {
     });
   }
 
-  findAll(params: Record<string, string>) {
-    console.log(params);
-    return this.prisma.product.findMany({
-      orderBy: { createdAt: 'desc' },
+  async findAll(params: Record<string, string>) {
+    const orderBy = getOrderBy(params.sortBy);
+    // const where = getWhere(params);
+    const where = {};
+
+    const products = await this.prisma.product.findMany({
+      orderBy,
       take: +params.take || undefined,
-      where: {
-        ...(params.category && { category: { name: params.category } }),
-        ...(params.gender && { gender: params.gender as EGender }),
-        ...(params.price && { price: { gte: +params.price } }),
+      where,
+      include: {
+        sizes: true,
+        colors: true,
       },
+    });
+    console.log(products);
+
+    return this.prisma.product.findMany({
+      orderBy,
+      take: +params.take || undefined,
+      where,
     });
   }
 

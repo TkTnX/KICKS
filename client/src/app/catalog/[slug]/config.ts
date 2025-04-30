@@ -19,6 +19,10 @@ export const SORT_ITEMS = [
         text: 'A-Z',
         value: 'a-z'
     },
+    {
+        text: 'Z-A',
+        value: 'z-a'
+    },
     
     
 ]

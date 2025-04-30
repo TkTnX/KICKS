@@ -1,32 +1,34 @@
-"use client";
+"use client"
 
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useImperativeHandle, useState } from "react";
+import { useQuery } from "@tanstack/react-query"
+import { useEffect, useImperativeHandle, useState } from "react"
 
+import { ErrorMessage } from "@/components/entities/ErrorMessage"
+import {
+	Carousel,
+	CarouselApi,
+	CarouselContent,
+	CarouselItem
+} from "@/components/ui/carousel"
+import { Skeleton } from "@/components/ui/skeleton"
 
+import categoriesService from "@/services/categories.service"
 
-import { ErrorMessage } from "@/components/entities/ErrorMessage";
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { Skeleton } from "@/components/ui/skeleton";
-
-
-
-import categoriesService from "@/services/categories.service";
-
-
-
-import { CategoryItem } from "./CategoryItem";
-
-
-
-
+import { CategoryItem } from "./CategoryItem"
+import { cn } from "@/lib/utils"
 
 type Props = {
 	onApiReady?: (api: CarouselApi) => void
 	ref?: React.RefObject<CarouselApi | null>
-	take?: number 
+	take?: number
+	className?: string
 }
-export const CategoriesCarousel = ({ onApiReady, ref, take }: Props) => {
+export const CategoriesCarousel = ({
+	onApiReady,
+	ref,
+	take,
+	className
+}: Props) => {
 	const {
 		data: categories,
 		isLoading,
@@ -48,7 +50,10 @@ export const CategoriesCarousel = ({ onApiReady, ref, take }: Props) => {
 	return (
 		<Carousel
 			setApi={setApi}
-			className='container-right rounded-tl-[99px] overflow-hidden mt-16'
+			className={cn(
+				"container-right rounded-tl-[99px] overflow-hidden mt-16",
+				className
+			)}
 		>
 			<CarouselContent>
 				{isLoading

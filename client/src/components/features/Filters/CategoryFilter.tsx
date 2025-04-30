@@ -1,5 +1,6 @@
 "use client"
 
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import {
@@ -15,6 +16,8 @@ import { ICategory } from "@/types"
 
 export const CategoryFilter = () => {
 	const [categories, setCategories] = useState<ICategory[]>([])
+	const choosedCategory = usePathname().split("/")[2]
+	const router = useRouter()
 	useEffect(() => {
 		const fetchCategories = async () => {
 			const res = await categoriesService.getCategories()
@@ -22,7 +25,6 @@ export const CategoryFilter = () => {
 		}
 		fetchCategories()
 	}, [])
-
 	return (
 		<AccordionItem value='category'>
 			<AccordionTrigger className='font-semibold uppercase'>
@@ -34,7 +36,13 @@ export const CategoryFilter = () => {
 						key={category.id}
 						className='flex items-center gap-4 cursor-pointer'
 					>
-						<Checkbox className='rounded-sm  transition flex items-center justify-center text-dark-gray ' />
+						<Checkbox
+							checked={choosedCategory === category.slug}
+							onClick={() =>
+								router.push(`/catalog/${category.slug}`)
+							}
+							className='rounded-sm  transition flex items-center justify-center text-dark-gray '
+						/>
 						{category.name}
 					</label>
 				))}

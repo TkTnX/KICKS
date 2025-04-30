@@ -1,21 +1,16 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
-import { useSearchParams } from "next/navigation"
 
-import productsService from "@/services/products.service"
+import { useCatalog } from "@/hooks/useCatalog"
 
 import { ErrorMessage } from "../entities/ErrorMessage"
 import { ProductItem } from "../ui/ProductItem"
 
+// TODO: В фильтрах получать данные
+
 export const CatalogList = () => {
-	const searchParams = useSearchParams()
-	const params = Object.fromEntries(searchParams.entries())
-	const { data, error, isLoading } = useQuery({
-		queryKey: ["catalog", params],
-		queryFn: () => productsService.getProducts(9, params)
-	})
+	const { products, error, isLoading } = useCatalog()
 
 	if (isLoading)
 		return (
@@ -26,7 +21,7 @@ export const CatalogList = () => {
 
 	return (
 		<div className='flex-1 grid grid-cols-3 gap-x-4 gap-y-8'>
-			{data?.map(product => (
+			{products?.map(product => (
 				<ProductItem key={product.id} product={product} />
 			))}
 		</div>
