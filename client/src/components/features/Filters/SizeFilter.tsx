@@ -36,7 +36,7 @@ export const SizeFilter = () => {
 			<AccordionTrigger className='font-semibold uppercase'>
 				SIZE
 			</AccordionTrigger>
-			<AccordionContent className='grid grid-cols-5 gap-4 '>
+			<AccordionContent className='flex flex-wrap sm:grid  sm:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4 '>
 				{SIZES.map(size => (
 					<button
 						onClick={() => handleSizeClick(size)}

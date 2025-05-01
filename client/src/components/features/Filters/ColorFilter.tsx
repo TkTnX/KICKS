@@ -35,7 +35,7 @@ export const ColorFilter = () => {
 			<AccordionTrigger className='font-semibold uppercase'>
 				COLOR
 			</AccordionTrigger>
-			<AccordionContent className='grid grid-cols-5 gap-4 '>
+			<AccordionContent className='flex flex-wrap sm:grid  sm:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4 '>
 				{COLORS.map(color => (
 					<button
 						onClick={() => handleColorClick(color)}

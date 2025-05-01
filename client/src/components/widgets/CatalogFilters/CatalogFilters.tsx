@@ -1,26 +1,13 @@
-import {
-	CategoryFilter,
-	ColorFilter,
-	GenderFilter,
-	PriceFilter,
-	SizeFilter
-} from "@/components/features/Filters"
-import { Accordion } from "@/components/ui/accordion"
+import { CatalogFiltersAccordeon } from "./CatalogFiltersAccordeon"
 
 export const CatalogFilters = () => {
 	return (
-		<div className='w-[315px]'>
-			<h6 className='text-2xl font-semibold'>Filters</h6>
-			<Accordion
-				defaultValue={["size", "color", "category", "gender", "price"]}
-				type='multiple'
-			>
-				<SizeFilter />
-				<ColorFilter />
-				<CategoryFilter />
-				<GenderFilter />
-				<PriceFilter />
-			</Accordion>
+		<div className='max-w-[200px] w-full lg:max-w-max lg:w-[315px]'>
+			<h6 className='hidden sm:block text-2xl font-semibold'>Filters</h6>
+
+			<div className='hidden sm:block'>
+				<CatalogFiltersAccordeon />
+			</div>
 		</div>
 	)
 }

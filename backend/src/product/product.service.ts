@@ -26,11 +26,17 @@ export class ProductService {
       },
     });
   }
-
+  // TODO: Products должны иметь sizes. Сейчас они не имеют ничего.
   async findAll(params: Record<string, string>) {
     const orderBy = getOrderBy(params.sortBy);
     // const where = getWhere(params);
-    const where = {};
+    const where: Prisma.ProductWhereInput = {};
+
+    if (params.category) {
+      where.category = {
+        slug: params.category,
+      };
+    }
 
     const products = await this.prisma.product.findMany({
       orderBy,

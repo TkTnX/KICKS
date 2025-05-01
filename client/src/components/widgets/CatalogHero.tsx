@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export const CatalogHero = () => {
 	return (
-		<section className='relative h-[200px] sm:h-[395px] w-full mt-20'>
+		<section className='relative h-[200px] sm:h-[395px] w-full mt-10 sm:mt-20'>
 			<Image
 				src='/images/catalogHero.jpg'
 				alt='Catalog Hero'
