@@ -11,9 +11,8 @@ export function useCatalog() {
 	const pathname = usePathname()
 	const category = pathname.split("/")[2]
 	const limit = 9
-	const [pages, setPages] = useState(2)
-	const [page, setPage] = useState(1)
-	const skip = (page - 1) * limit
+	const page = Number(searchParams.get("page")) || 1
+	const skip = useMemo(() => (page - 1) * limit, [page])
 
 	// ПОЛУЧЕНИЕ ПРОДУКТОВ
 	const {
@@ -21,14 +20,22 @@ export function useCatalog() {
 		error,
 		isLoading
 	} = useQuery({
-		queryKey: ["catalog", params],
+		queryKey: ["catalog", page, params, skip],
 		queryFn: () =>
-			productsService.getProducts(limit, skip, {
+			productsService.getProducts(limit, {
 				...params,
-				category
+				category,
+				skip: skip.toString()
 			})
 	})
 
+	// ПОЛУЧЕНИЕ КОЛИЧЕСТВА СТРАНИЦ
+	const { data: pages } = useQuery({
+		queryKey: ["catalog pages"],
+		queryFn: () => productsService.countPages(limit)
+	})
+
+	// ПОЛУЧЕНИЕ МИНИМАЛЬНОЙ И МАКСИМАЛЬНОЙ ЦЕНЫ
 	useEffect(() => {
 		if (products) {
 			const prices = products.map(product => product.price)
@@ -47,19 +54,14 @@ export function useCatalog() {
 	const availableColors = products
 		?.flatMap(product => product.colors.map(color => color.value))
 		.filter((color, index, self) => self.indexOf(color) === index)
-
-	return useMemo(
-		() => ({
-			products,
-			pages,
-			page,
-			setPage,
-			isLoading,
-			error,
-			prices,
-			availableSizes,
-			availableColors
-		}),
-		[params]
-	)
+	return {
+		products,
+		pages,
+		page,
+		isLoading,
+		error,
+		prices,
+		availableSizes,
+		availableColors
+	}
 }

@@ -7,7 +7,8 @@ export const URL_CONFIG = {
 		all: "/categories",
 	},
 	products: {
-		all: "/products"
+		all: "/products",
+		countPages: "/products/pages"
 	},
 	reviews: {
 		lastThree: "/reviews/last-three"

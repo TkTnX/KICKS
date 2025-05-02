@@ -29,7 +29,6 @@ export class ProductService {
   async findAll(params: Record<string, string>) {
     const orderBy = getOrderBy(params.sortBy);
     const where: Prisma.ProductWhereInput = getWhere(params);
-
     if (params.category) {
       where.category = {
         slug: params.category,
@@ -49,6 +48,12 @@ export class ProductService {
     });
 
     return products;
+  }
+
+  async countPages(limit: number) {
+    const totalProducts = await this.prisma.product.count();
+
+    return Math.ceil(totalProducts / limit);
   }
 
   async findOne(id: string) {

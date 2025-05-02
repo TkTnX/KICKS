@@ -26,6 +26,11 @@ export class ProductController {
     return this.productService.findAll(params);
   }
 
+  @Get('pages')
+  countPages(@Query('limit') limit: number) {
+    return this.productService.countPages(limit);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
