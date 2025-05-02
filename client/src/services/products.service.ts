@@ -5,11 +5,13 @@ import { IProduct } from "@/types"
 class ProductsService {
 	async getProducts(
 		take?: number | null,
+		skip?: number | null,
 		params?: Record<string, string>
 	): Promise<IProduct[]> {
 		const { data } = await axiosInstance.get(`${URL_CONFIG.products.all}`, {
 			params: {
 				take,
+				skip,
 				...params
 			}
 		})

@@ -22,7 +22,11 @@ export class CategoryService {
         slug,
       },
       include: {
-        products: true,
+        _count: {
+          select: {
+            products: true,
+          },
+        },
       },
     });
   }

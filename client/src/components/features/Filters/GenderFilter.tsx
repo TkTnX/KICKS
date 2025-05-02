@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import {
 	AccordionContent,
@@ -13,24 +13,8 @@ import { useFilters } from "@/hooks/useFilters"
 
 export const GenderFilter = () => {
 	const genders = ["Men", "Women"]
-	const [choosedGender, setChoosedGender] = useState<string | null>(null)
-	const { setParams } = useFilters()
-
-	const handleGenderClick = (gender: string) => {
-		if (choosedGender === gender) {
-			setChoosedGender(null)
-			setParams({ gender: "" })
-		} else {
-			setChoosedGender(gender)
-			setParams({ gender: gender })
-		}
-	}
-
-	useEffect(() => {
-		if (choosedGender) {
-			setParams({ gender: choosedGender })
-		}
-	}, [choosedGender])
+	const [choosedGender, setChoosedGender] = useState<string[]>([])
+	const { handleChangeFilters } = useFilters()
 
 	return (
 		<AccordionItem value='gender'>
@@ -44,8 +28,15 @@ export const GenderFilter = () => {
 						className='flex items-center gap-4 cursor-pointer'
 					>
 						<Checkbox
-							checked={choosedGender === gender}
-							onClick={() => handleGenderClick(gender)}
+							checked={choosedGender.includes(gender)}
+							onClick={() =>
+								handleChangeFilters(
+									choosedGender,
+									setChoosedGender,
+									gender,
+									"gender"
+								)
+							}
 							className='rounded-sm  transition flex items-center justify-center text-dark-gray '
 						/>
 						{gender}

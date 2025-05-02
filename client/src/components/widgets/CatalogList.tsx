@@ -7,7 +7,6 @@ import { useCatalog } from "@/hooks/useCatalog"
 import { ErrorMessage } from "../entities/ErrorMessage"
 import { ProductItem } from "../ui/ProductItem"
 
-// TODO: В фильтрах получать данные
 
 export const CatalogList = () => {
 	const { products, error, isLoading } = useCatalog()

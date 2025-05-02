@@ -23,7 +23,6 @@ export class ProductController {
 
   @Get()
   findAll(@Query() params: Record<string, string>) {
-    console.log(params);
     return this.productService.findAll(params);
   }
 

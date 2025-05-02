@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 import {
 	AccordionContent,
@@ -8,37 +8,32 @@ import {
 	AccordionTrigger
 } from "@/components/ui/accordion"
 
+import { useCatalog } from "@/hooks/useCatalog"
 import { useFilters } from "@/hooks/useFilters"
 
-import { COLORS } from "./config"
 import { cn } from "@/lib/utils"
 
 export const ColorFilter = () => {
 	const [choosedColors, setChoosedColors] = useState<string[]>([])
-	const { setParams } = useFilters()
+	const { handleChangeFilters } = useFilters()
+	const { availableColors } = useCatalog()
 
-	const handleColorClick = (color: string) => {
-		if (choosedColors.includes(color)) {
-			setChoosedColors(prev => prev.filter(c => c !== color))
-		} else {
-			setChoosedColors(prev => [...prev, color])
-		}
-	}
-
-	useEffect(() => {
-		if (choosedColors.length > 0) {
-			setParams({ color: choosedColors.join(",") })
-		}
-	}, [choosedColors])
 	return (
 		<AccordionItem value='color'>
 			<AccordionTrigger className='font-semibold uppercase'>
 				COLOR
 			</AccordionTrigger>
 			<AccordionContent className='flex flex-wrap sm:grid  sm:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4 '>
-				{COLORS.map(color => (
+				{availableColors?.map(color => (
 					<button
-						onClick={() => handleColorClick(color)}
+						onClick={() =>
+							handleChangeFilters(
+								choosedColors,
+								setChoosedColors,
+								color,
+								"color"
+							)
+						}
 						className={cn(
 							`w-10 h-10 bg-[${color}] hover:opacity-50 transition   rounded-md`,
 							{

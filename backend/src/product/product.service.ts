@@ -26,11 +26,9 @@ export class ProductService {
       },
     });
   }
-  // TODO: Products должны иметь sizes. Сейчас они не имеют ничего.
   async findAll(params: Record<string, string>) {
     const orderBy = getOrderBy(params.sortBy);
-    // const where = getWhere(params);
-    const where: Prisma.ProductWhereInput = {};
+    const where: Prisma.ProductWhereInput = getWhere(params);
 
     if (params.category) {
       where.category = {
@@ -41,19 +39,16 @@ export class ProductService {
     const products = await this.prisma.product.findMany({
       orderBy,
       take: +params.take || undefined,
+      skip: +params.skip || undefined,
+
       where,
       include: {
         sizes: true,
         colors: true,
       },
     });
-    console.log(products);
 
-    return this.prisma.product.findMany({
-      orderBy,
-      take: +params.take || undefined,
-      where,
-    });
+    return products;
   }
 
   async findOne(id: string) {
@@ -67,7 +62,7 @@ export class ProductService {
     await this.findOne(id);
 
     const product = await this.prisma.product.update({
-      where: { id: id },
+      where: { id },
       data: {
         ...updateProductDto,
         colors: {

@@ -20,7 +20,6 @@ export const PriceFilter = () => {
 	const { setParams } = useFilters()
 	const { clearFilters } = useFilters()
 
-	// TODO: В будущем добавить эту функцию в useCatalog и использовать в других местах
 	const handlePriceChange = (price: string) => {
 		setPrice(price)
 	}
