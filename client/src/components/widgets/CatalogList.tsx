@@ -11,7 +11,7 @@ export const CatalogList = () => {
 	const { products, error, isLoading } = useCatalog()
 	if (isLoading)
 		return (
-			<Loader2 className='animate-spin flex-1 flex items-center justify-center' />
+			<Loader2 className='animate-spin flex-1 flex items-center justify-center w-full' />
 		)
 
 	if (error) return <ErrorMessage error={error.message} type='Catalog' />

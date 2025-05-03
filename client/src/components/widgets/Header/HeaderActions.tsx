@@ -44,10 +44,9 @@ export const HeaderActions = () => {
 				</Link>
 			)}
 
-			{/* TODO: Сделать открытие корзины */}
-			<button className='hover:opacity-80 transition'>
+			<Link href={"/cart"} className='block hover:opacity-80 transition'>
 				<ShoppingBasket className='size-5 sm:size-6' size={24} />
-			</button>
+			</Link>
 		</div>
 	)
 }

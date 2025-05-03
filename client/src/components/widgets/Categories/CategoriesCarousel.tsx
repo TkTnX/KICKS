@@ -46,7 +46,6 @@ export const CategoriesCarousel = ({
 	}, [api, onApiReady])
 
 	if (error) return <ErrorMessage type='categories' error={error.message} />
-
 	return (
 		<Carousel
 			setApi={setApi}
@@ -63,7 +62,7 @@ export const CategoriesCarousel = ({
 							</CarouselItem>
 						))
 					: categories
-							?.filter(category => category.products.length)
+							?.filter(category => category?.products?.length)
 							.map(category => (
 								<CarouselItem
 									className=' md:basis-1/2'
