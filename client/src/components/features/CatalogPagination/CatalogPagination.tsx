@@ -13,7 +13,6 @@ function useWindowWidth() {
 		typeof window !== "undefined" ? 600 : 0
 	)
 
-	console.log(width)
 
 	useEffect(() => {
 		const handleResize = () => setWidth(window.innerWidth)

@@ -50,6 +50,20 @@ export class ProductService {
     return products;
   }
 
+  async findByCategory(categories: string[]) {
+    const products = await this.prisma.product.findMany({
+      where: {
+        category: {
+          slug: {
+            in: categories,
+          },
+        },
+      },
+    });
+
+    return products;
+  }
+
   async countPages(limit: number) {
     const totalProducts = await this.prisma.product.count();
 

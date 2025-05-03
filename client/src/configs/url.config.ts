@@ -4,16 +4,20 @@ export const URL_CONFIG = {
 		login: "/auth/login"
 	},
 	categories: {
-		all: "/categories",
+		all: "/categories"
 	},
 	products: {
 		all: "/products",
-		countPages: "/products/pages"
+		countPages: "/products/pages",
+		byCategory: "/products/by-category"
 	},
 	reviews: {
 		lastThree: "/reviews/last-three"
 	},
 	users: {
 		me: "/users/me"
+	},
+	cart: {
+		get: "/cart"
 	}
 }

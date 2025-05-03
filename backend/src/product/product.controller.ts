@@ -26,6 +26,12 @@ export class ProductController {
     return this.productService.findAll(params);
   }
 
+  @Get('by-category')
+  findByCategory(@Query('categories') categories: string) {
+    const catsArray = categories.split(',');
+    return this.productService.findByCategory(catsArray);
+  }
+
   @Get('pages')
   countPages(@Query('limit') limit: number) {
     return this.productService.countPages(limit);

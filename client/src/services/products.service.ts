@@ -23,6 +23,19 @@ class ProductsService {
 		)
 		return data
 	}
+
+	async getByCategory(categories: string[]): Promise<IProduct[]>  {
+		const { data } = await axiosInstance.get(
+			URL_CONFIG.products.byCategory,
+			{
+				params: {
+					categories: categories.join(",")
+				}
+			}
+		)
+
+		return data
+	}
 }
 
 export default new ProductsService()

@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 const CartPage = () => {
 	return (
 		<main className='container'>
-			<section>
+			<section className="mt-6">
 				<h2 className='text-3xl font-semibold'>Saving to celebrate</h2>
 				<p className='mt-2 text-sm opacity-80 font-sans'>
 					Enjoy up to 60% off thousands of styles during the End of
 					Year sale - while suppiles last. No code needed.
 				</p>
-				<div className='flex items-start mt-8 justify-between gap-12 '>
+				<div className='flex flex-col md:flex-row items-start mt-8 justify-between gap-12 '>
 					<Bag />
 					<OrderSummary />
 				</div>

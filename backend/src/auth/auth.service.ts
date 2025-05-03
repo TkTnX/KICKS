@@ -53,6 +53,12 @@ export class AuthService {
       },
     });
 
+    await this.prismaService.cart.create({
+      data: {
+        userId: newUser.id,
+      },
+    });
+
     return this.auth(res, newUser.id);
   }
 
@@ -97,6 +103,7 @@ export class AuthService {
       refreshToken,
       new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     );
+    
     return { accessToken };
   }
 

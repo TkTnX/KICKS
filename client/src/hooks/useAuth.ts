@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { AxiosError } from "axios"
+import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
 import { useMemo, useState } from "react"
 import { toast } from "react-toastify"
@@ -29,10 +29,16 @@ export function useAuth() {
 			data: IAuthForm
 		}) => {
 			try {
-				await authService[type]({
+				const response = await authService[type]({
 					...data,
 					gender: gender as EGender
 				})
+
+				const accessToken = response.accessToken
+				if (accessToken) {
+					axios.defaults.headers.common["Authorization"] =
+						`Bearer ${accessToken}`
+				}
 
 				toast.success(
 					`${type === "register" ? "Registration" : "Login"} successful!`
@@ -55,7 +61,6 @@ export function useAuth() {
 			setUser(user)
 		}
 	})
-
 
 	return useMemo(
 		() => ({
