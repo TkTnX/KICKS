@@ -31,15 +31,14 @@ export class ProductController {
     const catsArray = categories.split(',');
     return this.productService.findByCategory(catsArray);
   }
+  @Get('by-id/:id')
+  findById(@Param('id') id: string) {
+    return this.productService.findById(id);
+  }
 
   @Get('pages')
   countPages(@Query('limit') limit: number) {
     return this.productService.countPages(limit);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productService.findOne(id);
   }
 
   // TODO: В будущем сделать защиту по РОЛЯМ

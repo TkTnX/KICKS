@@ -12,9 +12,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 import productsService from "@/services/products.service"
 
-export const YouMayAlsoLike = () => {
+export const YouMayAlsoLike = ({categories}: {categories: string[]}) => {
 	// TEMP
-	const categories = ["football"]
+	// const categories = ["football"]
 	// TODO: В будущем учитывать категории товаров, которые есть в корзине и выводить тут товары с этими категориями
 
 	const { data, error, isLoading } = useQuery({

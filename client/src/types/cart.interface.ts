@@ -1,6 +1,8 @@
-import { IColor, IProduct, ISize } from "./product.interface"
+import { IColor } from "./color.interface"
+import { IProduct } from "./product.interface"
+import { ISize } from "./size.interface"
 
-export interface ICartProduct extends IProduct {
+export interface ICartItem extends IProduct {
 	quantity: number
 	size: ISize
 	color: IColor
@@ -8,7 +10,7 @@ export interface ICartProduct extends IProduct {
 
 export interface ICart {
 	id: string
-	products: ICartProduct[]
+	cartItems: ICartItem[]
 	totalPrice: number
-	totalQuantity: number
+	
 }

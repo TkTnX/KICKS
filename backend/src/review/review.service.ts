@@ -23,7 +23,7 @@ export class ReviewService {
   }
 
   async create(productId: string, dto: CreateReviewDto) {
-    const product = await this.productService.findOne(productId);
+    const product = await this.productService.findById(productId);
 
     const review = await this.prisma.review.create({
       data: { ...dto, productId: product.id },
@@ -35,7 +35,7 @@ export class ReviewService {
   }
 
   async getByProduct(productId: string) {
-    const product = await this.productService.findOne(productId);
+    const product = await this.productService.findById(productId);
 
     const reviews = await this.prisma.review.findMany({
       where: { productId: product.id },

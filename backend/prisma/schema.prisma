@@ -40,7 +40,8 @@ model Color {
   name  String
   value String
 
-  products Product[]
+  products  Product[]
+  cartItems CartItem[]
 }
 
 model Size {
@@ -48,7 +49,8 @@ model Size {
   size        String
   isAvailable Boolean
 
-  products Product[]
+  products  Product[]
+  cartItems CartItem[]
 }
 
 model User {
@@ -71,6 +73,8 @@ model User {
 model Cart {
   id String @id @default(uuid())
 
+  totalPrice Int @default(0)
+
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
 
@@ -83,8 +87,15 @@ model Cart {
 model CartItem {
   id String @id @default(uuid())
 
+  quantity Int @default(1)
+
   cart   Cart   @relation(fields: [cartId], references: [id])
   cartId String
+
+  size    Size   @relation(fields: [sizeId], references: [id])
+  sizeId  String
+  color   Color  @relation(fields: [colorId], references: [id])
+  colorId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

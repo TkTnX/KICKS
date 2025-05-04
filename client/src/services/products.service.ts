@@ -24,7 +24,7 @@ class ProductsService {
 		return data
 	}
 
-	async getByCategory(categories: string[]): Promise<IProduct[]>  {
+	async getByCategory(categories: string[]): Promise<IProduct[]> {
 		const { data } = await axiosInstance.get(
 			URL_CONFIG.products.byCategory,
 			{
@@ -32,6 +32,14 @@ class ProductsService {
 					categories: categories.join(",")
 				}
 			}
+		)
+
+		return data
+	}
+
+	async getById(id: string): Promise<IProduct> {
+		const { data } = await axiosInstance.get(
+			`${URL_CONFIG.products.byId}/${id}`
 		)
 
 		return data

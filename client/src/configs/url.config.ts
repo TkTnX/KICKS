@@ -9,7 +9,8 @@ export const URL_CONFIG = {
 	products: {
 		all: "/products",
 		countPages: "/products/pages",
-		byCategory: "/products/by-category"
+		byCategory: "/products/by-category",
+		byId: "/products/by-id"
 	},
 	reviews: {
 		lastThree: "/reviews/last-three"

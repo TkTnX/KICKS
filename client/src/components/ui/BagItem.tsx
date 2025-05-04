@@ -2,13 +2,15 @@ import Image from "next/image"
 
 import { BagItemControls } from "../features/BagItemControls"
 
-export const BagItem = () => {
+import { ICartItem } from "@/types"
+
+export const BagItem = ({ item }: { item: ICartItem }) => {
 	return (
 		<div className='flex items-stretch gap-2 sm:gap-6 w-full max-h-[225px]'>
 			<div className='relative w-[180px] h-[155px] sm:w-[200px] sm:h-[225px]'>
 				<Image
-					src={"/images/products/1.jpg"}
-					alt='product'
+					src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0]}`}
+					alt={item.title}
 					className='rounded-3xl object-cover'
 					fill
 				/>
@@ -17,25 +19,23 @@ export const BagItem = () => {
 				<div className='flex flex-col w-full'>
 					<div className='flex flex-col lg:flex-row  lg:items-center justify-between'>
 						<h5 className='text-base lg:text-2xl font-semibold'>
-							DROPSET TRAINER SHOES
+							{item.title}
 						</h5>
 						<p className='text-base lg:text-2xl sont-semibold text-blue'>
-							$130.00
+							${item.price}
 						</p>
 					</div>
 					<p className='text-sm lg:text-base mt-2 opacity-80 font-sans'>
-						Men’s Road Running Shoes{" "}
+						{item.category.name}
 					</p>
-					<p className='text-sm lg:text-base mt-2 opacity-80 font-sans'>
-						Enamel Blue/ University White
-					</p>
+
 					<div className='flex flex-col sm:flex-row sm:items-center sm:gap-10 mt-2'>
 						{/* TODO: В будущем сделать select */}
 						<p className='text-sm lg:text-base font-sans  opacity-80'>
-							Size 40
+							Size {item.size.size}
 						</p>
 						<p className='text-sm lg:text-base font-sans  opacity-80'>
-							Quantity 1
+							Quantity {item.quantity}
 						</p>
 					</div>
 				</div>

@@ -1,4 +1,4 @@
-import { ICart, ICartProduct } from "./cart.interface";
+import { ICart } from "./cart.interface";
 
 enum EDeliveryOptions {
     STANDARD = "Standard delivery",

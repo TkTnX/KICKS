@@ -47,6 +47,8 @@ export class ProductService {
       },
     });
 
+    if (!products) throw new NotFoundException('Products are not found');
+
     return products;
   }
 
@@ -61,7 +63,26 @@ export class ProductService {
       },
     });
 
+    if (!products) throw new NotFoundException('Products are not found');
+
     return products;
+  }
+  async findById(id: string) {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        sizes: true,
+        colors: true,
+        category: true,
+      },
+    });
+
+
+    if (!product) throw new NotFoundException('Product is not found');
+
+    return product;
   }
 
   async countPages(limit: number) {
@@ -70,15 +91,8 @@ export class ProductService {
     return Math.ceil(totalProducts / limit);
   }
 
-  async findOne(id: string) {
-    const product = await this.prisma.product.findUnique({ where: { id } });
-    if (!product) throw new NotFoundException('Product not found');
-
-    return product;
-  }
-
   async update(id: string, updateProductDto: UpdateProductDto) {
-    await this.findOne(id);
+    await this.findById(id);
 
     const product = await this.prisma.product.update({
       where: { id },
@@ -101,7 +115,7 @@ export class ProductService {
   }
 
   async delete(id: string) {
-    await this.findOne(id);
+    await this.findById(id);
     return await this.prisma.product.delete({ where: { id } });
   }
 }
