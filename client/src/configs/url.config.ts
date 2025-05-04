@@ -20,5 +20,8 @@ export const URL_CONFIG = {
 	},
 	cart: {
 		get: "/cart"
+	},
+	cartItem: {
+		addToCart: "/cartItems"
 	}
 }

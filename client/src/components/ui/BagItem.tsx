@@ -5,12 +5,13 @@ import { BagItemControls } from "../features/BagItemControls"
 import { ICartItem } from "@/types"
 
 export const BagItem = ({ item }: { item: ICartItem }) => {
+	console.log(item)
 	return (
 		<div className='flex items-stretch gap-2 sm:gap-6 w-full max-h-[225px]'>
 			<div className='relative w-[180px] h-[155px] sm:w-[200px] sm:h-[225px]'>
 				<Image
-					src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0]}`}
-					alt={item.title}
+					src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.product.images[0]}`}
+					alt={item.product.title}
 					className='rounded-3xl object-cover'
 					fill
 				/>
@@ -19,14 +20,14 @@ export const BagItem = ({ item }: { item: ICartItem }) => {
 				<div className='flex flex-col w-full'>
 					<div className='flex flex-col lg:flex-row  lg:items-center justify-between'>
 						<h5 className='text-base lg:text-2xl font-semibold'>
-							{item.title}
+							{item.product.title}
 						</h5>
 						<p className='text-base lg:text-2xl sont-semibold text-blue'>
-							${item.price}
+							${item.product.price}
 						</p>
 					</div>
 					<p className='text-sm lg:text-base mt-2 opacity-80 font-sans'>
-						{item.category.name}
+						{item.product.category.name}
 					</p>
 
 					<div className='flex flex-col sm:flex-row sm:items-center sm:gap-10 mt-2'>

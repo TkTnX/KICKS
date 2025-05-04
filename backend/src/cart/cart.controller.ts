@@ -1,4 +1,4 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Post, Req } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { Authorization } from 'src/auth/decorators/authorization.decorator';
 import { Authorized } from 'src/auth/decorators/authorized.decorator';
@@ -10,7 +10,13 @@ export class CartController {
 
   @Authorization()
   @Get()
-  async getCart(@Authorized('id') userId: string, @Req() req: Request) {
+  async getCart(@Authorized('id') userId: string) {
     return await this.cartService.getCart(userId);
+  }
+
+  @Authorization()
+  @Get('/total-price')
+  async countTotalPrice(@Authorized('id') userId: string) {
+    return await this.cartService.countTotalPrice(userId);
   }
 }

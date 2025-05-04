@@ -13,7 +13,6 @@ function useWindowWidth() {
 		typeof window !== "undefined" ? 600 : 0
 	)
 
-
 	useEffect(() => {
 		const handleResize = () => setWidth(window.innerWidth)
 		window.addEventListener("resize", handleResize)
@@ -25,8 +24,7 @@ function useWindowWidth() {
 }
 
 export const CatalogPagination = () => {
-	const { page } = useCatalog()
-	const pages = 10
+	const { page, pages } = useCatalog()
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	if (pages <= 1) return null

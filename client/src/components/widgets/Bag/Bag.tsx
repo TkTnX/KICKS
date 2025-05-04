@@ -8,8 +8,6 @@ import { useCart } from "@/hooks/useCart"
 
 export const Bag = () => {
 	const { cart, isLoading, error } = useCart()
-	// TODO: Страница товара
-	// TODO: Добавление в корзину
 	if (error) return <ErrorMessage error={error.message} type='cart' />
 	return (
 		<div className='rounded-2xl p-4 md:p-6 bg-white w-full md:max-w-[800px] flex-1'>

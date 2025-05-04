@@ -12,7 +12,6 @@ export function useCart() {
 		queryFn: () => cartService.getCart()
 	})
 
-
 	return {
 		cart,
 		isLoading,

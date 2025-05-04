@@ -16,7 +16,7 @@ export const ProductDetails = ({ product }: { product: IProduct }) => {
 			<p className='text-2xl text-blue mt-4'>${product.price}</p>
 			<ProductColorOption colors={product.colors} />
 			<ProductSizeOption sizes={product.sizes} />
-			<ProductControls />
+			<ProductControls productId={product.id} />
 		</div>
 	)
 }

@@ -16,4 +16,5 @@ export interface IUser {
 	favorites: IProduct[]
 	orders: IOrder[]
 	cart: ICart
+	cartId: string
 }

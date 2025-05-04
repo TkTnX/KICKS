@@ -2,13 +2,13 @@ import { Heart } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
-export const ProductControls = () => {
+import { AddToCart } from "./AddToCart"
+
+export const ProductControls = ({productId}: {productId: string}) => {
 	return (
 		<div className='mt-8 w-full'>
 			<div className='flex items-center gap-2 '>
-				<Button className='bg-dark-gray  uppercase text-white py-4 flex-1 font-sans'>
-					ADD TO CART
-				</Button>
+				<AddToCart productId={productId} />
 				<Button className='bg-dark-gray p-4'>
 					<Heart size={16} />
 				</Button>
