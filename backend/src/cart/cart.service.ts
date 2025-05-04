@@ -23,18 +23,19 @@ export class CartService {
     return cart;
   }
 
-  // TODO: Проверить, как работает подсчёт цены
   async countTotalPrice(userId: string) {
     const cart = await this.getCart(userId);
 
-    await this.prismaService.cart.update({
+    const updated = await this.prismaService.cart.update({
       where: { id: cart.id },
       data: {
         totalPrice: cart.cartItems.reduce(
-          (acc, curr) => acc + curr.product.price,
-          cart.totalPrice,
+          (acc, curr) => acc + curr.product.price * curr.quantity,
+          0,
         ),
       },
     });
+
+    return updated.totalPrice;
   }
 }

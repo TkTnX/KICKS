@@ -12,9 +12,14 @@ export function useCart() {
 		queryFn: () => cartService.getCart()
 	})
 
+	const categories = cart?.cartItems.flatMap(
+		item => item.product.category.slug
+	)
+
 	return {
 		cart,
 		isLoading,
-		error
+		error,
+		categories
 	}
 }

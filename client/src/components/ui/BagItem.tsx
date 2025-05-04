@@ -5,7 +5,6 @@ import { BagItemControls } from "../features/BagItemControls"
 import { ICartItem } from "@/types"
 
 export const BagItem = ({ item }: { item: ICartItem }) => {
-	console.log(item)
 	return (
 		<div className='flex items-stretch gap-2 sm:gap-6 w-full max-h-[225px]'>
 			<div className='relative w-[180px] h-[155px] sm:w-[200px] sm:h-[225px]'>
@@ -31,7 +30,6 @@ export const BagItem = ({ item }: { item: ICartItem }) => {
 					</p>
 
 					<div className='flex flex-col sm:flex-row sm:items-center sm:gap-10 mt-2'>
-						{/* TODO: В будущем сделать select */}
 						<p className='text-sm lg:text-base font-sans  opacity-80'>
 							Size {item.size.size}
 						</p>
@@ -40,7 +38,7 @@ export const BagItem = ({ item }: { item: ICartItem }) => {
 						</p>
 					</div>
 				</div>
-				<BagItemControls />
+				<BagItemControls id={item.id}  />
 			</div>
 		</div>
 	)

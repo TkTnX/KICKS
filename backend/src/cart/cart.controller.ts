@@ -2,7 +2,6 @@ import { Controller, Get, Post, Req } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { Authorization } from 'src/auth/decorators/authorization.decorator';
 import { Authorized } from 'src/auth/decorators/authorized.decorator';
-import { Request } from 'express';
 
 @Controller('cart')
 export class CartController {

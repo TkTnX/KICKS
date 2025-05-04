@@ -22,8 +22,7 @@ const CartPage = () => {
 					<OrderSummary />
 				</div>
 			</section>
-			{/* TODO: TEMP */}
-			<YouMayAlsoLike categories={['football']} />
+			<YouMayAlsoLike  />
 		</main>
 	)
 }

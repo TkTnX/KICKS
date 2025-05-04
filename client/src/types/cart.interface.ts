@@ -10,6 +10,7 @@ export type AddToCartProps = {
 }
 
 export interface ICartItem {
+	id: string,
 	quantity: number
 	size: ISize
 	color: IColor

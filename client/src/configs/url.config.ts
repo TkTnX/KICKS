@@ -22,6 +22,6 @@ export const URL_CONFIG = {
 		get: "/cart"
 	},
 	cartItem: {
-		addToCart: "/cartItems"
+		index: "/cartItems"
 	}
 }

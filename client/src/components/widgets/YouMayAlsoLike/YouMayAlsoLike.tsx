@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 
+import { ErrorMessage } from "@/components/entities/ErrorMessage"
 import { ProductItem } from "@/components/ui/ProductItem"
 import {
 	Carousel,
@@ -10,18 +11,24 @@ import {
 } from "@/components/ui/carousel"
 import { Skeleton } from "@/components/ui/skeleton"
 
+import { useCart } from "@/hooks/useCart"
+
 import productsService from "@/services/products.service"
 
-export const YouMayAlsoLike = ({categories}: {categories: string[]}) => {
-	// TEMP
-	// const categories = ["football"]
-	// TODO: В будущем учитывать категории товаров, которые есть в корзине и выводить тут товары с этими категориями
-
+export const YouMayAlsoLike = ({ categories }: { categories?: string[] }) => {
+	const { categories: cartCategories } = useCart()
 	const { data, error, isLoading } = useQuery({
-		queryKey: ["products by category", categories.length],
-		queryFn: () => productsService.getByCategory(categories)
+		queryKey: [
+			"products by category",
+			categories ? categories.length : cartCategories?.length
+		],
+		queryFn: () =>
+			productsService.getByCategory(
+				categories ? categories : cartCategories!
+			)
 	})
 
+	if (error) return <ErrorMessage type={"Simillar"} error={error.message} />
 
 	return (
 		<section className='mt-32'>

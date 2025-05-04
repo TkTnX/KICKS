@@ -56,12 +56,11 @@ export const ProductImages = ({ images }: { images: string[] }) => {
 					))}
 				</div>
 			) : (
-				<div className='relative w-1/2 h-[510px] flex items-center justify-center'>
+				<div className='hidden sm:flex relative w-full max-w-[500px] h-[510px]  items-center justify-center'>
 					<Image
 						src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${images[0]}`}
 						alt={images[0]}
 						fill
-						className='object-cover'
 					/>
 				</div>
 			)}

@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { CartModule } from './cart/cart.module';
 import { CartItemModule } from './cart-item/cart-item.module';
+import { FavoriteItemModule } from './favorite-item/favorite-item.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { CartItemModule } from './cart-item/cart-item.module';
     ReviewModule,
     CartModule,
     CartItemModule,
+    FavoriteItemModule,
   ],
   controllers: [],
   providers: [],
