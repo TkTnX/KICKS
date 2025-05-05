@@ -2,31 +2,56 @@
 
 import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify"
 
 import { FormCheckbox } from "@/components/ui/FormCheckbox"
+import { Link } from "@/components/ui/Link"
 import { Button } from "@/components/ui/button"
 import { Form } from "@/components/ui/form"
 
-import { CheckotFormInput } from "./CheckotFormInput"
-import { cn } from "@/lib/utils"
+import { useCart } from "@/hooks/useCart"
+
+import { CheckoutDelivery } from "./CheckoutDelivery"
+import { CheckoutFormInput } from "./CheckoutFormInput"
+import { CheckoutShippingAddress } from "./CheckoutShippingAddress"
+import { EDeliveryType, ICheckout } from "@/types/checkout.interface"
 
 export const CheckoutForm = () => {
-	const [deliveryType, setDeliveryType] = useState<"standard" | "store">(
-		"standard"
+	const { cart } = useCart()
+	const [deliveryType, setDeliveryType] = useState<EDeliveryType>(
+		EDeliveryType.STANDARD
 	)
-	const form = useForm()
+	const form = useForm<ICheckout>()
 	const isPending = false
-	// TODO: Разнести по разным компонентам
+
+	// TODO: В будущем добавить оплату через Yookassa
+	const onSubmit = async (data: ICheckout) => {
+		try {
+			const body: ICheckout = {
+				address: data.address,
+				email: data.email,
+				firstname: data.firstname,
+				lastname: data.lastname,
+				phone: data.phone,
+				deliveryType
+			}
+			console.log(body)
+		} catch (error) {
+			console.log(error)
+			toast.error("Something went wrong!")
+		}
+	}
+
 	return (
 		<Form {...form}>
-			<form>
+			<form onSubmit={form.handleSubmit(onSubmit)} className='flex-1'>
 				<div>
 					<h3 className='text-xl sm:text-3xl'>Contact Details</h3>
 					<p className='opacity-80 mt-2'>
 						We will use these details to keep you inform about your
 						delivery.
 					</p>
-					<CheckotFormInput
+					<CheckoutFormInput
 						disabled={isPending}
 						name='email'
 						type='email'
@@ -38,82 +63,18 @@ export const CheckoutForm = () => {
 				<div className='mt-4 lg:mt-8'>
 					<h3 className='text-xl sm:text-3xl'>Shipping Address</h3>
 
-					<div className='mt-8 grid grid-cols-2 gap-5'>
-						<CheckotFormInput
-							disabled={isPending}
-							name='firsname'
-							type='text'
-							placeholder='First Name*'
-							form={form}
-						/>
-						<CheckotFormInput
-							disabled={isPending}
-							name='lastname'
-							type='text'
-							placeholder='Last Name*'
-							form={form}
-						/>
-						<CheckotFormInput
-							disabled={isPending}
-							name='address'
-							type='text'
-							placeholder='Find Delivery Address*'
-							form={form}
-							className='col-span-2'
-						/>
-						<CheckotFormInput
-							disabled={isPending}
-							name='phone'
-							type='tel'
-							placeholder='Phone Number*'
-							form={form}
-						/>
-					</div>
+					<CheckoutShippingAddress
+						form={form}
+						isPending={isPending}
+					/>
 				</div>
 				<div className='mt-4 lg:mt-8'>
 					<h3 className='text-xl sm:text-3xl'>Delivery Options</h3>
 
-					<div className='flex flex-col mt-8 gap-6'>
-						<button
-							type='button'
-							onClick={() => setDeliveryType("standard")}
-							className={cn(
-								"p-4 flex items-center justify-between rounded-2xl border border-dark-gray",
-								{
-									"bg-white border-transparent":
-										deliveryType === "standard"
-								}
-							)}
-						>
-							<h6 className='text-xl sm:text-2xl'>
-								Standard Delivery
-							</h6>
-							<p className='text-base sm:text-xl text-blue'>
-								$6.00
-							</p>
-						</button>
-						<button
-							onClick={() => setDeliveryType("store")}
-							type='button'
-							className={cn(
-								"p-4 rounded-2xl border border-dark-gray",
-								{
-									"bg-white border-transparent":
-										deliveryType === "store"
-								}
-							)}
-						>
-							<div className='flex items-center justify-between'>
-								<h6 className='text-xl sm:text-2xl'>
-									Collect in store
-								</h6>
-								<p className='text-base sm:text-xl '>Free</p>
-							</div>
-							<p className='opacity-80 text-left text-xs sm:text-sm font-sans'>
-								Pay now, collect in store
-							</p>
-						</button>
-					</div>
+					<CheckoutDelivery
+						deliveryType={deliveryType}
+						setDeliveryType={setDeliveryType}
+					/>
 				</div>
 
 				<div className='flex flex-col gap-6 mt-4 lg:mt-8'>
@@ -125,9 +86,16 @@ export const CheckoutForm = () => {
 						I'm 13+ year old
 					</FormCheckbox>
 				</div>
-				<Button className='mt-11 font-bold text-sm w-full sm:w-[362px] '>
-					REVIEW AND PAY
-				</Button>
+				{cart?.cartItems.length ? (
+					<Button
+						type='submit'
+						className='mt-11 font-bold text-sm w-full sm:w-[362px] '
+					>
+						REVIEW AND PAY
+					</Button>
+				) : (
+					<Link className="mt-11" href='/catalog'>GO TO SHOPPING</Link>
+				)}
 			</form>
 		</Form>
 	)

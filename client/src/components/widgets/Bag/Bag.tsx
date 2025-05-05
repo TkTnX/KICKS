@@ -5,6 +5,7 @@ import { BagItem } from "@/components/ui/BagItem"
 import { Skeleton } from "@/components/ui/skeleton"
 
 import { useCart } from "@/hooks/useCart"
+import { BagList } from "./BagList"
 
 export const Bag = () => {
 	const { cart, isLoading, error } = useCart()
@@ -17,17 +18,7 @@ export const Bag = () => {
 				yours.
 			</p>
 
-			<div className='flex flex-col gap-4 mt-12'>
-				{isLoading ? (
-					<Skeleton className='h-[225px] w-full bg-dark-gray/50' />
-				) : cart && cart.cartItems.length > 0 ? (
-					cart?.cartItems.map(cartItem => (
-						<BagItem item={cartItem} key={cartItem.id} />
-					))
-				) : (
-					<p className='text-center py-10'>Cart is empty!</p>
-				)}
-			</div>
+			<BagList isLoading={isLoading} cartItems={cart ? cart.cartItems : []} />
 		</div>
 	)
 }

@@ -1,8 +1,7 @@
 import { Metadata } from "next"
 
-import { Bag } from "@/components/widgets/Bag"
+import { CheckoutDetails } from "@/components/widgets/CheckoutDetails"
 import { CheckoutForm } from "@/components/widgets/CheckoutForm"
-import { OrderSummary } from "@/components/widgets/OrderSummary"
 
 export const metadata: Metadata = {
 	title: "Checkout"
@@ -11,12 +10,9 @@ export const metadata: Metadata = {
 const CheckoutPage = () => {
 	return (
 		<main className='container mt-8'>
-			<section className='flex flex-col-reverse gap-6 lg:flex-row items-start justify-between'>
+			<section className='flex flex-col-reverse md:flex-row  gap-6  items-start justify-between'>
 				<CheckoutForm />
-				<div>
-					<OrderSummary />
-					<Bag />
-				</div>
+				<CheckoutDetails />
 			</section>
 		</main>
 	)

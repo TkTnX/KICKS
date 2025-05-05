@@ -1,17 +1,26 @@
 "use client"
 
 import { Loader2 } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 import { ErrorMessage } from "@/components/entities/ErrorMessage"
 import { Link } from "@/components/ui/Link"
 
 import { useCart } from "@/hooks/useCart"
 
-export const OrderSummary = () => {
+import { cn } from "@/lib/utils"
+
+export const OrderSummary = ({ className }: { className?: string }) => {
 	const { cart, isLoading, error } = useCart()
+	const pathname = usePathname()
 	if (error) return <ErrorMessage error={error.message} type='cart' />
 	return (
-		<div className=' lg:flex-1 rounded-2xl md:rounded-none p-6 md:p-0 bg-white w-full md:w-auto md:bg-transparent md:max-w-[420px]'>
+		<div
+			className={cn(
+				"lg:flex-1 rounded-2xl md:rounded-none p-6 md:p-0 bg-white w-full md:w-auto md:bg-transparent md:max-w-[420px]",
+				className
+			)}
+		>
 			<h4 className='text-3xl'>Order Summary</h4>
 			{isLoading ? (
 				<div className='w-full flex items-center justify-center py-10'>
@@ -38,12 +47,14 @@ export const OrderSummary = () => {
 				</ul>
 			)}
 
-			<Link
-				href={"/checkout"}
-				className='mt-6 bg-dark-gray w-full text-center'
-			>
-				CHECKOUT
-			</Link>
+			{!pathname.includes("checkout") && (
+				<Link
+					href={"/checkout"}
+					className='mt-6 bg-dark-gray w-full text-center'
+				>
+					CHECKOUT
+				</Link>
+			)}
 		</div>
 	)
 }

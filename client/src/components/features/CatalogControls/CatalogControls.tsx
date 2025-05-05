@@ -3,7 +3,7 @@
 import { Filter } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 
-import { SORT_ITEMS } from "@/app/catalog/[slug]/config"
+import { SORT_ITEMS } from "@/app/(root)/catalog/[slug]/config"
 
 import { FiltersModal } from "@/components/ui/modals"
 import {
@@ -13,6 +13,7 @@ import {
 	SelectTrigger,
 	SelectValue
 } from "@/components/ui/select"
+
 import { cn } from "@/lib/utils"
 
 export const CatalogControls = ({ className }: { className?: string }) => {

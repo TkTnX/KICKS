@@ -2,12 +2,28 @@ import Image from "next/image"
 
 import { BagItemControls } from "../features/BagItemControls"
 
+import { cn } from "@/lib/utils"
 import { ICartItem } from "@/types"
 
-export const BagItem = ({ item }: { item: ICartItem }) => {
+type Props = {
+	item: ICartItem
+	isCart?: boolean
+}
+
+export const BagItem = ({ item, isCart = true }: Props) => {
 	return (
-		<div className='flex items-stretch gap-2 sm:gap-6 w-full max-h-[225px]'>
-			<div className='relative w-[180px] h-[155px] sm:w-[200px] sm:h-[225px]'>
+		<div
+			className={cn(
+				"flex items-stretch gap-2 sm:gap-6 w-full max-h-[225px]",
+				{ "sm:gap-2": !isCart }
+			)}
+		>
+			<div
+				className={cn(
+					"relative w-[180px] h-[155px] sm:w-[200px] sm:h-[225px]",
+					{ "w-[130px] h-[150px] sm:w-[130px] sm:h-[150px]": !isCart }
+				)}
+			>
 				<Image
 					src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.product.images[0]}`}
 					alt={item.product.title}
@@ -18,10 +34,20 @@ export const BagItem = ({ item }: { item: ICartItem }) => {
 			<div className='w-full flex flex-col justify-between'>
 				<div className='flex flex-col w-full'>
 					<div className='flex flex-col lg:flex-row  lg:items-center justify-between'>
-						<h5 className='text-base lg:text-2xl font-semibold'>
+						<h5
+							className={cn(
+								"text-base lg:text-2xl font-semibold",
+								{ "lg:text-base": !isCart }
+							)}
+						>
 							{item.product.title}
 						</h5>
-						<p className='text-base lg:text-2xl sont-semibold text-blue'>
+						<p
+							className={cn(
+								"text-base lg:text-2xl font-semibold text-blue",
+								{ "lg:text-base": !isCart }
+							)}
+						>
 							${item.product.price}
 						</p>
 					</div>
@@ -38,7 +64,7 @@ export const BagItem = ({ item }: { item: ICartItem }) => {
 						</p>
 					</div>
 				</div>
-				<BagItemControls id={item.id}  />
+				<BagItemControls productId={item.product.id} id={item.id} />
 			</div>
 		</div>
 	)

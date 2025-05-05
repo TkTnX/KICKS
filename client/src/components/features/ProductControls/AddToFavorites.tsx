@@ -12,10 +12,15 @@ import favoriteItemService from "@/services/favoriteItem.service"
 
 import { cn } from "@/lib/utils"
 
-export const AddToFavorites = ({ productId }: { productId: string }) => {
+type Props = {
+	productId: string
+	iconSize?: number
+	className?: string
+}
+
+export const AddToFavorites = ({ productId, iconSize, className }: Props) => {
 	const queryClient = useQueryClient()
 	const { user, getMe, setUser } = useAuth()
-
 	const mutation = useMutation({
 		mutationFn: () => favoriteItemService.addToFavorites(productId),
 		onError: err => toast.error(err.message),
@@ -30,12 +35,12 @@ export const AddToFavorites = ({ productId }: { productId: string }) => {
 	return (
 		<Button
 			onClick={() => mutation.mutate()}
-			className='bg-dark-gray p-4 group'
+			className={cn("bg-dark-gray p-4 group", className)}
 		>
 			<Heart
-				size={16}
+				size={iconSize ? iconSize : 16}
 				className={cn("group-hover:fill-white ", {
-					"fill-white": user?.favoriteItems.find(
+					"fill-red-500 !stroke-red-500": user?.favoriteItems.find(
 						p => p.productId === productId
 					)
 				})}

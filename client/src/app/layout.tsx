@@ -3,8 +3,6 @@ import { Open_Sans, Rubik } from "next/font/google"
 import { Inter } from "next/font/google"
 
 import { Providers } from "@/components/Providers"
-import { Footer } from "@/components/widgets/Footer"
-import { Header } from "@/components/widgets/Header"
 
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/seo.constants"
 
@@ -41,13 +39,9 @@ export default function RootLayout({
 	return (
 		<html suppressHydrationWarning lang='ru'>
 			<body
-				className={`${openSans.variable} ${rubik.variable} ${inter.variable} antialiased`}
+				className={`${openSans.variable} ${rubik.variable} ${inter.variable} antialiased min-h-screen`}
 			>
-				<Providers>
-					<Header />
-					{children}
-					<Footer />
-				</Providers>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	)

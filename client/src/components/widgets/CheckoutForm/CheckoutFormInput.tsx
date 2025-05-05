@@ -7,9 +7,10 @@ import {
 	FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { ICheckout } from "@/types/checkout.interface"
 
 type Props = {
-	form: UseFormReturn
+	form: UseFormReturn<ICheckout>
 	disabled: boolean
 	name: string
 	type: string
@@ -17,7 +18,7 @@ type Props = {
 	className?: string
 }
 
-export const CheckotFormInput = ({
+export const CheckoutFormInput = ({
 	form,
 	disabled,
 	type,
