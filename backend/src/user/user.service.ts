@@ -20,6 +20,9 @@ export class UserService {
 
     const user = await this.prisma.user.findUnique({
       where: { id: decoded.userId },
+      include: {
+        favoriteItems: true,
+      },
     });
 
     if (!user) return null;

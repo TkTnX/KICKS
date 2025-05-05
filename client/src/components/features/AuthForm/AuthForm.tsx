@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react"
 import { useForm } from "react-hook-form"
 
 import { ErrorMessage } from "@/components/entities/ErrorMessage"
+import { FormCheckbox } from "@/components/ui/FormCheckbox"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
@@ -97,13 +98,9 @@ export const AuthForm = ({ type, className }: Props) => {
 						lowercase, one special character and a number
 					</p>
 				) : (
-					<div className='flex items-center gap-2'>
-						<Checkbox className='bg-white' id='keep-me-logged-in' />
-						<label htmlFor='keep-me-logged-in' className='text-sm'>
-							Keep me logged in - applies to all log in options
-							below.
-						</label>
-					</div>
+					<FormCheckbox name='keep-me-logged-in'>
+						Keep me logged in - applies to all log in options below.
+					</FormCheckbox>
 				)}
 
 				<Button

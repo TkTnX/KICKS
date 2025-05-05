@@ -23,5 +23,8 @@ export const URL_CONFIG = {
 	},
 	cartItem: {
 		index: "/cartItems"
+	},
+	favoriteItem: {
+		index: "/favoriteItems"
 	}
 }

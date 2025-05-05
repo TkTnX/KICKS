@@ -8,36 +8,37 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-import { IAuthForm } from "@/types/auth.interface"
-
 type Props = {
+	form: UseFormReturn
+	disabled: boolean
 	name: string
 	type: string
 	placeholder: string
-	form: UseFormReturn<IAuthForm >
-	disabled?: boolean
+	className?: string
 }
 
-export const AuthFormField = ({
-	name,
-	type,
-	placeholder,
+export const CheckotFormInput = ({
 	form,
-	disabled
+	disabled,
+	type,
+	name,
+	placeholder,
+	className
 }: Props) => {
 	return (
 		<FormField
 			control={form.control}
 			name={name as any}
 			render={() => (
-				<FormItem>
+				<FormItem className={className}>
 					<FormControl>
 						<Input
 							disabled={disabled}
 							{...form.register(name as any)}
-							className='border border-dark-gray rounded-lg py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed'
+							className='border border-dark-gray rounded-lg py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-sm sm:placeholder:text-base'
 							type={type}
 							placeholder={placeholder}
+							required
 						/>
 					</FormControl>
 					<FormMessage />

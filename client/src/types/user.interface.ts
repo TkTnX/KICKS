@@ -1,6 +1,6 @@
 import { ICart } from "./cart.interface"
+import { IFavoriteItem } from "./favoriteItem.inerface"
 import { IOrder } from "./order.interface"
-import { IProduct } from "./product.interface"
 
 export enum ERole {
 	USER = "user",
@@ -13,7 +13,7 @@ export interface IUser {
 	email: string
 	role: ERole
 	name?: string
-	favorites: IProduct[]
+	favoriteItems: IFavoriteItem[]
 	orders: IOrder[]
 	cart: ICart
 	cartId: string

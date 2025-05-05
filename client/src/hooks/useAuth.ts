@@ -7,14 +7,14 @@ import { toast } from "react-toastify"
 import authService from "@/services/auth.service"
 import userService from "@/services/user.service"
 
+import { useUserStore } from "@/stores/userStore"
 import { EGender, IUser } from "@/types"
 import { IAuthForm } from "@/types/auth.interface"
 
 export function useAuth() {
-	const [user, setUser] = useState<IUser | null>(null)
+	const { user, setUser } = useUserStore()
 	const [gender, setGender] = useState<EGender | null>(null)
 	const router = useRouter()
-
 	const getMe = async () => {
 		const res = await userService.getMe()
 		return res

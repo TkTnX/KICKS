@@ -6,7 +6,7 @@ interface CartState {
 	setValue: (type: "color" | "size", value: string) => void
 }
 
-export const useCartStore = create<CartState>((set, get) => ({
+export const useCartStore = create<CartState>((set) => ({
 	color: null,
 	size: null,
 	setValue: (type, value) => {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
 import { Button } from "@/components/ui/button"
@@ -9,11 +10,25 @@ import { useCart } from "@/hooks/useCart"
 
 import cartItemService from "@/services/cartItem.service"
 
+import { cn } from "@/lib/utils"
 import { useCartStore } from "@/stores/cartStore"
 
-export const AddToCart = ({ productId }: { productId: string }) => {
+type Props = {
+	productId: string
+	className?: string
+	type?: "add" | "buy"
+	children: React.ReactNode
+}
+
+export const AddToCart = ({
+	productId,
+	className,
+	type = "add",
+	children
+}: Props) => {
 	const { cart } = useCart()
 	const { color, size } = useCartStore()
+	const router = useRouter()
 	const body = {
 		productId,
 		cartId: cart?.id ?? "",
@@ -27,6 +42,7 @@ export const AddToCart = ({ productId }: { productId: string }) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["cart"] })
 			toast.success("Added to cart!")
+			if (type === "buy") return router.push("/cart")
 		}
 	})
 
@@ -34,9 +50,12 @@ export const AddToCart = ({ productId }: { productId: string }) => {
 		<Button
 			disabled={mutation.isPending}
 			onClick={() => mutation.mutate()}
-			className='bg-dark-gray  uppercase text-white py-4 flex-1 font-sans'
+			className={cn(
+				"bg-dark-gray  uppercase text-white py-4 flex-1 font-sans",
+				className
+			)}
 		>
-			ADD TO CART
+			{children}
 		</Button>
 	)
 }
