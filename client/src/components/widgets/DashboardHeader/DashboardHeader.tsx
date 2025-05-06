@@ -1,8 +1,10 @@
-import { Bell, ChevronDown, Search } from "lucide-react"
+import { Bell, ChevronDown, Menu, Search } from "lucide-react"
+import { DashboardSidebarButton } from "./DashboardSidebarButton"
 
 export const DashboardHeader = () => {
 	return (
-		<header className='py-7 px-8 bg-white border-b border-b-[#cfcfcf] flex items-center justify-end gap-10 fixed top-0 left-0 right-0'>
+		<header className='py-7 px-2 sm:px-8 bg-white border-b border-b-[#cfcfcf] flex items-center justify-end gap-2 sm:gap-10 fixed top-0 left-0 right-0 z-10'>
+			<DashboardSidebarButton />
 			<button className='hover:opacity-80 transition'>
 				<Search size={28} />
 			</button>
