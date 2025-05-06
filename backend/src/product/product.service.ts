@@ -44,6 +44,7 @@ export class ProductService {
       include: {
         sizes: true,
         colors: true,
+        category: true,
       },
     });
 
@@ -78,7 +79,6 @@ export class ProductService {
         category: true,
       },
     });
-
 
     if (!product) throw new NotFoundException('Product is not found');
 
