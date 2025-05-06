@@ -6,6 +6,8 @@ class UserService {
 		const { data: response } = await axiosInstance.get(URL_CONFIG.users.me)
 		return response
 	}
+
+
 }
 
 export default new UserService()

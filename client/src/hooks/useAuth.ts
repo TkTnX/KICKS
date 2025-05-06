@@ -8,7 +8,7 @@ import authService from "@/services/auth.service"
 import userService from "@/services/user.service"
 
 import { useUserStore } from "@/stores/userStore"
-import { EGender, IUser } from "@/types"
+import { EGender } from "@/types"
 import { IAuthForm } from "@/types/auth.interface"
 
 export function useAuth() {
@@ -19,6 +19,8 @@ export function useAuth() {
 		const res = await userService.getMe()
 		return res
 	}
+
+	
 
 	const { mutate, isPending, error } = useMutation({
 		mutationFn: async ({

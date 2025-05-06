@@ -11,6 +11,9 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/auth/interfaces/roles.interface';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
 @Controller('products')
 export class ProductController {
@@ -41,8 +44,8 @@ export class ProductController {
     return this.productService.countPages(limit);
   }
 
-  // TODO: В будущем сделать защиту по РОЛЯМ
   @Patch(':id')
+  @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
   }

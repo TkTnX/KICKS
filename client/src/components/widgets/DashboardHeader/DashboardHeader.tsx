@@ -1,4 +1,7 @@
 import { Bell, ChevronDown, Menu, Search } from "lucide-react"
+
+import { DashboardUserDropdown } from "@/components/ui/dropdowns/DashboardUserDropdown"
+
 import { DashboardSidebarButton } from "./DashboardSidebarButton"
 
 export const DashboardHeader = () => {
@@ -11,13 +14,14 @@ export const DashboardHeader = () => {
 			<button className='hover:opacity-80 transition'>
 				<Bell fill='#232321' />
 			</button>
-			{/* TODO: Сделать dropdown, в котором можно будет выйти из аккаунта  */}
-			<button className='flex items-center justify-between gap-1 border border-dark-gray rounded-lg py-2 px-4 hover:opacity-80 transition'>
-				<span className='text-sm font-sans uppercase font-medium'>
-					ADMIN
-				</span>
-				<ChevronDown size={16} />
-			</button>
+			<DashboardUserDropdown>
+				<button className='flex items-center justify-between gap-1 border border-dark-gray rounded-lg py-2 px-4 hover:opacity-80 transition'>
+					<span className='text-sm font-sans uppercase font-medium'>
+						ADMIN
+					</span>
+					<ChevronDown size={16} />
+				</button>
+			</DashboardUserDropdown>
 		</header>
 	)
 }

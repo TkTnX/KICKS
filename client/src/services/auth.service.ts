@@ -19,6 +19,11 @@ class AuthService {
 		)
 		return response
 	}
+
+	async logout() {
+		const { data } = await axiosInstance.post(URL_CONFIG.auth.logout)
+		return data
+	}
 }
 
 export default new AuthService()

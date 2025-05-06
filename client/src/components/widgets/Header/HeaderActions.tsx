@@ -9,7 +9,7 @@ import { useAuth } from "@/hooks/useAuth"
 
 export const HeaderActions = () => {
 	const { getMe, user, setUser } = useAuth()
-
+console.log(user)
 	useEffect(() => {
 		async function checkAuth() {
 			const user = await getMe()

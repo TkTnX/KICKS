@@ -1,7 +1,8 @@
 export const URL_CONFIG = {
 	auth: {
 		register: "/auth/register",
-		login: "/auth/login"
+		login: "/auth/login",
+		logout: "/auth/logout"
 	},
 	categories: {
 		all: "/categories"

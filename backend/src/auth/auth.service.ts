@@ -32,7 +32,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    return this.auth(res, user.id);
+    return this.auth(res, user.id, user.role);
   }
 
   // РЕГИСТРАЦИЯ
@@ -59,12 +59,12 @@ export class AuthService {
       },
     });
 
-    return this.auth(res, newUser.id);
+    return this.auth(res, newUser.id, newUser.role);
   }
 
   // ГЕНЕРАЦИЯ ТОКЕНОВ
-  private generateToken(userId: string) {
-    const payload: JwtPayload = { userId };
+  private generateToken(userId: string, role: string) {
+    const payload: JwtPayload = { userId, role };
 
     const accessToken = this.jwtService.sign(payload, {
       expiresIn: this.configService.getOrThrow<string>('JWT_ACCESS_TOKEN_TTL'),
@@ -95,15 +95,15 @@ export class AuthService {
   }
 
   // ПРОВЕРКА АВТОРИЗАЦИИ
-  private auth(res: Response, userId: string) {
-    const { accessToken, refreshToken } = this.generateToken(userId);
+  private auth(res: Response, userId: string, role: string) {
+    const { accessToken, refreshToken } = this.generateToken(userId, role);
 
     this.setCookie(
       res,
       refreshToken,
       new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     );
-    
+
     return { accessToken };
   }
 
@@ -122,12 +122,12 @@ export class AuthService {
     if (payload) {
       const user = await this.prismaService.user.findUnique({
         where: { id: payload.userId },
-        select: { id: true },
+        select: { id: true, role: true },
       });
 
       if (!user) throw new NotFoundException('User not found');
 
-      return this.auth(res, user.id);
+      return this.auth(res, user.id, user.role);
     }
   }
 
