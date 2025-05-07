@@ -44,6 +44,14 @@ class ProductsService {
 
 		return data
 	}
+
+	async deleteProduct(id: string): Promise<IProduct> {
+		const { data } = await axiosInstance.delete(
+			`${URL_CONFIG.products.all}/${id}`
+		)
+
+		return data
+	}
 }
 
 export default new ProductsService()

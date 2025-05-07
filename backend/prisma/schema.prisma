@@ -16,7 +16,7 @@ model Product {
   gender      EGender?
   images      String[]
 
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String
 
   colors        Color[]
@@ -100,7 +100,7 @@ model CartItem {
   sizeId    String
   color     Color   @relation(fields: [colorId], references: [id])
   colorId   String
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
   createdAt DateTime @default(now())
@@ -118,7 +118,7 @@ model Review {
   user   User   @relation(fields: [userId], references: [id])
   userId String
 
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
   createdAt DateTime @default(now())
@@ -128,7 +128,7 @@ model Review {
 model FavoriteItem {
   id String @id @default(uuid())
 
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
   user   User   @relation(fields: [userId], references: [id])

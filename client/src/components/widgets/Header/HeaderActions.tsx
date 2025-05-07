@@ -9,7 +9,6 @@ import { useAuth } from "@/hooks/useAuth"
 
 export const HeaderActions = () => {
 	const { getMe, user, setUser } = useAuth()
-console.log(user)
 	useEffect(() => {
 		async function checkAuth() {
 			const user = await getMe()
@@ -21,9 +20,18 @@ console.log(user)
 	return (
 		<div className='flex items-center gap-4  lg:gap-10'>
 			{/* TODO: Сделать открытие поиска */}
-			<button className='hover:opacity-80 transition'>
-				<Search className='size-5 sm:size-6' size={24} />
-			</button>
+			{user && user.role === "ADMIN" ? (
+				<Link
+					href={"/dashboard"}
+					className='text-xs border p-2 rounded hover:bg-dark-gray hover:text-white transition'
+				>
+					Go to Dashboard
+				</Link>
+			) : (
+				<button className='hover:opacity-80 transition'>
+					<Search className='size-5 sm:size-6' size={24} />
+				</button>
+			)}
 
 			{user ? (
 				<Link href='/profile' className='hover:opacity-80 transition'>

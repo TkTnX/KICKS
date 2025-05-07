@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -46,12 +47,16 @@ export class ProductController {
 
   @Patch(':id')
   @Roles(Role.ADMIN)
+  @UseGuards(RolesGuard)
   update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
     return this.productService.update(id, updateProductDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Roles(Role.ADMIN)
+  @UseGuards(RolesGuard)
+  delete(@Param('id') id: string) {
+    console.log(id);
     return this.productService.delete(id);
   }
 }

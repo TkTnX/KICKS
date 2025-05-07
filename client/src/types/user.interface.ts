@@ -3,8 +3,8 @@ import { IFavoriteItem } from "./favoriteItem.inerface"
 import { IOrder } from "./order.interface"
 
 export enum ERole {
-	USER = "user",
-	ADMIN = "admin"
+	USER = "USER",
+	ADMIN = "ADMIN"
 }
 
 export interface IUser {
@@ -17,4 +17,5 @@ export interface IUser {
 	orders: IOrder[]
 	cart: ICart
 	cartId: string
+	createdAt: Date
 }

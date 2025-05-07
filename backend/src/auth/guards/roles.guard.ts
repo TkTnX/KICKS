@@ -2,9 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Role } from '../interfaces/roles.interface';
 import { ROLES_KEY } from '../decorators/roles.decorator';
-
-// TODO: Доделать проверку по ролям, чтобы некоторые действия мог делать только админ
-
+import * as jwt from 'jsonwebtoken';
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
@@ -19,8 +17,11 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const { user } = context.switchToHttp().getRequest();
-    console.log({ user, requiredRoles });
-    return requiredRoles.some((role) => user.role === role);
+    const decoded = jwt.verify(
+      context.switchToHttp().getRequest().cookies.refreshToken,
+      process.env.JWT_SECRET!,
+    ) as { role: string };
+
+    return requiredRoles.some((role) => decoded.role === role);
   }
 }

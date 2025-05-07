@@ -1,37 +1,25 @@
-import { ChevronDown } from "lucide-react"
+import { useQuery } from "@tanstack/react-query"
+import { ChevronDown, Loader2 } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 import { useState } from "react"
+
+import { ErrorMessage } from "@/components/entities/ErrorMessage"
+
+import categoriesService from "@/services/categories.service"
 
 import { cn } from "@/lib/utils"
 
-// TEMP
-const categories = [
-	{
-		name: "Runners",
-		slug: "runners",
-		products: 21
-	},
-	{
-		name: "Golf",
-		slug: "gold",
-		products: 21
-	},
-	{
-		name: "Hiking",
-		slug: "hiking",
-		products: 21
-	},
-	{
-		name: "Football",
-		slug: "football",
-		products: 21
-	}
-]
 
 export const DashboardSidebarCategories = () => {
 	const [open, setOpen] = useState<boolean>(false)
-	const pathname = usePathname()
+
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["categories"],
+		queryFn: () => categoriesService.getCategories()
+	})
+
+	if (isLoading) return <Loader2 className='animate-spin' />
+	if (error) return <ErrorMessage type='categories' error={error.message} />
 	return (
 		<div className='mt-12 w-full'>
 			<button
@@ -44,17 +32,20 @@ export const DashboardSidebarCategories = () => {
 				/>
 			</button>
 
-			{/* TODO: Вывод всех категорий магазина */}
-			<div className={cn("hidden flex-col w-full gap-4 mt-4", { flex: open })}>
-				{categories.map(category => (
+			<div
+				className={cn("hidden flex-col w-full gap-4 mt-4", {
+					flex: open
+				})}
+			>
+				{data?.map(category => (
 					<Link
 						className='flex items-center justify-between'
 						key={category.slug}
-						href={`${pathname}/${category.slug}`}
+						href={`/dashboard/${category.slug}`}
 					>
 						<span>{category.name}</span>
 						<div className='w-[41px] h-[35px] bg-gray rounded flex items-center justify-center'>
-							{category.products}
+							{category?.products?.length}
 						</div>
 					</Link>
 				))}

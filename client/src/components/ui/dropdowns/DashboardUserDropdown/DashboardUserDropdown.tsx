@@ -1,5 +1,3 @@
-"use client"
-
 import { useMutation } from "@tanstack/react-query"
 import { LogOut } from "lucide-react"
 import { useRouter } from "next/navigation"
@@ -13,12 +11,14 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger
 } from "../../dropdown-menu"
+import { IUser } from "@/types"
 
 type Props = {
 	children: React.ReactNode
+	user: IUser | null
 }
 
-export const DashboardUserDropdown = ({ children }: Props) => {
+export const DashboardUserDropdown = ({ children, user }: Props) => {
 	const router = useRouter()
 	const mutation = useMutation({
 		mutationFn: () => authService.logout(),
@@ -33,7 +33,7 @@ export const DashboardUserDropdown = ({ children }: Props) => {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
 			<DropdownMenuContent className='p-4 w-[230px]'>
-				<p className='text-xl font-sans font-semibold'>USERNAME</p>
+				<p className='text-xl font-sans font-semibold'>{user?.name}</p>
 				<DropdownMenuItem className='mt-4 p-0 w-full'>
 					<button
 						onClick={() => mutation.mutate()}
