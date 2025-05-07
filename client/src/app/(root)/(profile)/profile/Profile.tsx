@@ -8,7 +8,6 @@ import { useUserStore } from "@/stores/userStore"
 
 export const Profile = () => {
 	const { user } = useUserStore()
-	console.log(user)
 	return (
 		<>
 			<section>

@@ -27,5 +27,8 @@ export const URL_CONFIG = {
 	},
 	favoriteItem: {
 		index: "/favoriteItems"
+	},
+	orders: {
+		index: "/orders"
 	}
 }

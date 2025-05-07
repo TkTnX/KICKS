@@ -9,6 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { CartModule } from './cart/cart.module';
 import { CartItemModule } from './cart-item/cart-item.module';
 import { FavoriteItemModule } from './favorite-item/favorite-item.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FavoriteItemModule } from './favorite-item/favorite-item.module';
     CartModule,
     CartItemModule,
     FavoriteItemModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],

@@ -1,16 +1,28 @@
-"use client"
+"use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Heart } from "lucide-react"
-import { toast } from "react-toastify"
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Heart } from "lucide-react";
+import { toast } from "react-toastify";
 
-import { Button } from "@/components/ui/button"
 
-import { useAuth } from "@/hooks/useAuth"
 
-import favoriteItemService from "@/services/favoriteItem.service"
+import { Button } from "@/components/ui/button";
 
-import { cn } from "@/lib/utils"
+
+
+import { useAuth } from "@/hooks/useAuth";
+
+
+
+import favoriteItemService from "@/services/favoriteItem.service";
+
+
+
+import { cn } from "@/lib/utils";
+
+
+
+
 
 type Props = {
 	productId: string
@@ -25,7 +37,7 @@ export const AddToFavorites = ({ productId, iconSize, className }: Props) => {
 		mutationFn: () => favoriteItemService.addToFavorites(productId),
 		onError: err => toast.error(err.message),
 		onSuccess: async () => {
-			queryClient.invalidateQueries({ queryKey: ["cart"] })
+			queryClient.invalidateQueries({ queryKey: ["cart", "favorites"] })
 			const updatedUser = await getMe()
 			setUser(updatedUser)
 			toast.success("Added to favorites!")

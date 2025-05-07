@@ -28,7 +28,7 @@ export const CatalogPagination = () => {
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	if (pages <= 1) return null
-	const windowWidth = useWindowWidth()
+	// const windowWidth = useWindowWidth()
 	const handleChangePage = (page: number) => {
 		if (page < 1 || page > pages) return
 		const params = new URLSearchParams(searchParams)
@@ -41,7 +41,7 @@ export const CatalogPagination = () => {
 			<ResponsivePagination
 				current={page}
 				total={pages}
-				maxWidth={windowWidth}
+				// maxWidth={windowWidth}
 				narrowBehaviour={dropEllipsis}
 				className='gap-4 flex items-center w-full justify-center flex-wrap'
 				activeItemClassName='bg-dark-gray text-white rounded-md'

@@ -14,10 +14,10 @@ export const ProfileSidebar = () => {
 	return (
 		<div
 			className={
-				" lg:w-[260px] px-2 py-2 rounded-xl   bg-[#fafafa] h-full flex flex-col items-center "
+				" lg:w-[260px] px-2 py-2 rounded-xl   bg-[#fafafa] h-full flex flex-col items-center w-full sm:w-auto"
 			}
 		>
-			<div className=' flex flex-row sm:flex-col gap-4 w-full'>
+			<div className=' flex flex-row sm:flex-col gap-4 w-full justify-center sm:justify-start'>
 				{PROFILE_SIDEBAR.map(link => (
 					<Link
 						key={link.href}

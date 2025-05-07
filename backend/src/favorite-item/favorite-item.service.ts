@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { FavoriteItem } from 'generated/prisma';
 import { PrismaService } from 'src/prisma.service';
 import { ProductService } from 'src/product/product.service';
 
@@ -32,5 +33,16 @@ export class FavoriteItemService {
         userId,
       },
     });
+  }
+
+  async getAll(userId: string): Promise<FavoriteItem[]> {
+    const favorites = await this.prismaService.favoriteItem.findMany({
+      where: { userId },
+      include: {
+        product: true,
+      },
+    });
+
+    return favorites;
   }
 }

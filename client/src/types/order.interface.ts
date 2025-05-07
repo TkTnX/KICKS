@@ -1,22 +1,25 @@
-import { ICart } from "./cart.interface";
+import { ICart } from "./cart.interface"
+import { IProduct } from "./product.interface"
+import { IUser } from "./user.interface"
 
 enum EDeliveryOptions {
-    STANDARD = "Standard delivery",
-    COLLECT = "Collect in store",
+	STANDARD = "Standard delivery",
+	COLLECT = "Collect in store"
 }
 
 enum EOrderStatus {
-    PENDING = "Pending",
-    CONFIRMED = "Confirmed",
-    SHIPPED = "Shipped",
+	PENDING = "Pending",
+	CONFIRMED = "Confirmed",
+	SHIPPED = "Shipped"
 }
 
-export interface IOrder extends ICart {
-    id: string,
-    deliveryOptions: EDeliveryOptions,
-    deliveryPrice: number,
-    totalPrice: number,
-    createdAt: string,
-    updatedAt: string,
-    status: EOrderStatus,
+export interface IOrder {
+	id: string
+	deliveryOptions: EDeliveryOptions
+	deliveryPrice: number
+	totalPrice: number
+	createdAt: string
+	updatedAt: string
+	products: IProduct[]
+	user: IUser
 }

@@ -1,5 +1,10 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+
+import { AddToFavorites } from "../features/ProductControls/AddToFavorites"
 
 import { IProduct } from "@/types"
 
@@ -8,6 +13,7 @@ type Props = {
 }
 
 export const ProductItem = ({ product }: Props) => {
+	const pathname = usePathname()
 	const isNew =
 		product.createdAt > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
 	return (
@@ -29,13 +35,21 @@ export const ProductItem = ({ product }: Props) => {
 				<h4 className='font-semibold text-base sm:text-xl lg:text-2xl text-dark-gray'>
 					{product.title}
 				</h4>
-				<Link
-					className='mt-4 bg-dark-gray rounded-sm py-2 px-2 sm:px-4 block w-full text-center text-white hover:opacity-90 font-medium transition text-xs sm:text-sm'
-					href={`/product/${product.id}`}
-				>
-					VIEW PRODUCT -{" "}
-					<span className='text-yellow'>${product.price}</span>
-				</Link>
+				<div className='flex items-center  gap-2 mt-4'>
+					<Link
+						className=' bg-dark-gray rounded-sm py-2 px-2 sm:px-4 block w-full text-center text-white hover:opacity-90 font-medium transition text-xs sm:text-sm'
+						href={`/product/${product.id}`}
+					>
+						VIEW PRODUCT -{" "}
+						<span className='text-yellow'>${product.price}</span>
+					</Link>
+					{pathname.includes("favorites") && (
+						<AddToFavorites
+							className='h-[36px]'
+							productId={product.id}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	)

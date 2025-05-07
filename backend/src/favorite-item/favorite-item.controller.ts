@@ -1,4 +1,4 @@
-import { Controller, Param, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { FavoriteItemService } from './favorite-item.service';
 import { Authorization } from 'src/auth/decorators/authorization.decorator';
 import { Authorized } from 'src/auth/decorators/authorized.decorator';
@@ -14,5 +14,11 @@ export class FavoriteItemController {
     @Authorized('id') userId: string,
   ) {
     return this.favoriteItemService.addToFavorites(productId, userId)
+  }
+
+  @Authorization()
+  @Get()
+  async getAll(@Authorized('id') userId: string) {
+    return this.favoriteItemService.getAll(userId)
   }
 }

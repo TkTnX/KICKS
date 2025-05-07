@@ -22,6 +22,8 @@ export class UserService {
       where: { id: decoded.userId },
       include: {
         favoriteItems: true,
+        orders: true,
+        reviews: true,
       },
     });
 
