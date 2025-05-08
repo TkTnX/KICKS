@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils"
 
 export const ProfileSidebar = () => {
 	const pathname = usePathname()
-	// TODO: Доделать адаптив  на размере 480px
 	return (
 		<div
 			className={

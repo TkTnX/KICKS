@@ -10,6 +10,15 @@ export class ReviewService {
     private productService: ProductService,
   ) {}
 
+  async getAll(userId: string) {
+    const reviews = await this.prisma.review.findMany({
+      where: { userId },
+      include: { user: true },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    return reviews;
+  }
   async getLastThree() {
     const reviews = await this.prisma.review.findMany({
       orderBy: { createdAt: 'desc' },

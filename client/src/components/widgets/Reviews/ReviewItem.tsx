@@ -1,23 +1,43 @@
 import { Star } from "lucide-react"
 import Image from "next/image"
 
+import { cn } from "@/lib/utils"
 import { IReview } from "@/types"
 
 type Props = {
 	review: IReview
+	isProfile?: boolean
 }
 
-
-export const ReviewItem = ({ review }: Props) => {
+export const ReviewItem = ({ review, isProfile = false }: Props) => {
 	return (
-		<div className='rounded-4xl bg-white first:hidden sm:first:block last:hidden lg:last:block overflow-hidden w-full'>
-			<div className='p-4 sm:p-8 '>
-				<div className='flex items-center justify-between'>
+		<div
+			className={cn("rounded-4xl bg-white  overflow-hidden w-full", {
+				"first:hidden sm:first:block last:hidden lg:last:block":
+					!isProfile
+			})}
+		>
+			<div className={cn("p-4 sm:p-8 ", { "p-2 sm:p-2": isProfile })}>
+				<div
+					className={cn("flex items-center justify-between", {
+						"flex-col-reverse items-start": isProfile
+					})}
+				>
 					<div>
-						<h6 className='font-semibold text-dark-gray text-xl sm:text-2xl'>
+						<h6
+							className={cn(
+								"font-semibold text-dark-gray text-xl sm:text-2xl",
+								{ "text-base sm:text-base": isProfile }
+							)}
+						>
 							{review.title}
 						</h6>
-						<p className='mt-2 font-normal text-dark-gray text-base opacity-80'>
+						<p
+							className={cn(
+								"mt-2 font-normal text-dark-gray text-base opacity-80",
+								{ "text-sm": isProfile }
+							)}
+						>
 							{review.text}
 						</p>
 					</div>
@@ -44,7 +64,11 @@ export const ReviewItem = ({ review }: Props) => {
 				</div>
 			</div>
 			{review.image && (
-				<div className='relative w-full h-[200px] sm:h-[325px]'>
+				<div
+					className={cn("relative w-full h-[200px] sm:h-[325px]", {
+						"h-[150px] sm:h-[150px]": isProfile
+					})}
+				>
 					<Image
 						src={
 							review.image &&

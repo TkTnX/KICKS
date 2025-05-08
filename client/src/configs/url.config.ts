@@ -14,6 +14,7 @@ export const URL_CONFIG = {
 		byId: "/products/by-id"
 	},
 	reviews: {
+		index: "/reviews",
 		lastThree: "/reviews/last-three"
 	},
 	users: {
@@ -29,6 +30,10 @@ export const URL_CONFIG = {
 		index: "/favoriteItems"
 	},
 	orders: {
-		index: "/orders"
+		index: "/orders",
+		all: "/orders/all"
+	},
+	size: {
+		index: "/sizes"
 	}
 }

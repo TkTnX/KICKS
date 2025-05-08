@@ -4,6 +4,10 @@ import { IOrder } from "@/types"
 
 class OrdersService {
 	async getAll(): Promise<IOrder[]> {
+		const { data } = await axiosInstance.get(URL_CONFIG.orders.all)
+		return data
+	}
+	async getAllByUserId(): Promise<IOrder[]> {
 		const { data } = await axiosInstance.get(URL_CONFIG.orders.index)
 		return data
 	}

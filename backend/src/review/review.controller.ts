@@ -4,16 +4,23 @@ import CreateReviewDto from './dto/create-review.dto';
 import { Review } from 'generated/prisma';
 import { Authorization } from 'src/auth/decorators/authorization.decorator';
 
+import { Authorized } from 'src/auth/decorators/authorized.decorator';
+
 @Controller('reviews')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
+
+  @Get()
+  @Authorization()
+  async getAll(@Authorized('id') userId: string) {
+    return this.reviewService.getAll(userId);
+  }
 
   @Get('last-three')
   async getLastThree(): Promise<Review[]> {
     return await this.reviewService.getLastThree();
   }
 
-  
   @Authorization()
   @Post(':productId')
   async create(

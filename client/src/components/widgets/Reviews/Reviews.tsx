@@ -20,7 +20,7 @@ export const Reviews = () => {
 	return (
 		<section className='container mt-6 sm:mt-20'>
 			<Block title='Reviews' link='/reviews' linkTitle='SEE ALL'>
-				<div className='grid sm:grid-cols-2  lg:grid-cols-3 gap-4 mt-8'>
+				<div className='grid sm:grid-cols-2  lg:grid-cols-3 gap-4 mt-8 items-start'>
 					{isLoading
 						? [...new Array(3)].map((_, index) => (
 								<Skeleton

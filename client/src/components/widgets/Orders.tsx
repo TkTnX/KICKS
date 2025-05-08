@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query"
 import { Loader2 } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 import { ErrorMessage } from "@/components/entities/ErrorMessage"
 import { OrdersList } from "@/components/widgets/OrdersList"
@@ -9,9 +10,17 @@ import { OrdersList } from "@/components/widgets/OrdersList"
 import orderService from "@/services/order.service"
 
 export const Orders = () => {
+	const pathname = usePathname()
+
 	const { data, isLoading, error } = useQuery({
-		queryKey: ["orders"],
-		queryFn: () => orderService.getAll()
+		queryKey: ["orders", pathname],
+		queryFn: async () => {
+			if (pathname.includes("dashboard")) {
+				return orderService.getAll()
+			} else {
+				return orderService.getAllByUserId()
+			}
+		}
 	})
 
 	if (isLoading)

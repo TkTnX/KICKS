@@ -3,6 +3,7 @@ import { OrderItem } from "../entities/OrderItem"
 import { IOrder } from "@/types"
 
 export const OrdersList = ({ orders }: { orders: IOrder[] }) => {
+	// TODO: Добавить breadcrumbs и верхнюю часть страницы
 	return (
 		<div className='w-full flex flex-col gap-4 mt-4'>
 			<div className='flex items-center justify-between font-sans text-[#6f6f6e] opacity-80 '>

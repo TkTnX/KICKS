@@ -10,6 +10,7 @@ import { CartModule } from './cart/cart.module';
 import { CartItemModule } from './cart-item/cart-item.module';
 import { FavoriteItemModule } from './favorite-item/favorite-item.module';
 import { OrderModule } from './order/order.module';
+import { SizeModule } from './size/size.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { OrderModule } from './order/order.module';
     CartItemModule,
     FavoriteItemModule,
     OrderModule,
+    SizeModule,
   ],
   controllers: [],
   providers: [],
