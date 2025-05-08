@@ -7,7 +7,7 @@ type Props = {
 
 export const Breadcrumbs = ({ items }: Props) => {
 	return (
-		<div className='flex items-center '>
+		<div className='flex items-center flex-wrap'>
 			{items.map((item, index) => (
 				<div className='flex items-center ' key={index}>
 					{item.link ? (

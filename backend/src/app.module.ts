@@ -11,6 +11,7 @@ import { CartItemModule } from './cart-item/cart-item.module';
 import { FavoriteItemModule } from './favorite-item/favorite-item.module';
 import { OrderModule } from './order/order.module';
 import { SizeModule } from './size/size.module';
+import { ColorModule } from './color/color.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { SizeModule } from './size/size.module';
     FavoriteItemModule,
     OrderModule,
     SizeModule,
+    ColorModule,
   ],
   controllers: [],
   providers: [],

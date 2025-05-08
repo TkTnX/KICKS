@@ -1,18 +1,18 @@
 import { Metadata } from "next"
 
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
+import { ProductForm } from "@/components/widgets/ProductForm"
 
 import productsService from "@/services/products.service"
-import { ProductForm } from "@/components/widgets/ProductForm"
 
 const breadcrumbs = [
 	{
 		name: "Home",
-		href: "/"
+		link: "/"
 	},
 	{
 		name: "All products",
-		href: "/dashboard/products"
+		link: "/dashboard/products"
 	},
 	{
 		name: "Product Details"
@@ -34,9 +34,11 @@ const EditProductPage = async ({
 
 	return (
 		<section>
-			<h2 className="text-2xl font-sans font-semibold">Product Details</h2>
+			<h2 className='text-2xl font-sans font-semibold'>
+				Product Details
+			</h2>
 			<Breadcrumbs items={breadcrumbs} />
-			<ProductForm />
+			<ProductForm product={product} />
 		</section>
 	)
 }
