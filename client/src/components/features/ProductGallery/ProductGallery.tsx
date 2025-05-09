@@ -1,4 +1,4 @@
-import { Check, ImageIcon } from "lucide-react"
+import { Check, ImageIcon, X } from "lucide-react"
 import Image from "next/image"
 import { ChangeEvent, useState } from "react"
 import { UseFormReturn } from "react-hook-form"
@@ -7,22 +7,28 @@ import { FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { IProductInput } from "@/components/widgets/ProductForm/productInput.interface"
 
+import { useProductForm } from "@/hooks/useProductForm"
+
 import { ProductEditButtons } from "../ProductEditButtons"
+
+import { IProduct } from "@/types"
 
 type Props = {
 	form: UseFormReturn<IProductInput>
-	productId: string
+	product: IProduct
 }
 
-export const ProductGallery = ({ form, productId }: Props) => {
+export const ProductGallery = ({ form, product }: Props) => {
 	const [images, setImages] = useState<{ result: string; name: string }[]>([])
-	const [lastAdded, setLastAdded] = useState<string | null>(null)
+	const { store } = useProductForm()
+	const [lastAdded, setLastAdded] = useState<string | null>(product.images[0])
 
 	const onSetImage = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (!file) return
 
 		const reader = new FileReader()
+		store.setImages(file)
 		reader.onloadend = () => {
 			setLastAdded(reader.result as string)
 			setImages(prev => [
@@ -40,7 +46,11 @@ export const ProductGallery = ({ form, productId }: Props) => {
 					<Image
 						alt='image'
 						fill
-						src={lastAdded}
+						src={
+							!images.length
+								? `${process.env.NEXT_PUBLIC_BACKEND_URL}${lastAdded}`
+								: lastAdded
+						}
 						className='object-cover rounded-lg'
 					/>
 				</div>
@@ -76,26 +86,33 @@ export const ProductGallery = ({ form, productId }: Props) => {
 				/>
 			</div>
 			<div className='mt-6 flex flex-col gap-3'>
-				{images.map((image, index) => (
+				{product.images.map((image, index) => (
 					<div
 						className='rounded-lg p-4 bg-[#fafafa] flex items-center gap-4 justify-between'
 						key={index}
 					>
 						<Image
-							src={image.result}
+							src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${image}`}
 							alt='image'
 							width={64}
 							height={64}
 							className='rounded-lg object-cover w-[64px] h-[64px]'
 						/>
-						<p>{image.name}</p>
-						<div className='bg-blue w-[32px] h-[32px] rounded-full flex items-center justify-center'>
-							<Check color='#fff' />
-						</div>
+						<p>{image}</p>
+						<button className='bg-blue w-[32px] h-[32px] rounded-full flex items-center justify-center hover:bg-red-500 group transition relative'>
+							<Check
+								color='#fff'
+								className='group-hover:opacity-0 transition'
+							/>
+							<X
+								color='#fff'
+								className='opacity-0 group-hover:opacity-100 absolute transition'
+							/>
+						</button>
 					</div>
 				))}
 			</div>
-			<ProductEditButtons productId={productId} />
+			<ProductEditButtons productId={product.id} />
 		</div>
 	)
 }

@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
 
-import { Checkbox } from "@/components/ui/checkbox"
+import { useProductForm } from "@/hooks/useProductForm"
 
 import sizeService from "@/services/size.service"
 
@@ -12,19 +11,19 @@ interface Props {
 	className?: string
 }
 export const ChooseProductSizes = ({ label, className }: Props) => {
-	const [choosedSizes, setChoosedSizes] = useState<string[]>([])
+	const { store } = useProductForm()
 	const { data } = useQuery({
 		queryKey: ["sizes"],
 		queryFn: () => sizeService.getAll()
 	})
 
 	const onChoose = (size: string) => {
-		if (choosedSizes.includes(size)) {
-			setChoosedSizes(
-				choosedSizes.filter(choosedSize => choosedSize !== size)
+		if (store.sizeIds!.includes(size)) {
+			store.setSizeIds(
+				store.sizeIds!.filter(choosedSize => choosedSize !== size)
 			)
 		} else {
-			setChoosedSizes([...choosedSizes, size])
+			store.setSizeIds([...store.sizeIds!, size])
 		}
 	}
 
@@ -35,12 +34,12 @@ export const ChooseProductSizes = ({ label, className }: Props) => {
 				{data?.map(size => (
 					<button
 						type='button'
-						onClick={() => onChoose(size.size)}
+						onClick={() => onChoose(size.id)}
 						className={cn(
 							"w-10 h-10 border hover:opacity-50 transition flex items-center justify-center text-dark-gray rounded-md disabled:bg-[#d2d1d3] disabled:text-[#8f8c91] disabled:hover:opacity-100 disabled:cursor-not-allowed",
 							{
 								"bg-dark-gray text-white":
-									choosedSizes.includes(size.size)
+									store.sizeIds.includes(size.id)
 							}
 						)}
 						key={size.id}

@@ -1,3 +1,5 @@
+import { IProductInput } from "@/components/widgets/ProductForm/productInput.interface"
+
 import { URL_CONFIG } from "@/configs/url.config"
 import { axiosInstance } from "@/lib/axiosInstance"
 import { IProduct } from "@/types"
@@ -50,6 +52,14 @@ class ProductsService {
 			`${URL_CONFIG.products.all}/${id}`
 		)
 
+		return data
+	}
+
+	async edit(body: IProductInput, id: string): Promise<IProduct> {
+		const { data } = await axiosInstance.patch(
+			`${URL_CONFIG.products.all}/${id}`,
+			body
+		)
 		return data
 	}
 }

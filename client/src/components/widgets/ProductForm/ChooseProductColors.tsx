@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
+import { useProductForm } from "@/hooks/useProductForm"
+
 import colorService from "@/services/color.service"
 
 import { cn } from "@/lib/utils"
@@ -9,20 +11,24 @@ interface Props {
 	label: string
 	className?: string
 }
-export const ChooseProductColors = ({ label, className }: Props) => {
-	const [choosedColors, setChoosedColors] = useState<string[]>([])
+export const ChooseProductColors = ({
+	label,
+	className,
+}: Props) => {
+	const { store } = useProductForm()
+
 	const { data } = useQuery({
 		queryKey: ["colors"],
 		queryFn: () => colorService.getAll()
 	})
 
-	const onChoose = (size: string) => {
-		if (choosedColors.includes(size)) {
-			setChoosedColors(
-				choosedColors.filter(choosedSize => choosedSize !== size)
+	const onChoose = (color: string) => {
+		if (store.colorIds.includes(color)) {
+			store.setColorIds(
+				store.colorIds.filter(choosedColor => choosedColor !== color)
 			)
 		} else {
-			setChoosedColors([...choosedColors, size])
+			store.setColorIds([...store.colorIds, color])
 		}
 	}
 
@@ -38,7 +44,7 @@ export const ChooseProductColors = ({ label, className }: Props) => {
 							`w-10 h-10 bg-[${color.value}] hover:opacity-50 transition   rounded-md`,
 							{
 								"border-2 border-dark-gray":
-									choosedColors.includes(color.id)
+									store.colorIds.includes(color.id)
 							}
 						)}
 						style={{ backgroundColor: color.value }}

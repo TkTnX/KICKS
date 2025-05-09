@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
@@ -31,12 +30,12 @@ export const ProductEditButtons = ({ productId }: { productId: string }) => {
 			>
 				DELETE
 			</Button>
-			<Link
-				href={"/dashboard"}
-				className='block text-center border rounded-lg font-sans uppercase text-sm flex-1 h-auto py-4 hover:bg-dark-gray hover:text-white transition'
+			<Button
+				onClick={() => router.back()}
+				className='block bg-transparent text-dark-gray text-center border rounded-lg font-sans uppercase text-sm flex-1 h-auto py-4 hover:bg-dark-gray hover:text-white transition'
 			>
 				CANCEL
-			</Link>
+			</Button>
 		</div>
 	)
 }

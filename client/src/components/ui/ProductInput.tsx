@@ -34,6 +34,7 @@ export const ProductInput = ({
 								className='border border-dark-gray rounded-lg py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed'
 								type={props.type}
 								placeholder={props.placeholder}
+								{...props}
 							/>
 						</FormControl>
 						<FormMessage />
