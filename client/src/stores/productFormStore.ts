@@ -1,15 +1,19 @@
-import { create } from "zustand"
+import { create } from "zustand";
+
+
+
+
 
 interface ProductFormStore {
 	categoryId: string
 	sizeIds: string[]
 	colorIds: string[]
-	images: File[]
+	images: string[]
 
 	setCategoryId: (id: string) => void
 	setSizeIds: (ids: string[]) => void
 	setColorIds: (ids: string[]) => void
-	setImages: (image: File) => void
+	setImages: (images: string[]) => void
 }
 
 export const useProductFormStore = create<ProductFormStore>((set, get) => ({
@@ -27,7 +31,7 @@ export const useProductFormStore = create<ProductFormStore>((set, get) => ({
 	setColorIds: ids => {
 		set(() => ({ colorIds: ids }))
 	},
-	setImages: image => {
-		set(() => ({ images: [...get().images, image] }))
+	setImages: images => {
+		set(() => ({ images }))
 	}
 }))

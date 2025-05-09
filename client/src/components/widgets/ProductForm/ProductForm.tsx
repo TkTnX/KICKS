@@ -32,7 +32,6 @@ export const ProductForm = ({ product }: { product: IProduct }) => {
 				price: Number(data.price)
 			}
 			const res = await productsService.edit(body, product.id)
-			console.log(res)
 			toast.success("Successful update!")
 			return router.push("/dashboard/products")
 		} catch (error) {

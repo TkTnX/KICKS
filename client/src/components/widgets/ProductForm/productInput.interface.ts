@@ -5,5 +5,5 @@ export interface IProductInput {
     sizes: string[],
     colors: string[],
     price: number,
-    images: File[]
+    images: string[]
 }

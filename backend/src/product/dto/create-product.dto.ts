@@ -17,7 +17,7 @@ export class CreateProductDto {
   gender?: EGender;
 
   @ArrayMinSize(1, { message: 'At least one image is required' })
-  images: File[];
+  images: string[];
 
   @IsNotEmpty({ message: 'Category is required' })
   categoryId: string;

@@ -12,7 +12,9 @@ import { FavoriteItemModule } from './favorite-item/favorite-item.module';
 import { OrderModule } from './order/order.module';
 import { SizeModule } from './size/size.module';
 import { ColorModule } from './color/color.module';
-
+import { ImageModule } from './image/image.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,6 +27,10 @@ import { ColorModule } from './color/color.module';
       }),
       inject: [ConfigService],
     }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
     ProductModule,
     UserModule,
     AuthModule,
@@ -36,6 +42,7 @@ import { ColorModule } from './color/color.module';
     OrderModule,
     SizeModule,
     ColorModule,
+    ImageModule,
   ],
   controllers: [],
   providers: [],

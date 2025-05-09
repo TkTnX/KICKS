@@ -8,7 +8,6 @@ import { IColor } from "@/types"
 
 export const ProductColorOption = ({ colors }: { colors: IColor[] }) => {
 	const { setValue, color: colorState } = useCartStore()
-	console.log(colors)
 	useEffect(() => setValue("color", colors[0].id), [])
 
 	return (

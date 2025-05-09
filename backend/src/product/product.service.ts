@@ -10,12 +10,10 @@ import { getWhere } from './helpers/getWhere';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
   async create(createProductDto: CreateProductDto) {
-    // TODO: Сделать добавление изображений
-    const images = ['null'];
     return await this.prisma.product.create({
       data: {
         ...createProductDto,
-        images,
+        images: createProductDto.images,
         colors: {
           connect: createProductDto.colors.map((color) => ({
             id: color,
@@ -97,13 +95,14 @@ export class ProductService {
   async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.findById(id);
 
-    const addedImages = null;
     const newProduct = await this.prisma.product.update({
       where: { id },
       data: {
         ...updateProductDto,
         categoryId: updateProductDto.categoryId || product.categoryId,
-        images: addedImages || product.images,
+        images: updateProductDto.images 
+          ? [...product.images, ...updateProductDto.images]
+          : product.images,
         colors: {
           connect:
             updateProductDto.colors?.map((id) => ({ id })) ||

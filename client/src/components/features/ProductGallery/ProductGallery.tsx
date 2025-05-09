@@ -9,8 +9,11 @@ import { IProductInput } from "@/components/widgets/ProductForm/productInput.int
 
 import { useProductForm } from "@/hooks/useProductForm"
 
+import imageService from "@/services/image.service"
+
 import { ProductEditButtons } from "../ProductEditButtons"
 
+import { UploadedImage } from "./UploadedImage"
 import { IProduct } from "@/types"
 
 type Props = {
@@ -19,44 +22,40 @@ type Props = {
 }
 
 export const ProductGallery = ({ form, product }: Props) => {
-	const [images, setImages] = useState<{ result: string; name: string }[]>([])
+	const [images, setImages] = useState<string[]>([])
+	// TODO: Выводить все изображения в gallery
+	// TODO: Возможность удалять изображения
+	// TODO: Сделать лимит по изображениям - 4 штуки
 	const { store } = useProductForm()
-	const [lastAdded, setLastAdded] = useState<string | null>(product.images[0])
 
-	const onSetImage = (e: ChangeEvent<HTMLInputElement>) => {
+	const onSetImage = async (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (!file) return
+		const image = await imageService.upload(file, "products")
 
-		const reader = new FileReader()
-		store.setImages(file)
-		reader.onloadend = () => {
-			setLastAdded(reader.result as string)
-			setImages(prev => [
-				...prev,
-				{ name: file.name, result: reader.result as string }
-			])
-		}
-		reader.readAsDataURL(file)
+		setImages([...images, image.path])
+
+		store.setImages([...store.images, image.path])
 	}
+
+	console.log(product)
 
 	return (
 		<div className='flex-1 w-full'>
-			{lastAdded ? (
+			{
 				<div className='w-full h-[400px] relative'>
 					<Image
 						alt='image'
 						fill
 						src={
-							!images.length
-								? `${process.env.NEXT_PUBLIC_BACKEND_URL}${lastAdded}`
-								: lastAdded
+							images.length
+								? `${process.env.NEXT_PUBLIC_BACKEND_URL}${images[0]}`
+								: `${process.env.NEXT_PUBLIC_BACKEND_URL}${product.images[0]}`
 						}
 						className='object-cover rounded-lg'
 					/>
 				</div>
-			) : (
-				""
-			)}
+			}
 			<div className='mt-6'>
 				<h4 className='text-xl font-semibold font-sans'>
 					Product Gallery
@@ -87,29 +86,7 @@ export const ProductGallery = ({ form, product }: Props) => {
 			</div>
 			<div className='mt-6 flex flex-col gap-3'>
 				{product.images.map((image, index) => (
-					<div
-						className='rounded-lg p-4 bg-[#fafafa] flex items-center gap-4 justify-between'
-						key={index}
-					>
-						<Image
-							src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${image}`}
-							alt='image'
-							width={64}
-							height={64}
-							className='rounded-lg object-cover w-[64px] h-[64px]'
-						/>
-						<p>{image}</p>
-						<button className='bg-blue w-[32px] h-[32px] rounded-full flex items-center justify-center hover:bg-red-500 group transition relative'>
-							<Check
-								color='#fff'
-								className='group-hover:opacity-0 transition'
-							/>
-							<X
-								color='#fff'
-								className='opacity-0 group-hover:opacity-100 absolute transition'
-							/>
-						</button>
-					</div>
+					<UploadedImage image={image} key={index} />
 				))}
 			</div>
 			<ProductEditButtons productId={product.id} />

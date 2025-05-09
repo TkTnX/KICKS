@@ -56,7 +56,6 @@ export class ProductController {
   @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
   delete(@Param('id') id: string) {
-    console.log(id);
     return this.productService.delete(id);
   }
 }

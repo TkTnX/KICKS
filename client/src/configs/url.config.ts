@@ -38,5 +38,8 @@ export const URL_CONFIG = {
 	},
 	color: {
 		index: "/colors"
+	},
+	image: {
+		index: "/images"
 	}
 }
