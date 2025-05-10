@@ -23,22 +23,19 @@ type Props = {
 
 export const ProductGallery = ({ form, product }: Props) => {
 	const [images, setImages] = useState<string[]>([])
-	// TODO: Выводить все изображения в gallery
-	// TODO: Возможность удалять изображения
 	// TODO: Сделать лимит по изображениям - 4 штуки
+	// TODO: Пофиксить добавление/удаление (при добавлении или удалении может дублироваться изображение)
 	const { store } = useProductForm()
 
 	const onSetImage = async (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (!file) return
-		const image = await imageService.upload(file, "products")
+		const image = await imageService.upload(file, product.id, "products")
 
 		setImages([...images, image.path])
 
 		store.setImages([...store.images, image.path])
 	}
-
-	console.log(product)
 
 	return (
 		<div className='flex-1 w-full'>
@@ -85,8 +82,13 @@ export const ProductGallery = ({ form, product }: Props) => {
 				/>
 			</div>
 			<div className='mt-6 flex flex-col gap-3'>
-				{product.images.map((image, index) => (
-					<UploadedImage image={image} key={index} />
+				{[...images, ...product.images].map((image, index) => (
+					<UploadedImage
+						totalImages={product.images.length}
+						productId={product.id}
+						image={image}
+						key={index}
+					/>
 				))}
 			</div>
 			<ProductEditButtons productId={product.id} />

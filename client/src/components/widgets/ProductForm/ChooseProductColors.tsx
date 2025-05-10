@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
 
 import { useProductForm } from "@/hooks/useProductForm"
 
@@ -11,10 +10,7 @@ interface Props {
 	label: string
 	className?: string
 }
-export const ChooseProductColors = ({
-	label,
-	className,
-}: Props) => {
+export const ChooseProductColors = ({ label, className }: Props) => {
 	const { store } = useProductForm()
 
 	const { data } = useQuery({

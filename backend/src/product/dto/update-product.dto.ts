@@ -1,4 +1,40 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateProductDto } from './create-product.dto';
+import {
+  ArrayMinSize,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { EGender } from 'generated/prisma';
 
-export class UpdateProductDto extends PartialType(CreateProductDto) {}
+export class UpdateProductDto extends PartialType(CreateProductDto) {
+  @IsNotEmpty({ message: 'Title is required' })
+  @IsString({ message: 'Title must be a string' })
+  title: string;
+
+  @IsNotEmpty({ message: 'Price is required' })
+  @IsInt({ message: 'Price must be an integer' })
+  price: number;
+
+  @IsNotEmpty({ message: 'Description is required' })
+  @IsString({ message: 'Description must be a string' })
+  description: string;
+
+  gender?: EGender;
+
+  @IsOptional()
+  images: string[];
+
+  @IsNotEmpty({ message: 'Category is required' })
+  categoryId: string;
+
+  @IsNotEmpty({ message: 'At least one color is required' })
+  @ArrayMinSize(1, { message: 'At least one color is required' })
+  colors: string[];
+
+  @IsNotEmpty({ message: 'At least one size is required' })
+  @ArrayMinSize(1, { message: 'At least one size is required' })
+  sizes: string[];
+}

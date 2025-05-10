@@ -1,10 +1,12 @@
 import {
   Controller,
+  Delete,
   FileTypeValidator,
   MaxFileSizeValidator,
   Param,
   ParseFilePipe,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -16,8 +18,8 @@ export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @UseInterceptors(FileInterceptor('image'))
-  @Post(':folder')
-  uploadFile(
+  @Post(':productId/:folder')
+  async uploadFile(
     @UploadedFile(
       new ParseFilePipe({
         validators: [
@@ -32,8 +34,14 @@ export class ImageController {
       }),
     )
     file: Express.Multer.File,
+    @Param('productId') productId: string,
     @Param('folder') folder: string,
   ) {
-    return this.imageService.upload(file, folder);
+    return this.imageService.upload(file, productId, folder);
+  }
+
+  @Delete()
+  async deleteFile(@Query('path') path: string) {
+    return this.imageService.delete(path);
   }
 }

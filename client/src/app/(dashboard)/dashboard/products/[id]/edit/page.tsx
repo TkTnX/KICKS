@@ -30,15 +30,13 @@ const EditProductPage = async ({
 }) => {
 	const id = (await params).id
 
-	const product = await productsService.getById(id)
-
 	return (
 		<section>
 			<h2 className='text-2xl font-sans font-semibold'>
 				Product Details
 			</h2>
 			<Breadcrumbs items={breadcrumbs} />
-			<ProductForm product={product} />
+			<ProductForm productId={id} />
 		</section>
 	)
 }

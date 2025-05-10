@@ -100,18 +100,14 @@ export class ProductService {
       data: {
         ...updateProductDto,
         categoryId: updateProductDto.categoryId || product.categoryId,
-        images: updateProductDto.images 
+        images: updateProductDto.images
           ? [...product.images, ...updateProductDto.images]
           : product.images,
         colors: {
-          connect:
-            updateProductDto.colors?.map((id) => ({ id })) ||
-            product.colors.map((color) => ({ id: color.id })),
+          set: updateProductDto.colors.map((id) => ({ id })),
         },
         sizes: {
-          connect:
-            updateProductDto.sizes?.map((id) => ({ id })) ||
-            product.sizes.map((size) => ({ id: size.id })),
+          set: updateProductDto.sizes.map((id) => ({ id })),
         },
       },
     });

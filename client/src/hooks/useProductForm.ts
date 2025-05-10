@@ -12,7 +12,7 @@ export function useProductForm(product?: IProduct) {
 			store.setColorIds(product.colors.flatMap(color => color.id))
 			store.setSizeIds(product.sizes.flatMap(size => size.id))
 		}
-	}, [])
+	}, [product])
 
 	return {
 		store
