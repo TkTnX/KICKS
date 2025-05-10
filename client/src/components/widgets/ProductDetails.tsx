@@ -8,7 +8,7 @@ import { IProduct } from "@/types"
 
 export const ProductDetails = ({ product }: { product: IProduct }) => {
 	return (
-		<div className='w-full lg:w-auto'>
+		<div className='w-full lg:w-auto lg:flex-1'>
 			<p className='text-xs text-white bg-blue py-3 px-4 rounded-xl w-fit'>
 				{product.category.name}
 			</p>

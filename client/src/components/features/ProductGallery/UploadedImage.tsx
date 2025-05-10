@@ -1,21 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { Check, X } from "lucide-react"
+import { Check, Router, X } from "lucide-react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
 import imageService from "@/services/image.service"
 
 import { cn } from "@/lib/utils"
 
-type Props = { totalImages: number; image: string; productId: string }
+type Props = { totalImages: number; image: string; productId: string | null }
 
 export const UploadedImage = ({ totalImages, image, productId }: Props) => {
 	const queryClient = useQueryClient()
+	const router = useRouter()
 	const mutation = useMutation({
 		mutationFn: () => imageService.delete(image),
 		onSuccess: () => {
 			toast.success("Deleted!")
 			queryClient.invalidateQueries({ queryKey: ["product", productId] })
+			router.refresh()
 		},
 		onError: err => {
 			toast.error(err.message)

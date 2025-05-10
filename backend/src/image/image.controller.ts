@@ -18,6 +18,27 @@ export class ImageController {
   constructor(private readonly imageService: ImageService) {}
 
   @UseInterceptors(FileInterceptor('image'))
+  @Post(':folder')
+  async createProductUpload(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({
+            fileType: /\/(jpg|png|jpeg)$/,
+          }),
+          new MaxFileSizeValidator({
+            maxSize: 1000 * 1000 * 10,
+            message: 'File must not be more 10 mb',
+          }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+    @Param('folder') folder: string,
+  ) {
+    return this.imageService.createProductUpload(file, folder);
+  }
+  @UseInterceptors(FileInterceptor('image'))
   @Post(':productId/:folder')
   async uploadFile(
     @UploadedFile(

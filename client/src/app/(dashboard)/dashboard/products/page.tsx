@@ -25,7 +25,7 @@ const DashboardProductsPage = () => {
 					<Breadcrumbs items={breadcrumbsList} />
 				</div>
 				<Link
-					href='/dashboard/create'
+					href='/dashboard/products/create'
 					className='flex items-center gap-2 text-white font-sans text-sm uppercase font-medium py-4 px-6 bg-dark-gray w-full vsm:w-auto justify-center'
 				>
 					<PlusCircle color='#fff' />

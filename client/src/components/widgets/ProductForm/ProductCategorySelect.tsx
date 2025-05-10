@@ -17,16 +17,16 @@ import categoriesService from "@/services/categories.service"
 
 interface Props {
 	label: string
-	className?: string
 	defaultCategory: string
 	formItem: UseFormReturn<any>
+	isLoading: boolean
 }
 
 export const ProductCategorySelect = ({
 	label,
-	className,
 	defaultCategory,
-	formItem
+	formItem,
+	isLoading
 }: Props) => {
 	const { store } = useProductForm()
 	const { data } = useQuery({
@@ -44,21 +44,22 @@ export const ProductCategorySelect = ({
 
 	return (
 		<Select
+			disabled={isLoading}
+			onValueChange={value => store.setCategoryId(value)}
 			defaultValue={store.categoryId!}
 			{...formItem.register("categoryId")}
-			name='categoryId'
 		>
 			<span className='text-xl font-sans font-semibold'>{label}</span>
 			<SelectTrigger
 				defaultValue={store.categoryId!}
-				className='!w-full !border !border-dark-gray !text-[#73737c]'
+				className='!w-full !border !border-dark-gray !text-dark-gray disabled:opacity-50 disabled:pointer-events-none'
 			>
 				<SelectValue
 					defaultValue={store.categoryId!}
 					placeholder={getCategoryName(store.categoryId!)}
 				/>
 			</SelectTrigger>
-			<SelectContent className='w-full'>
+			<SelectContent className='w-full disabled:opacity-50 disabled:pointer-events-none'>
 				{data?.map(category => (
 					<SelectItem
 						onChange={() => store.setCategoryId(category.id)}

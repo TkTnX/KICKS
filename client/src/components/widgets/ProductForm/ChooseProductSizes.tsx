@@ -9,8 +9,9 @@ import { cn } from "@/lib/utils"
 interface Props {
 	label: string
 	className?: string
+	isLoading: boolean
 }
-export const ChooseProductSizes = ({ label, className }: Props) => {
+export const ChooseProductSizes = ({ label, className, isLoading }: Props) => {
 	const { store } = useProductForm()
 	const { data } = useQuery({
 		queryKey: ["sizes"],
@@ -33,6 +34,7 @@ export const ChooseProductSizes = ({ label, className }: Props) => {
 			<div className='flex items-center gap-2 mt-4'>
 				{data?.map(size => (
 					<button
+						disabled={isLoading}
 						type='button'
 						onClick={() => onChoose(size.id)}
 						className={cn(

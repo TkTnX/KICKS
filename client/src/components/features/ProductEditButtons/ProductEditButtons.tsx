@@ -6,10 +6,14 @@ import { Button } from "@/components/ui/button"
 
 import productsService from "@/services/products.service"
 
-export const ProductEditButtons = ({ productId }: { productId: string }) => {
+export const ProductEditButtons = ({
+	productId
+}: {
+	productId: string | null
+}) => {
 	const router = useRouter()
 	const mutation = useMutation({
-		mutationFn: () => productsService.deleteProduct(productId),
+		mutationFn: () => productsService.deleteProduct(productId!),
 		onSuccess: () => {
 			toast.success("Deleted!")
 			router.push("/dashboard/products")
@@ -21,16 +25,19 @@ export const ProductEditButtons = ({ productId }: { productId: string }) => {
 				type='submit'
 				className='font-sans uppercase text-sm flex-1 h-auto py-4 '
 			>
-				UPDATE
+				{productId ? "UPDATE" : "CREATE"}
 			</Button>
+			{productId && (
+				<Button
+					onClick={() => mutation.mutate()}
+					type='button'
+					className='font-sans uppercase text-sm flex-1 h-auto py-4 bg-red-500 hover:bg-red-500/70'
+				>
+					DELETE
+				</Button>
+			)}
 			<Button
-				onClick={() => mutation.mutate()}
 				type='button'
-				className='font-sans uppercase text-sm flex-1 h-auto py-4 bg-red-500 hover:bg-red-500/70'
-			>
-				DELETE
-			</Button>
-			<Button
 				onClick={() => router.back()}
 				className='block bg-transparent text-dark-gray text-center border rounded-lg font-sans uppercase text-sm flex-1 h-auto py-4 hover:bg-dark-gray hover:text-white transition'
 			>

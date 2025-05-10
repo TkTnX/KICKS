@@ -34,7 +34,7 @@ export const Orders = () => {
 	if (data?.length === 0)
 		return <div className='text-center text-2xl'>No orders yet!</div>
 	return (
-		<div className='bg-[#f8f8f8] rounded-xl py-6 px-4 w-full'>
+		<div className='bg-[#f8f8f8] rounded-xl py-6 px-4 w-full mt-6'>
 			<div className='border-b pb-4'>
 				<h2 className='font-sans font-semibold text-xl'>
 					Recent Purchases

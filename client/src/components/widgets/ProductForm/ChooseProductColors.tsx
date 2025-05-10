@@ -1,16 +1,27 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query";
 
-import { useProductForm } from "@/hooks/useProductForm"
 
-import colorService from "@/services/color.service"
 
-import { cn } from "@/lib/utils"
+import { useProductForm } from "@/hooks/useProductForm";
+
+
+
+import colorService from "@/services/color.service";
+
+
+
+import { cn } from "@/lib/utils";
+
+
+
+
 
 interface Props {
 	label: string
 	className?: string
+	isLoading: boolean
 }
-export const ChooseProductColors = ({ label, className }: Props) => {
+export const ChooseProductColors = ({ label, className, isLoading }: Props) => {
 	const { store } = useProductForm()
 
 	const { data } = useQuery({
@@ -34,10 +45,11 @@ export const ChooseProductColors = ({ label, className }: Props) => {
 			<div className='flex items-center gap-2 mt-4'>
 				{data?.map(color => (
 					<button
+						disabled={isLoading}
 						type='button'
 						onClick={() => onChoose(color.id)}
 						className={cn(
-							`w-10 h-10 bg-[${color.value}] hover:opacity-50 transition   rounded-md`,
+							`w-10 h-10 bg-[${color.value}] hover:opacity-50 transition   rounded-md disabled:opacity-50 disabled:pointer-events-none`,
 							{
 								"border-2 border-dark-gray":
 									store.colorIds.includes(color.id)

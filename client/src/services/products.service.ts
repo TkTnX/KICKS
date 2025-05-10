@@ -55,6 +55,10 @@ class ProductsService {
 		return data
 	}
 
+	async create(body: IProductInput): Promise<IProduct> {
+		const { data } = await axiosInstance.post(URL_CONFIG.products.all, body)
+		return data
+	}
 	async edit(body: IProductInput, id: string): Promise<IProduct> {
 		const { data } = await axiosInstance.patch(
 			`${URL_CONFIG.products.all}/${id}`,

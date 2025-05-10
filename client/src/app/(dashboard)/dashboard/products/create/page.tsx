@@ -3,7 +3,6 @@ import { Metadata } from "next"
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { ProductForm } from "@/components/widgets/ProductForm"
 
-
 const breadcrumbs = [
 	{
 		name: "Home",
@@ -14,30 +13,24 @@ const breadcrumbs = [
 		link: "/dashboard/products"
 	},
 	{
-		name: "Product Details"
+		name: "Add New Product"
 	}
 ]
 
 export const metadata: Metadata = {
-	title: "Edit product"
+	title: "Create"
 }
 
-const EditProductPage = async ({
-	params
-}: {
-	params: Promise<{ id: string }>
-}) => {
-	const id = (await params).id
-
+const CreateProductPage = () => {
 	return (
 		<section>
 			<h2 className='text-2xl font-sans font-semibold'>
 				Product Details
 			</h2>
-			<Breadcrumbs items={breadcrumbs} />
-			<ProductForm productId={id} />
+            <Breadcrumbs items={breadcrumbs} />
+            <ProductForm />
 		</section>
 	)
 }
 
-export default EditProductPage
+export default CreateProductPage
