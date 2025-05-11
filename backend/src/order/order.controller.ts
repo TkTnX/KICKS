@@ -1,10 +1,22 @@
-import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+  UsePipes,
+} from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Authorization } from 'src/auth/decorators/authorization.decorator';
 import { Authorized } from 'src/auth/decorators/authorized.decorator';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/interfaces/roles.interface';
+import { OrderDto } from './dto/order.dto';
+import { PaymentStatusDto } from './dto/payment-status.dto';
 
 @Controller('orders')
 export class OrderController {
@@ -22,5 +34,18 @@ export class OrderController {
   @Get()
   async getAllByUserId(@Authorized('id') userId: string) {
     return this.orderService.getAllByUserId(userId);
+  }
+
+  @HttpCode(200)
+  @Post('place')
+  @Authorization()
+  async checkout(@Body() dto: OrderDto, @Authorized('id') userId: string) {
+    return this.orderService.createPayment(dto, userId);
+  }
+
+  @HttpCode(200)
+  @Post('status')
+  async updateStatus(@Body() dto: PaymentStatusDto) {
+    return this.orderService.updateStatus(dto);
   }
 }

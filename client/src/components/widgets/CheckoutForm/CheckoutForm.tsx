@@ -24,7 +24,6 @@ export const CheckoutForm = () => {
 	const form = useForm<ICheckout>()
 	const isPending = false
 
-	// TODO: Начать создание оплаты
 	const onSubmit = async (data: ICheckout) => {
 		try {
 			const body: ICheckout = {
