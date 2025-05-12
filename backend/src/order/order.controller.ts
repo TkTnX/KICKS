@@ -49,3 +49,5 @@ export class OrderController {
     return this.orderService.updateStatus(dto);
   }
 }
+
+// TODO: Сделать возможность оформлять заказ на клиенте

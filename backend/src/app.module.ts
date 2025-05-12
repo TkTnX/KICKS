@@ -14,6 +14,7 @@ import { SizeModule } from './size/size.module';
 import { ColorModule } from './color/color.module';
 import { ImageModule } from './image/image.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { StatisticsModule } from './statistics/statistics.module';
 import * as path from 'path';
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import * as path from 'path';
     SizeModule,
     ColorModule,
     ImageModule,
+    StatisticsModule,
   ],
   controllers: [],
   providers: [],

@@ -41,5 +41,8 @@ export const URL_CONFIG = {
 	},
 	image: {
 		index: "/images"
+	},
+	statistics: {
+		index: "/statistics"
 	}
 }
