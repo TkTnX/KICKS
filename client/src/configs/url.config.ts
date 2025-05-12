@@ -43,6 +43,7 @@ export const URL_CONFIG = {
 		index: "/images"
 	},
 	statistics: {
-		index: "/statistics"
+		index: "/statistics",
+		monthly: "/statistics/monthly"
 	}
 }

@@ -24,14 +24,11 @@ export class StatisticsService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async getMainStatistics() {
-    const totalRevenue = await this.calculateTotalRevenue();
-
     const averageRating = await this.calculateAverageRating();
     const ordersInformation = await this.getOrdersInformation();
     return [
-      { id: 1, name: 'Revenue', value: totalRevenue },
-      { id: 2, name: 'Average rating', value: averageRating },
-      { id: 3, name: 'Orders Info', value: ordersInformation },
+      { id: 1, name: 'Average rating', value: averageRating },
+      { id: 2, name: 'Orders Info', value: ordersInformation },
     ];
   }
 
@@ -40,24 +37,6 @@ export class StatisticsService {
     const lastProducts = await this.getLastProducts();
 
     return { monthlySales, lastProducts };
-  }
-
-  private async calculateTotalRevenue() {
-    const orders = await this.prismaService.order.findMany({
-      include: {
-        products: {
-          include: {
-            product: true,
-          },
-        },
-      },
-    });
-
-    const totalRevenue = orders.reduce(
-      (acc, order) => acc + order.totalPrice,
-      0,
-    );
-    return totalRevenue;
   }
 
   private async calculateAverageRating() {
@@ -94,56 +73,83 @@ export class StatisticsService {
     salesRaw.forEach((order) => {
       const formattedDate = formatDate(new Date(order.createdAt));
 
-      const total = order.products.reduce((total, cartItem) => {
-        return total + cartItem.product.price * cartItem.quantity;
-      }, 0);
-
       if (salesByDate.has(formattedDate)) {
-        salesByDate.set(formattedDate, salesByDate.get(formattedDate)! + total);
+        salesByDate.set(
+          formattedDate,
+          salesByDate.get(formattedDate)! + order.totalPrice,
+        );
       } else {
-        salesByDate.set(formattedDate, total);
+        salesByDate.set(formattedDate, order.totalPrice);
       }
     });
 
     const monthlySales = Array.from(salesByDate, ([date, value]) => ({
       date,
-      value,
+      income: value,
     }));
 
     return monthlySales;
   }
 
   private async getLastProducts() {
-    const lastProducts = await this.prismaService.cartItem.findMany({
-      include: {
-        product: true,
-        order: true,
-      },
+    const lastProducts = await this.prismaService.order.findMany({
       where: {
-        order: {
-          status: 'PAYED',
-        },
+        status: 'PAYED',
       },
-      orderBy: {
-        createdAt: 'desc',
+      select: {
+        products: { include: { product: true } },
       },
       take: 5,
     });
 
-    return lastProducts;
+
+    return lastProducts.flatMap((product) => product.products);
   }
 
   private async getOrdersInformation() {
+    const totalOrdersAmount = await this.prismaService.order.findMany({
+      select: { totalPrice: true },
+    });
     const totalOrders = await this.prismaService.order.count();
 
+    const activeOrdersAmount = await this.prismaService.order.findMany({
+      where: { status: 'PENDING' },
+      select: { totalPrice: true },
+    });
     const activeOrders = await this.prismaService.order.count({
       where: { status: 'PENDING' },
     });
 
+    const completedOrdersAmount = await this.prismaService.order.findMany({
+      where: { status: 'PAYED' },
+      select: { totalPrice: true },
+    });
     const completedOrders = await this.prismaService.order.count({
       where: { status: 'PAYED' },
     });
 
-    return { totalOrders, activeOrders, completedOrders };
+    return {
+      totalOrders: {
+        items: totalOrders,
+        amount: totalOrdersAmount.reduce(
+          (acc, item) => item.totalPrice + acc,
+          0,
+        ),
+      },
+      activeOrders: {
+        items: activeOrders,
+        amount: activeOrdersAmount.reduce(
+          (acc, item) => item.totalPrice + acc,
+          0,
+        ),
+      },
+      completedOrders: {
+        items: completedOrders,
+        amount: completedOrdersAmount.reduce(
+          (acc, item) => item.totalPrice + acc,
+          0,
+        ),
+      },
+    };
   }
 }
