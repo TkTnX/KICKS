@@ -3,8 +3,10 @@ import { axiosInstance } from "@/lib/axiosInstance"
 import { IOrder } from "@/types"
 
 class OrdersService {
-	async getAll(): Promise<IOrder[]> {
-		const { data } = await axiosInstance.get(URL_CONFIG.orders.all)
+	async getAll(limit?: number): Promise<IOrder[]> {
+		const { data } = await axiosInstance.get(
+			`${URL_CONFIG.orders.all}?limit=${limit}`
+		)
 		return data
 	}
 	async getAllByUserId(): Promise<IOrder[]> {

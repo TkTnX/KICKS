@@ -14,7 +14,7 @@ const checkout = new YooCheckout({
 export class OrderService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async getAll() {
+  async getAll(limit?: string) {
     const orders = await this.prismaService.order.findMany({
       include: {
         products: { include: { product: true } },
@@ -23,6 +23,7 @@ export class OrderService {
       orderBy: {
         createdAt: 'desc',
       },
+      take: Number(limit) || undefined,
     });
 
     return orders;

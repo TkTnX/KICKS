@@ -23,7 +23,7 @@ export class CategoryController {
 
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryService.remove(+id);
+  deleteCategory(@Param('id') id: string) {
+    return this.categoryService.deleteCategory(id);
   }
 }

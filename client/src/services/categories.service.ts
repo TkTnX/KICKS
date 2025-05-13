@@ -5,14 +5,21 @@ import { ICategory } from "@/types"
 class CategoriesService {
 	async getCategories(take?: number): Promise<ICategory[]> {
 		const { data } = await axiosInstance.get(
-			`${URL_CONFIG.categories.all}?take=${take}`
+			`${URL_CONFIG.categories.index}?take=${take}`
 		)
 		return data
 	}
 
 	async getCategoryBySlug(slug: string): Promise<ICategory> {
 		const { data } = await axiosInstance.get(
-			`${URL_CONFIG.categories.all}/${slug}`
+			`${URL_CONFIG.categories.index}/${slug}`
+		)
+		return data
+	}
+
+	async deleteCategory(categoryId: string): Promise<ICategory> {
+		const { data } = await axiosInstance.delete(
+			`${URL_CONFIG.categories.index}/${categoryId}`
 		)
 		return data
 	}

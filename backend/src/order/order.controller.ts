@@ -5,9 +5,8 @@ import {
   HttpCode,
   Param,
   Post,
-  Req,
+  Query,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { Authorization } from 'src/auth/decorators/authorization.decorator';
@@ -26,8 +25,8 @@ export class OrderController {
   @Get('/all')
   @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
-  async getAll() {
-    return this.orderService.getAll();
+  async getAll(@Query('limit') limit?: string) {
+    return this.orderService.getAll(limit);
   }
 
   @Authorization()

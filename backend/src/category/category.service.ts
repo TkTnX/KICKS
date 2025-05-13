@@ -11,7 +11,10 @@ export class CategoryService {
 
   async findAll(take?: number) {
     return await this.prisma.category.findMany({
-      include: { products: { take: 1 } },
+      include: {
+        products: { take: 1 },
+        _count: { select: { products: true } },
+      },
       take: take || undefined,
     });
   }
@@ -22,6 +25,7 @@ export class CategoryService {
         slug,
       },
       include: {
+        products: true,
         _count: {
           select: {
             products: true,
@@ -31,7 +35,7 @@ export class CategoryService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async deleteCategory(id: string) {
+    return await this.prisma.category.delete({ where: { id } });
   }
 }

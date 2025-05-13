@@ -9,7 +9,6 @@ import categoriesService from "@/services/categories.service"
 
 import { cn } from "@/lib/utils"
 
-
 export const DashboardSidebarCategories = () => {
 	const [open, setOpen] = useState<boolean>(false)
 
@@ -17,6 +16,7 @@ export const DashboardSidebarCategories = () => {
 		queryKey: ["categories"],
 		queryFn: () => categoriesService.getCategories()
 	})
+
 
 	if (isLoading) return <Loader2 className='animate-spin' />
 	if (error) return <ErrorMessage type='categories' error={error.message} />
@@ -41,11 +41,11 @@ export const DashboardSidebarCategories = () => {
 					<Link
 						className='flex items-center justify-between'
 						key={category.slug}
-						href={`/dashboard/${category.slug}`}
+						href={`/dashboard/categories/${category.slug}`}
 					>
 						<span>{category.name}</span>
 						<div className='w-[41px] h-[35px] bg-gray rounded flex items-center justify-center'>
-							{category?.products?.length}
+							{category._count.products}
 						</div>
 					</Link>
 				))}

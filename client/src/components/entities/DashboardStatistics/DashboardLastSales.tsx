@@ -3,7 +3,8 @@ import Image from "next/image"
 import { IMonthlyStatistics } from "@/types/statistics.interface"
 
 export const DashboardLastSales = ({ data }: { data: IMonthlyStatistics }) => {
-	// TODO: Добавить Skeletons для каждого блока
+	// * TODO: Добавить Skeletons для каждого блока
+	// * todo: на странице dashboard выводить только 5 товаров. Сделать лимит
 	// TODO: Сделать страницу с категориями, где выводятся продукты
 	return (
 		<div className='px-4 py-6 bg-white rounded-2xl flex-1/3'>

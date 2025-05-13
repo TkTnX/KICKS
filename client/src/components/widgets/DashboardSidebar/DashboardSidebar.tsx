@@ -38,7 +38,7 @@ export const DashboardSidebar = () => {
 		<div
 			ref={sidebarRef}
 			className={cn(
-				"transition -translate-x-full md:-translate-x-0 w-full vsm:w-auto lg:w-[260px] py-8  px-2 lg:px-6 bg-white h-full min-h-screen flex flex-col items-center border-r border-r-[#cfcfcf] fixed left-0 top-0 bottom-0 z-20",
+				"transition -translate-x-full lg:-translate-x-0 w-full vsm:w-auto lg:w-[260px] py-8  px-2 lg:px-6 bg-white h-full min-h-screen flex flex-col items-center border-r border-r-[#cfcfcf] fixed left-0 top-0 bottom-0 z-20",
 				{ "-translate-0": isOpen }
 			)}
 		>

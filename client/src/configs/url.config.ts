@@ -5,7 +5,7 @@ export const URL_CONFIG = {
 		logout: "/auth/logout"
 	},
 	categories: {
-		all: "/categories"
+		index: "/categories"
 	},
 	products: {
 		all: "/products",

@@ -10,7 +10,7 @@ export default function DashboardLayout({
 	return (
 		<div className='flex items-start h-full'>
 			<DashboardSidebar />
-			<div className='flex flex-1 flex-col min-h-screen md:ml-[155px] lg:ml-[260px]'>
+			<div className='flex flex-1 flex-col min-h-screen lg:ml-[260px]'>
 				<DashboardHeader />
 				<main className='flex-1 w-full p-6 mt-[95px]'>{children}</main>
 				<DashboardFooter />
