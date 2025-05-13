@@ -1,5 +1,7 @@
 import { LucideIcon } from "lucide-react"
 
+import { cn } from "@/lib/utils"
+
 type Props = {
 	title: string
 	Icon: LucideIcon
@@ -7,11 +9,19 @@ type Props = {
 		items: number
 		amount: number
 	}
+	className?: string
 }
 
-export const DashboardOrderInfo = ({ title, Icon, value }: Props) => {
+export const DashboardOrderInfo = ({
+	title,
+	Icon,
+	value,
+	className
+}: Props) => {
 	return (
-		<div className='bg-white py-6 px-4 rounded-2xl flex-1 '>
+		<div
+			className={cn("bg-white py-6 px-4 rounded-2xl flex-1 ", className)}
+		>
 			<div className='flex items-center gap-2'>
 				<div className='bg-blue p-1 rounded-xl '>
 					<Icon color='#fff' />

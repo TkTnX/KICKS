@@ -14,7 +14,7 @@ export const MonthlyStatistics = () => {
 	if (!data) return null
 
 	return (
-		<div className='mt-6 flex items-stretch gap-3.5'>
+		<div className='mt-6 flex items-stretch gap-3.5 flex-col lg:flex-row'>
 			<DashboardSales data={data} />
 			<DashboardLastSales data={data} />
 		</div>

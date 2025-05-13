@@ -3,16 +3,18 @@ import Image from "next/image"
 import { IMonthlyStatistics } from "@/types/statistics.interface"
 
 export const DashboardLastSales = ({ data }: { data: IMonthlyStatistics }) => {
-    // TODO: Доделать адаптив
-    // TODO: Продолжать dashboard
-    // TODO: Добавить лоадеры для каждого блока
+	// TODO: Добавить Skeletons для каждого блока
+	// TODO: Сделать страницу с категориями, где выводятся продукты
 	return (
 		<div className='px-4 py-6 bg-white rounded-2xl flex-1/3'>
 			<h5 className='font-sans text-xl'>Last Sold Products</h5>
 			<div className='h-[0.5px] w-full bg-dark-gray/50 mt-4 mb-8' />
 			<div className='flex flex-col gap-4'>
 				{data.lastProducts.map((item, index) => (
-					<div key={index} className='flex items-center gap-4'>
+					<div
+						key={index}
+						className='flex flex-wrap items-center gap-4 border-b pb-4'
+					>
 						<Image
 							src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.product.images[0]}`}
 							alt={item.product.title}

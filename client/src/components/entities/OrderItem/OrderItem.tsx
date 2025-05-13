@@ -1,23 +1,32 @@
 import Image from "next/image"
 
-import { IOrder } from "@/types"
+import { EOrderStatus, IOrder } from "@/types"
 
 type Props = {
 	order: IOrder
 }
 
+const getStatus = (status: EOrderStatus) => {
+	if (status === EOrderStatus.PAYED) {
+		return "#00c950"
+	} else if (status === EOrderStatus.PENDING) {
+		return "#ff6900"
+	} else {
+		return "#fb2c36"
+	}
+}
+
 export const OrderItem = ({ order }: Props) => {
 	return (
-		<div className='flex items-center justify-between text-sm   py-3'>
-			{/* TODO: Вернуть после добавления заказов */}
-			{/* <p>{order.products[0].title}</p> */}
-			<p className='flex-1 '>Adidas Ultra boost </p>
-			<p className='flex-1 '>#{order.id.slice(0, 5)}</p>
-			<p className='flex-1 '>
+		<div className='flex flex-1 md:flex-auto flex-col md:flex-row md:items-center justify-between text-sm   py-3 '>
+			<p className='md:flex-1 '>
+				({order.products.length}) {order.products[0].product.title}{" "}
+			</p>
+			<p className='md:flex-1 '>#{order.id.slice(0, 5)}</p>
+			<p className='md:flex-1 '>
 				{new Date(order.createdAt).toLocaleDateString("ru-RU")}
 			</p>
-			{/* TODO: Может быть, добавить метод оплаты */}
-			<div className='flex items-center gap-2 flex-1 '>
+			<div className='flex items-center gap-2 md:flex-1 '>
 				<Image
 					src={order.user.image ?? "/images/no-avatar.jpg"}
 					alt='USER AVATAR'
@@ -25,10 +34,20 @@ export const OrderItem = ({ order }: Props) => {
 					height={24}
 					className='rounded-full  object-cover'
 				/>
-				<p className='flex-1 text-left max-w-fit'>{order.user.name}</p>
+				<p className='md:flex-1 text-left max-w-fit'>
+					{order.user.name}
+				</p>
 			</div>
-			{/* <p className='flex-1'>{order.status}</p> */}
-			<p className='flex-1 '>${order.totalPrice}</p>
+			<div className='md:flex-1 flex items-center gap-1'>
+				<div
+					style={{
+						backgroundColor: getStatus(order.status)
+					}}
+					className={"w-2 h-2 rounded-full"}
+				/>
+				<span>{order.status}</span>
+			</div>
+			<p className='md:flex-1 '>${order.totalPrice}</p>
 		</div>
 	)
 }

@@ -23,6 +23,7 @@ export const Orders = () => {
 		}
 	})
 
+
 	if (isLoading)
 		return (
 			<div className='w-full flex justify-center'>

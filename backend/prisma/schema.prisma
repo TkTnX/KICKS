@@ -178,4 +178,5 @@ enum EDeliveryType {
 enum EnumOrderStatus {
   PENDING
   PAYED
+  CANCELED
 }

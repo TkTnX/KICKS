@@ -1,4 +1,4 @@
-import { ICart } from "./cart.interface"
+import { ICart, ICartItem } from "./cart.interface"
 import { IProduct } from "./product.interface"
 import { IUser } from "./user.interface"
 
@@ -7,10 +7,10 @@ enum EDeliveryOptions {
 	COLLECT = "Collect in store"
 }
 
-enum EOrderStatus {
-	PENDING = "Pending",
-	CONFIRMED = "Confirmed",
-	SHIPPED = "Shipped"
+export enum EOrderStatus {
+	PAYED = "PAYED",
+	PENDING = "PENDING",
+	CANCELED = "CANCELED"
 }
 
 export interface IOrder {
@@ -20,6 +20,7 @@ export interface IOrder {
 	totalPrice: number
 	createdAt: string
 	updatedAt: string
-	products: IProduct[]
+	products: ICartItem[]
 	user: IUser
+	status: EOrderStatus
 }

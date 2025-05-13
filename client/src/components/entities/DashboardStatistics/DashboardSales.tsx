@@ -18,7 +18,7 @@ const chartConfig = {
 
 export const DashboardSales = ({ data }: { data: IMonthlyStatistics }) => {
 	return (
-		<div className='h-[392px] flex-2/3 bg-white py-6 px-4 rounded-2xl'>
+		<div className=' flex-2/3 bg-white py-6 px-4 rounded-2xl'>
 			<h5 className='font-sans text-xl'>Sale Graph</h5>
 			<div className='h-[0.5px] w-full bg-dark-gray/50 mt-4 mb-8' />
 			<ChartContainer config={chartConfig}>

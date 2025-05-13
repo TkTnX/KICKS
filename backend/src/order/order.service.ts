@@ -17,8 +17,11 @@ export class OrderService {
   async getAll() {
     const orders = await this.prismaService.order.findMany({
       include: {
-        products: true,
+        products: { include: { product: true } },
         user: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
       },
     });
 
@@ -88,6 +91,20 @@ export class OrderService {
       });
       return true;
     }
+
+    if (dto.event === 'payment.canceled') {
+      const orderId = dto.object.description.split('#')[1];
+
+      await this.prismaService.order.update({
+        where: { id: orderId },
+        data: {
+          status: EnumOrderStatus.CANCELED,
+        },
+      });
+
+      return true;
+    }
+
     return true;
   }
 }
