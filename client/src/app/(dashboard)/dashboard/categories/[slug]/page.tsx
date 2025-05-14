@@ -30,7 +30,6 @@ const DashboardCategoryPage = async ({
 
 	const category = await categoriesService.getCategoryBySlug(slug)
 
-	console.log(category.products)
 	return (
 		<section>
 			<div className='flex flex-col gap-1'>

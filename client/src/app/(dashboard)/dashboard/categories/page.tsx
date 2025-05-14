@@ -65,7 +65,7 @@ const DashboardCategoriesPage = async () => {
 								<ListChecksIcon color='#fff' />
 							</div>
 							<p className='flex-1'>{category.name}</p>
-							<CategoryDropdown categoryId={category.id}>
+							<CategoryDropdown category={category}>
 								<button className='relative z-[11]'>
 									<MoreHorizontal />
 								</button>

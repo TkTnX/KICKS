@@ -23,6 +23,22 @@ class CategoriesService {
 		)
 		return data
 	}
+
+	async createCategory(name: string): Promise<ICategory> {
+		const { data } = await axiosInstance.post(URL_CONFIG.categories.index, {
+			name
+		})
+		return data
+	}
+	async editCategory(name: string, categoryId: string): Promise<ICategory> {
+		const { data } = await axiosInstance.post(
+			`${URL_CONFIG.categories.index}/${categoryId}`,
+			{
+				name
+			}
+		)
+		return data
+	}
 }
 
 export default new CategoriesService()

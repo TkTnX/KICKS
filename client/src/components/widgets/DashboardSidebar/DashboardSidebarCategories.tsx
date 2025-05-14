@@ -17,7 +17,6 @@ export const DashboardSidebarCategories = () => {
 		queryFn: () => categoriesService.getCategories()
 	})
 
-
 	if (isLoading) return <Loader2 className='animate-spin' />
 	if (error) return <ErrorMessage type='categories' error={error.message} />
 	return (
@@ -49,6 +48,12 @@ export const DashboardSidebarCategories = () => {
 						</div>
 					</Link>
 				))}
+				<Link
+					href={"/dashboard/categories"}
+					className='text-sm font-sant opacity-80 hover:opacity-60'
+				>
+					Edit categories
+				</Link>
 			</div>
 		</div>
 	)
