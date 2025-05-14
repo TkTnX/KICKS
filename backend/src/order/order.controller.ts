@@ -49,4 +49,3 @@ export class OrderController {
   }
 }
 
-// TODO: Сделать возможность оформлять заказ на клиенте

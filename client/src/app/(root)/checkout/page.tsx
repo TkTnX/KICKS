@@ -7,6 +7,7 @@ export const metadata: Metadata = {
 	title: "Checkout"
 }
 
+
 const CheckoutPage = () => {
 	return (
 		<main className='container mt-8'>

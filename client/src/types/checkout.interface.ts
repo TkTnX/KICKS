@@ -1,10 +1,19 @@
+import { ICartItem } from "./cart.interface";
+import { IProduct } from "./product.interface";
+
+
+
+
+
 export interface ICheckout {
+	products: ICartItem[]
+	totalPrice: number
+	deliveryType: EDeliveryType
+	phone: string
 	email: string
 	firstname: string
 	lastname: string
 	address: string
-	phone: string
-	deliveryType: EDeliveryType
 }
 
 export enum EDeliveryType {

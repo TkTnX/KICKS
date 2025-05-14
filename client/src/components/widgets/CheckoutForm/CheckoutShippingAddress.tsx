@@ -1,6 +1,7 @@
 import { UseFormReturn } from "react-hook-form"
 
 import { CheckoutFormInput } from "./CheckoutFormInput"
+import { useUserStore } from "@/stores/userStore"
 import { ICheckout } from "@/types/checkout.interface"
 
 type Props = {
@@ -9,12 +10,14 @@ type Props = {
 }
 
 export const CheckoutShippingAddress = ({ isPending, form }: Props) => {
+	const { user } = useUserStore()
 	return (
 		<div className='mt-8 flex flex-col sm:grid sm:grid-cols-2 gap-5'>
 			<CheckoutFormInput
 				disabled={isPending}
 				name='firstname'
 				type='text'
+				defaultValue={user?.name}
 				placeholder='First Name*'
 				form={form}
 			/>

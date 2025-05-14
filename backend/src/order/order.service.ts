@@ -42,14 +42,34 @@ export class OrderService {
   }
 
   async createPayment(dto: OrderDto, userId: string) {
-    console.log(dto);
     const order = await this.prismaService.order.create({
       data: {
         ...dto,
         products: {
-          connect: dto.products.map((product) => ({ id: product.id })),
+          create: dto.products.map((cartItem) => ({
+            productId: cartItem.productId,
+            quantity: cartItem.quantity,
+          })),
         },
         userId,
+      },
+      include: { products: true },
+    });
+
+    await this.prismaService.cartItem.deleteMany({
+      where: {
+        productId: {
+          in: order.products.map((p) => p.productId),
+        },
+      },
+    });
+
+    await this.prismaService.cart.update({
+      where: {
+        userId,
+      },
+      data: {
+        totalPrice: 0,
       },
     });
 
@@ -67,6 +87,7 @@ export class OrderService {
       },
       description: `Payment for the order #${order.id}`,
     });
+
     return payment;
   }
 

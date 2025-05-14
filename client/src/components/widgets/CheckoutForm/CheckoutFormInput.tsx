@@ -7,6 +7,7 @@ import {
 	FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+
 import { ICheckout } from "@/types/checkout.interface"
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 	name: string
 	type: string
 	placeholder: string
+	defaultValue?: string
 	className?: string
 }
 
@@ -24,6 +26,7 @@ export const CheckoutFormInput = ({
 	type,
 	name,
 	placeholder,
+	defaultValue,
 	className
 }: Props) => {
 	return (
@@ -37,6 +40,7 @@ export const CheckoutFormInput = ({
 							disabled={disabled}
 							{...form.register(name as any)}
 							className='border border-dark-gray rounded-lg py-2 px-4 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-sm sm:placeholder:text-base'
+							defaultValue={defaultValue}
 							type={type}
 							placeholder={placeholder}
 							required

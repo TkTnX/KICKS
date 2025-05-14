@@ -1,4 +1,5 @@
-import { ICart, ICartItem } from "./cart.interface"
+import { ICartItem } from "./cart.interface"
+import { EDeliveryType } from "./checkout.interface"
 import { IProduct } from "./product.interface"
 import { IUser } from "./user.interface"
 
@@ -23,4 +24,11 @@ export interface IOrder {
 	products: ICartItem[]
 	user: IUser
 	status: EOrderStatus
+}
+
+export interface IOrderItem {
+	id: string
+	product: IProduct
+	productId: string
+	quantity: number
 }

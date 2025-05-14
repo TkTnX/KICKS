@@ -1,23 +1,41 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { toast } from "react-toastify"
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
-import { FormCheckbox } from "@/components/ui/FormCheckbox"
-import { Link } from "@/components/ui/Link"
-import { Button } from "@/components/ui/button"
-import { Form } from "@/components/ui/form"
 
-import { useCart } from "@/hooks/useCart"
 
-import { CheckoutDelivery } from "./CheckoutDelivery"
-import { CheckoutFormInput } from "./CheckoutFormInput"
-import { CheckoutShippingAddress } from "./CheckoutShippingAddress"
-import { EDeliveryType, ICheckout } from "@/types/checkout.interface"
+import { FormCheckbox } from "@/components/ui/FormCheckbox";
+import { Link } from "@/components/ui/Link";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+
+
+
+import { useCart } from "@/hooks/useCart";
+
+
+
+import orderService from "@/services/order.service";
+
+
+
+import { CheckoutDelivery } from "./CheckoutDelivery";
+import { CheckoutFormInput } from "./CheckoutFormInput";
+import { CheckoutShippingAddress } from "./CheckoutShippingAddress";
+import { useUserStore } from "@/stores/userStore";
+import { EDeliveryType, ICheckout } from "@/types/checkout.interface";
+
+
+
+
 
 export const CheckoutForm = () => {
+	const router = useRouter()
 	const { cart } = useCart()
+	const { user } = useUserStore()
 	const [deliveryType, setDeliveryType] = useState<EDeliveryType>(
 		EDeliveryType.STANDARD
 	)
@@ -32,9 +50,14 @@ export const CheckoutForm = () => {
 				firstname: data.firstname,
 				lastname: data.lastname,
 				phone: data.phone,
-				deliveryType
+				deliveryType,
+				products: cart?.cartItems!,
+				totalPrice: cart?.totalPrice!
 			}
-			console.log(body)
+
+			const res = await orderService.checkout(body)
+
+			return router.push(res.confirmation.confirmation_url)
 		} catch (error) {
 			console.log(error)
 			toast.error("Something went wrong!")
@@ -55,6 +78,7 @@ export const CheckoutForm = () => {
 						name='email'
 						type='email'
 						placeholder='Email*'
+						defaultValue={user?.email}
 						form={form}
 						className='mt-8'
 					/>
@@ -93,7 +117,9 @@ export const CheckoutForm = () => {
 						REVIEW AND PAY
 					</Button>
 				) : (
-					<Link className="mt-11" href='/catalog'>GO TO SHOPPING</Link>
+					<Link className='mt-11' href='/catalog'>
+						GO TO SHOPPING
+					</Link>
 				)}
 			</form>
 		</Form>

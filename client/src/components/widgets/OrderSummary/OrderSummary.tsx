@@ -50,7 +50,10 @@ export const OrderSummary = ({ className }: { className?: string }) => {
 			{!pathname.includes("checkout") && (
 				<Link
 					href={"/checkout"}
-					className='mt-6 bg-dark-gray w-full text-center'
+					className={cn("mt-6 bg-dark-gray w-full text-center", {
+						"opacity-50 pointer-events-none":
+							!cart?.cartItems.length
+					})}
 				>
 					CHECKOUT
 				</Link>

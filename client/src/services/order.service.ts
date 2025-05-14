@@ -1,6 +1,7 @@
 import { URL_CONFIG } from "@/configs/url.config"
 import { axiosInstance } from "@/lib/axiosInstance"
 import { IOrder } from "@/types"
+import { ICheckout } from "@/types/checkout.interface"
 
 class OrdersService {
 	async getAll(limit?: number): Promise<IOrder[]> {
@@ -11,6 +12,11 @@ class OrdersService {
 	}
 	async getAllByUserId(): Promise<IOrder[]> {
 		const { data } = await axiosInstance.get(URL_CONFIG.orders.index)
+		return data
+	}
+
+	async checkout(body: ICheckout) {
+		const { data } = await axiosInstance.post(URL_CONFIG.orders.place, body)
 		return data
 	}
 }

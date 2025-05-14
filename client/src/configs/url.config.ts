@@ -31,7 +31,8 @@ export const URL_CONFIG = {
 	},
 	orders: {
 		index: "/orders",
-		all: "/orders/all"
+		all: "/orders/all",
+		place: "/orders/place"
 	},
 	size: {
 		index: "/sizes"
