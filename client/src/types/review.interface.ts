@@ -8,3 +8,10 @@ export interface IReview {
     image?: string,
     user: IUser,
 }
+
+export interface IReviewInput {
+    title: string,
+    text: string,
+    rating: number,
+    image?: string
+}

@@ -21,7 +21,7 @@ export interface IOrder {
 	totalPrice: number
 	createdAt: string
 	updatedAt: string
-	products: ICartItem[]
+	products: IOrderItem[]
 	user: IUser
 	status: EOrderStatus
 }

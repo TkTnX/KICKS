@@ -1,34 +1,46 @@
-import { ImageIcon } from "lucide-react"
-import { ChangeEvent, Dispatch, SetStateAction } from "react"
-import { UseFormReturn } from "react-hook-form"
+import { ImageIcon } from "lucide-react";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { UseFormReturn } from "react-hook-form";
 
-import { FormField, FormItem } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { IProductInput } from "@/components/widgets/ProductForm/productInput.interface"
 
-import { useProductForm } from "@/hooks/useProductForm"
 
-import imageService from "@/services/image.service"
+import { FormField, FormItem } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
-import { IProduct } from "@/types"
+
+
+import { useProductForm } from "@/hooks/useProductForm";
+
+
+
+import imageService from "@/services/image.service";
+
+
+
+import { IProduct } from "@/types";
+
+
+
+
 
 type Props = {
-	form: UseFormReturn<IProductInput>
+	form: UseFormReturn<any>
 	setImages: Dispatch<SetStateAction<string[]>>
 	images: string[]
 	product: IProduct | null
+	folder: string
 }
 
-export const UploadInput = ({ form, setImages, images, product }: Props) => {
+export const UploadInput = ({ form, setImages, images, product, folder }: Props) => {
 	const { store } = useProductForm()
 	const onSetImage = async (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (!file) return
 		let image
 		if (product) {
-			image = await imageService.upload(file, "products", product.id)
+			image = await imageService.upload(file, folder, product.id)
 		} else {
-			image = await imageService.upload(file, "products")
+			image = await imageService.upload(file, folder)
 			store.setImages([...store.images, image.path])
 		}
 		setImages([...images, image.path])

@@ -1,3 +1,6 @@
+import { Star } from "lucide-react"
+import Link from "next/link"
+
 import {
 	ProductColorOption,
 	ProductControls,
@@ -17,6 +20,13 @@ export const ProductDetails = ({ product }: { product: IProduct }) => {
 			<ProductColorOption colors={product.colors} />
 			<ProductSizeOption sizes={product.sizes} />
 			<ProductControls productId={product.id} />
+			<Link
+				className='text-xl  transition flex items-center gap-3 mt-4'
+				href={`/reviews/${product.id}/write`}
+			>
+				<Star color='#fed216' fill='#fed216' />
+				Write a review
+			</Link>
 		</div>
 	)
 }

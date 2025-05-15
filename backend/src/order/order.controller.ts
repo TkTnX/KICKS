@@ -30,6 +30,11 @@ export class OrderController {
     return this.orderService.getAll(limit);
   }
 
+  @Get(':orderId')
+  async getOneById(@Param('orderId') orderId: string) {
+    return this.orderService.getOrderById(orderId);
+  }
+
   @Authorization()
   @Get()
   async getAllByUserId(@Authorized('id') userId: string) {
@@ -51,10 +56,9 @@ export class OrderController {
 
   @Authorization()
   @Delete(':orderId')
-   @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
   async deleteOrder(@Param('orderId') orderId: string) {
-    return this.orderService.deleteOrder(orderId)
+    return this.orderService.deleteOrder(orderId);
+  }
 }
-}
-

@@ -29,13 +29,10 @@ const breadcrumbsList = [
 const DashboardColorsPage = async () => {
 	const colors = await colorService.getAll()
 
-	// * TODO: Удаление цветов
-	// * TODO: Редактирование цветов
-	// * TODO: Создание цветов
-	// * TODO: У products создать счётчик, соклько раз их купили
-	// * TODO: Thanks page
-
-
+	// * TODO: Страница заказа
+	// TODO: Добавление отзывов
+	// TODO: Удаление отзывов
+	// TODO: Вывод отзывов в профиле
 
 	return (
 		<section>
@@ -73,3 +70,5 @@ const DashboardColorsPage = async () => {
 }
 
 export default DashboardColorsPage
+
+

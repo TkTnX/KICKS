@@ -163,6 +163,9 @@ export class OrderService {
   async getOrderById(orderId: string) {
     const order = await this.prismaService.order.findFirst({
       where: { id: orderId },
+      include: {
+        products: { include: { product: true } },
+      },
     });
 
     if (!order) throw new NotFoundException('Order is not found');

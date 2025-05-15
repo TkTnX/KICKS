@@ -48,6 +48,7 @@ export const ProductGallery = ({ form, product }: Props) => {
 				</p>
 				{imagesLeft !== 0 && (
 					<UploadInput
+						folder='products'
 						form={form}
 						setImages={setImages}
 						images={images}
