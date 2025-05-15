@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   Param,
@@ -47,5 +48,13 @@ export class OrderController {
   async updateStatus(@Body() dto: PaymentStatusDto) {
     return this.orderService.updateStatus(dto);
   }
+
+  @Authorization()
+  @Delete(':orderId')
+   @Roles(Role.ADMIN)
+  @UseGuards(RolesGuard)
+  async deleteOrder(@Param('orderId') orderId: string) {
+    return this.orderService.deleteOrder(orderId)
+}
 }
 

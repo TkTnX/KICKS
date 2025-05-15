@@ -3,3 +3,8 @@ export interface IColor {
 	name: string
 	value: string
 }
+
+export interface IColorInput {
+	name: string
+	value: string
+}

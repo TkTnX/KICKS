@@ -1,7 +1,11 @@
-import { URL_CONFIG } from "@/configs/url.config"
-import { axiosInstance } from "@/lib/axiosInstance"
-import { IOrder } from "@/types"
-import { ICheckout } from "@/types/checkout.interface"
+import { URL_CONFIG } from "@/configs/url.config";
+import { axiosInstance } from "@/lib/axiosInstance";
+import { IOrder } from "@/types";
+import { ICheckout } from "@/types/checkout.interface";
+
+
+
+
 
 class OrdersService {
 	async getAll(limit?: number): Promise<IOrder[]> {
@@ -17,6 +21,14 @@ class OrdersService {
 
 	async checkout(body: ICheckout) {
 		const { data } = await axiosInstance.post(URL_CONFIG.orders.place, body)
+		return data
+	}
+
+	async deleteOrder(orderId: string) {
+		const { data } = await axiosInstance.delete(
+			`${URL_CONFIG.orders.index}/${orderId}`
+		)
+
 		return data
 	}
 }

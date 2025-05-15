@@ -12,6 +12,7 @@ export interface IProduct {
 	images: string[]
 	category: ICategory
 	gender?: EGender
+	totalSales: number
 
 	createdAt: Date
 	updatedAt: Date

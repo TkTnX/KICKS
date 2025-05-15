@@ -35,8 +35,7 @@ export const DashboardProductItem = ({ item }: { item: IProduct }) => {
 			</div>
 			<div className='mt-4 flex items-center justify-between border boder-[#b9b9b9] rounded-xl text-sm opacity-80 p-4'>
 				<p>Sales</p>
-				{/* TODO: TEMP SALES */}
-				<p>1269</p>
+				<p>{item.totalSales}</p>
 			</div>
 		</div>
 	)

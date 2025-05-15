@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { ICapturePayment, YooCheckout } from '@a2seven/yoo-checkout';
 import { OrderDto } from './dto/order.dto';
@@ -33,7 +33,11 @@ export class OrderService {
     const orders = await this.prismaService.order.findMany({
       where: { userId },
       include: {
-        products: true,
+        products: {
+          include: {
+            product: true,
+          },
+        },
         user: true,
       },
     });
@@ -111,6 +115,32 @@ export class OrderService {
           status: EnumOrderStatus.PAYED,
         },
       });
+
+      const orderItems = await this.prismaService.orderItem.findMany({
+        where: {
+          orders: {
+            some: { id: orderId },
+          },
+        },
+        select: {
+          productId: true,
+          product: true,
+        },
+      });
+
+      await Promise.all(
+        orderItems.map((item) =>
+          this.prismaService.product.update({
+            where: { id: item.productId },
+            data: {
+              totalSales: {
+                increment: item.product.totalSales + 1,
+              },
+            },
+          }),
+        ),
+      );
+
       return true;
     }
 
@@ -128,5 +158,25 @@ export class OrderService {
     }
 
     return true;
+  }
+
+  async getOrderById(orderId: string) {
+    const order = await this.prismaService.order.findFirst({
+      where: { id: orderId },
+    });
+
+    if (!order) throw new NotFoundException('Order is not found');
+
+    return order;
+  }
+
+  async deleteOrder(orderId: string) {
+    await this.getOrderById(orderId);
+
+    const deletedOrder = await this.prismaService.order.delete({
+      where: { id: orderId },
+    });
+
+    return deletedOrder;
   }
 }

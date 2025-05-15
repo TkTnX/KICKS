@@ -1,5 +1,7 @@
+import { X } from "lucide-react"
 import Image from "next/image"
 
+import { DeleteOrderButton } from "./DeleteOrderButton"
 import { EOrderStatus, IOrder } from "@/types"
 
 type Props = {
@@ -18,7 +20,7 @@ const getStatus = (status: EOrderStatus) => {
 
 export const OrderItem = ({ order }: Props) => {
 	return (
-		<div className='flex flex-1 md:flex-auto flex-col md:flex-row md:items-center justify-between text-sm   py-3 '>
+		<div className='flex flex-1 md:flex-auto flex-col md:flex-row md:items-center justify-between text-sm   py-3 relative '>
 			<p className='md:flex-1 '>
 				({order.products.length}) {order.products[0].product.title}{" "}
 			</p>
@@ -48,6 +50,7 @@ export const OrderItem = ({ order }: Props) => {
 				<span>{order.status}</span>
 			</div>
 			<p className='md:flex-1 '>${order.totalPrice}</p>
+			<DeleteOrderButton orderId={order.id} />
 		</div>
 	)
 }
