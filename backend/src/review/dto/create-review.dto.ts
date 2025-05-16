@@ -9,11 +9,11 @@ import {
 } from 'class-validator';
 
 class CreateReviewDto {
-  @IsOptional()
+  @IsNotEmpty({ message: 'Title is required' })
   @MaxLength(50, { message: 'Title must be less than 50 characters' })
   title: string;
 
-  @IsOptional()
+  @IsNotEmpty({ message: 'Text is required' })
   @MaxLength(150, { message: 'Text must be less than 150 characters' })
   text: string;
 
@@ -26,9 +26,6 @@ class CreateReviewDto {
   @IsOptional()
   @IsString({ message: 'Image must be a string' })
   image: string;
-
-  @IsNotEmpty({ message: 'User is required' })
-  userId: string;
 }
 
 export default CreateReviewDto;

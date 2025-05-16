@@ -15,6 +15,7 @@ export const URL_CONFIG = {
 	},
 	reviews: {
 		index: "/reviews",
+		all: "/reviews/all",
 		lastThree: "/reviews/last-three"
 	},
 	users: {

@@ -4,8 +4,8 @@ import * as fs from 'fs';
 import { PrismaService } from 'src/prisma.service';
 @Injectable()
 export class ImageService {
-  constructor(private readonly prismaService: PrismaService) { }
-  
+  constructor(private readonly prismaService: PrismaService) {}
+
   async createProductUpload(file: Express.Multer.File, folder: string) {
     const uploadDir = path.join(__dirname, '..', '..', 'uploads');
     const folderDir = path.join(uploadDir, folder);
@@ -50,16 +50,18 @@ export class ImageService {
 
     fs.writeFileSync(filePath, file.buffer);
 
-    await this.prismaService.product.update({
-      where: {
-        id: productId,
-      },
-      data: {
-        images: {
-          push: `/uploads/${folder}/${fileName}`,
+    if (folder === 'product') {
+      await this.prismaService.product.update({
+        where: {
+          id: productId,
         },
-      },
-    });
+        data: {
+          images: {
+            push: `/uploads/${folder}/${fileName}`,
+          },
+        },
+      });
+    }
 
     return { path: `/uploads/${folder}/${fileName}` };
   }

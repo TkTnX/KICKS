@@ -1,17 +1,25 @@
-"use client"
+"use client";
 
-import { useQuery } from "@tanstack/react-query"
-import { Loader2 } from "lucide-react"
+import { useQuery } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 
-import { ErrorMessage } from "@/components/entities/ErrorMessage"
-import { ReviewItem } from "@/components/widgets/Reviews"
 
-import reviewsService from "@/services/reviews.service"
+
+import { ErrorMessage } from "@/components/entities/ErrorMessage";
+import { ReviewItem } from "@/components/widgets/Reviews";
+
+
+
+import reviewsService from "@/services/reviews.service";
+
+
+
+
 
 export const Reviews = () => {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["reviews"],
-		queryFn: () => reviewsService.getAll()
+		queryFn: () => reviewsService.getAllByUserId()
 	})
 
 	if (isLoading)

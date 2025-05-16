@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight, X } from "lucide-react"
+import {  X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -88,6 +88,12 @@ export const DashboardSidebar = () => {
 				className='flex items-center justify-between w-full mt-3 hover:opacity-80 transition'
 			>
 				Colors
+			</Link>
+			<Link
+				href='/dashboard/reviews'
+				className='flex items-center justify-between w-full mt-3 hover:opacity-80 transition'
+			>
+				Reviews
 			</Link>
 		</div>
 	)

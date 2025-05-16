@@ -2,6 +2,7 @@ import { Metadata } from "next"
 
 import { ProductImages } from "@/components/entities/ProductImages"
 import { ProductDetails } from "@/components/widgets/ProductDetails"
+import { ProductReviews } from "@/components/widgets/ProductReviews"
 import { YouMayAlsoLike } from "@/components/widgets/YouMayAlsoLike"
 
 import productsService from "@/services/products.service"
@@ -22,6 +23,7 @@ const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 				</div>
 				<ProductDetails product={product} />
 			</section>
+			<ProductReviews productId={product.id} />
 			<YouMayAlsoLike categories={[product.category.slug]} />
 		</main>
 	)

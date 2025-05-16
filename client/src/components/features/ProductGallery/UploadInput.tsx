@@ -1,37 +1,31 @@
-import { ImageIcon } from "lucide-react";
-import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { ImageIcon } from "lucide-react"
+import { ChangeEvent, Dispatch, SetStateAction } from "react"
+import { UseFormReturn } from "react-hook-form"
 
+import { FormField, FormItem } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 
+import { useProductForm } from "@/hooks/useProductForm"
 
-import { FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import imageService from "@/services/image.service"
 
-
-
-import { useProductForm } from "@/hooks/useProductForm";
-
-
-
-import imageService from "@/services/image.service";
-
-
-
-import { IProduct } from "@/types";
-
-
-
-
+import { IProduct } from "@/types"
 
 type Props = {
-	form: UseFormReturn<any>
+	form?: UseFormReturn<any>
 	setImages: Dispatch<SetStateAction<string[]>>
 	images: string[]
 	product: IProduct | null
 	folder: string
 }
 
-export const UploadInput = ({ form, setImages, images, product, folder }: Props) => {
+export const UploadInput = ({
+	form,
+	setImages,
+	images,
+	product,
+	folder
+}: Props) => {
 	const { store } = useProductForm()
 	const onSetImage = async (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
@@ -48,7 +42,7 @@ export const UploadInput = ({ form, setImages, images, product, folder }: Props)
 
 	return (
 		<FormField
-			control={form.control}
+			control={form?.control}
 			name={"images"}
 			render={() => (
 				<FormItem className='mt-4'>
@@ -63,7 +57,7 @@ export const UploadInput = ({ form, setImages, images, product, folder }: Props)
 						<Input
 							accept='image/*'
 							hidden
-							{...form.register("images")}
+							{...form?.register("images")}
 							onChange={onSetImage}
 							type='file'
 						/>

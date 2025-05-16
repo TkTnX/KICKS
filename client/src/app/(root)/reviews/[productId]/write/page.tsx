@@ -12,7 +12,7 @@ const WriteReviewPage = async ({
 	const productId = (await params).productId
 
 	const product = await productsService.getById(productId)
-
+	
 	return (
 		<section className='container'>
 			<h2 className='text-2xl mt-10'>

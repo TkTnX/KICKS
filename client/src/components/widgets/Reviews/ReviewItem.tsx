@@ -1,6 +1,9 @@
+"use client"
+
 import { Star } from "lucide-react"
 import Image from "next/image"
 
+import { DeleteReviewButton } from "./DeleteReviewButton"
 import { cn } from "@/lib/utils"
 import { IReview } from "@/types"
 
@@ -12,10 +15,13 @@ type Props = {
 export const ReviewItem = ({ review, isProfile = false }: Props) => {
 	return (
 		<div
-			className={cn("rounded-4xl bg-white  overflow-hidden w-full", {
-				"first:hidden sm:first:block last:hidden lg:last:block":
-					!isProfile
-			})}
+			className={cn(
+				"rounded-4xl bg-white  overflow-hidden w-full relative group",
+				{
+					"first:hidden sm:first:block last:hidden lg:last:block":
+						!isProfile
+				}
+			)}
 		>
 			<div className={cn("p-4 sm:p-8 ", { "p-2 sm:p-2": isProfile })}>
 				<div
@@ -80,6 +86,10 @@ export const ReviewItem = ({ review, isProfile = false }: Props) => {
 					/>
 				</div>
 			)}
+			<DeleteReviewButton
+				reviewAuthorId={review.user.id}
+				reviewId={review.id}
+			/>
 		</div>
 	)
 }
