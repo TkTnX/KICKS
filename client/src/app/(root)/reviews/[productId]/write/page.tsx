@@ -3,6 +3,7 @@ import Image from "next/image"
 import { WriteReviewForm } from "@/components/widgets/WriteReviewForm"
 
 import productsService from "@/services/products.service"
+import { formatPrice } from "@/helpers/formatPrice"
 
 const WriteReviewPage = async ({
 	params
@@ -29,7 +30,7 @@ const WriteReviewPage = async ({
 					/>
 					<div>
 						<h6>{product.title}</h6>
-						<p className='font-sans opacity-60'>${product.price}</p>
+						<p className='font-sans opacity-60'>{formatPrice(product.price)}</p>
 						<p>{product.description}</p>
 					</div>
 				</div>

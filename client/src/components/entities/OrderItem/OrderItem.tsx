@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation"
 
 import { DeleteOrderButton } from "./DeleteOrderButton"
 import { EOrderStatus, IOrder } from "@/types"
+import { formatPrice } from "@/helpers/formatPrice"
 
 type Props = {
 	order: IOrder
@@ -55,7 +56,7 @@ export const OrderItem = ({ order }: Props) => {
 				/>
 				<span>{order.status}</span>
 			</div>
-			<p className='md:flex-1 '>${order.totalPrice}</p>
+			<p className='md:flex-1 '>{formatPrice(order.totalPrice)}</p>
 			{pathname.includes("dashboard") ? (
 				<DeleteOrderButton orderId={order.id} />
 			) : (

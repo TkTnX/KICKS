@@ -4,6 +4,7 @@ import Image from "next/image"
 import { DashboardProductDropdown } from "@/components/ui/dropdowns/DashboardProductDropdown"
 
 import { IProduct } from "@/types"
+import { formatPrice } from "@/helpers/formatPrice"
 
 export const DashboardProductItem = ({ item }: { item: IProduct }) => {
 	return (
@@ -20,7 +21,7 @@ export const DashboardProductItem = ({ item }: { item: IProduct }) => {
 					<h6>{item.title.split(" ").slice(0, 3).join(" ")}</h6>
 					<p className='text-sm opacity-60'>{item.category.name}</p>
 					<p className='font-sans text-sm font-bold mt-4'>
-						${item.price}
+						{formatPrice(item.price)}
 					</p>
 				</div>
 				<DashboardProductDropdown productId={item.id}>

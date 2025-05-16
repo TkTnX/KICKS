@@ -4,6 +4,8 @@ import { DashboardLastSalesItem } from "@/components/entities/DashboardStatistic
 
 import orderService from "@/services/order.service"
 
+import { formatPrice } from "@/helpers/formatPrice"
+
 export const metadata: Metadata = {
 	title: "Order"
 }
@@ -31,9 +33,11 @@ const OrderPage = async ({
 			</div>
 			<div className='flex items-center justify-between mt-10'>
 				<p className='opacity-60 font-sans font-bold text-3xl'>
-					${order.totalPrice}
+					{formatPrice(order.totalPrice)}
 				</p>
-				<p className='font-sans font-bold text-xl'>Status: {order.status}</p>
+				<p className='font-sans font-bold text-xl'>
+					Status: {order.status}
+				</p>
 			</div>
 		</div>
 	)

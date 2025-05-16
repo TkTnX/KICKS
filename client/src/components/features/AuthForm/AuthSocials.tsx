@@ -12,9 +12,9 @@ export const AuthSocials = ({ className }: Props) => {
 	return (
 		<div className={cn("flex items-center gap-5 sm:gap-6", className)}>
 			{AuthSocialsConfig.map(social => (
-				<Link
+				<a
 					className=' rounded-xl border border-dark-gray py-4 w-full flex items-center justify-center  hover:bg-dark-gray transition'
-					href={social.href}
+					href={`${process.env.NEXT_PUBLIC_BACKEND_URL}${social.href}`}
 					key={social.name}
 				>
 					<Image
@@ -23,7 +23,7 @@ export const AuthSocials = ({ className }: Props) => {
 						width={32}
 						height={32}
 					/>
-				</Link>
+				</a>
 			))}
 		</div>
 	)

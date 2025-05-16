@@ -8,6 +8,7 @@ import { Link } from "@/components/ui/Link"
 
 import { useCart } from "@/hooks/useCart"
 
+import { formatPrice } from "@/helpers/formatPrice"
 import { cn } from "@/lib/utils"
 
 export const OrderSummary = ({ className }: { className?: string }) => {
@@ -30,9 +31,7 @@ export const OrderSummary = ({ className }: { className?: string }) => {
 				<ul className='flex flex-col gap-4 mt-6'>
 					<li className='flex justify-between text-base lg:text-xl font-sans'>
 						<span>{cart?.cartItems.length} ITEMS</span>{" "}
-						<span className='opacity-80'>
-							${cart?.totalPrice}.00
-						</span>
+						<span className='opacity-80'></span>
 					</li>
 					<li className='flex justify-between text-base lg:text-xl font-sans'>
 						<span>Delivery</span>{" "}
@@ -41,7 +40,7 @@ export const OrderSummary = ({ className }: { className?: string }) => {
 					<li className='text-lg lg:text-2xl flex justify-between '>
 						<span className='font-bold'>Total</span>{" "}
 						<span className='opacity-80'>
-							${cart?.totalPrice}.00
+							{formatPrice(cart?.totalPrice || 0)}
 						</span>
 					</li>
 				</ul>

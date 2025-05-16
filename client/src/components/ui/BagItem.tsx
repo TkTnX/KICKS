@@ -4,6 +4,7 @@ import { BagItemControls } from "../features/BagItemControls"
 
 import { cn } from "@/lib/utils"
 import { ICartItem } from "@/types"
+import { formatPrice } from "@/helpers/formatPrice"
 
 type Props = {
 	item: ICartItem
@@ -48,7 +49,7 @@ export const BagItem = ({ item, isCart = true }: Props) => {
 								{ "lg:text-base": !isCart }
 							)}
 						>
-							${item.product.price}
+							{formatPrice(item.product.price)}
 						</p>
 					</div>
 					<p className='text-sm lg:text-base mt-2 opacity-80 font-sans'>

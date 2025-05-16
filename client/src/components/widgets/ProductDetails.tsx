@@ -8,6 +8,7 @@ import {
 } from "../features/ProductControls"
 
 import { IProduct } from "@/types"
+import { formatPrice } from "@/helpers/formatPrice"
 
 export const ProductDetails = ({ product }: { product: IProduct }) => {
 	return (
@@ -16,7 +17,7 @@ export const ProductDetails = ({ product }: { product: IProduct }) => {
 				{product.category.name}
 			</p>
 			<h2 className='text-xl md:text-3xl mt-4'>{product.title}</h2>
-			<p className='text-2xl text-blue mt-4'>${product.price}</p>
+			<p className='text-2xl text-blue mt-4'>{formatPrice(product.price)}</p>
 			<ProductColorOption colors={product.colors} />
 			<ProductSizeOption sizes={product.sizes} />
 			<ProductControls productId={product.id} />

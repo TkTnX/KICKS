@@ -8,6 +8,7 @@ import { AddToFavorites } from "../features/ProductControls/AddToFavorites"
 
 import { cn } from "@/lib/utils"
 import { IProduct } from "@/types"
+import { formatPrice } from "@/helpers/formatPrice"
 
 type Props = {
 	product: IProduct
@@ -43,7 +44,7 @@ export const ProductItem = ({ product, className }: Props) => {
 						href={`/product/${product.id}`}
 					>
 						VIEW PRODUCT -{" "}
-						<span className='text-yellow'>${product.price}</span>
+						<span className='text-yellow'>{formatPrice(product.price)}</span>
 					</Link>
 					{pathname.includes("favorites") && (
 						<AddToFavorites

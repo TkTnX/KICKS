@@ -144,4 +144,43 @@ export class AuthService {
     if (!user) throw new NotFoundException('User not found!');
     return user;
   }
+
+  // ВХОД ГУГЛ
+  googleLogin(req) {
+    if (!req.user) {
+      return 'No user from Google';
+    }
+
+    return {
+      message: 'User information from Google',
+      user: req.user,
+    };
+  }
+
+  async githubLogin(profile: any, res: Response) {
+    const email = profile.email;
+    if (!email) throw new UnauthorizedException('Email not found in Github');
+
+    let user = await this.prismaService.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      user = await this.prismaService.user.create({
+        data: {
+          email,
+          name: profile.displayName || profile.username || 'Github User',
+          password: '',
+          image: profile.avatar || '',
+        },
+      });
+
+      await this.prismaService.cart.create({
+        data: {
+          userId: user.id,
+        },
+      });
+    }
+    return this.auth(res, user.id, user.role);
+  }
 }

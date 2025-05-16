@@ -28,11 +28,6 @@ export const WriteReviewForm = ({ product }: Props) => {
 	const [rating, setRating] = useState<null | number>(null)
 	const form = useForm<IReviewInput>()
 
-	// * TODO: Добавление отзывов
-	// * TODO: Удаление отзывов
-	// * TODO: Вывод отзывов в dashboard
-	// * TODO: Вывод отзывы продукта
-
 	const onSubmit = async (data: IReviewInput) => {
 		try {
 			if (!rating) return toast.error("Rating is required!")

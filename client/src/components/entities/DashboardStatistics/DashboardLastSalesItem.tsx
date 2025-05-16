@@ -1,11 +1,11 @@
-import { IOrderItem } from "@/types"
 import Image from "next/image"
 
-export const DashboardLastSalesItem = ({item}: {item: IOrderItem}) => {
+import { formatPrice } from "@/helpers/formatPrice"
+import { IOrderItem } from "@/types"
+
+export const DashboardLastSalesItem = ({ item }: { item: IOrderItem }) => {
 	return (
-		<div
-			className='flex flex-wrap items-center gap-4 border-b pb-4'
-		>
+		<div className='flex flex-wrap items-center gap-4 border-b pb-4'>
 			<Image
 				src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.product.images[0]}`}
 				alt={item.product.title}
@@ -16,7 +16,7 @@ export const DashboardLastSalesItem = ({item}: {item: IOrderItem}) => {
 			<div className='flex-1'>
 				<h6>{item.product.title}</h6>
 				<p className='text-sm opacity-60'>
-					${item.product.price.toFixed(2)}
+					{formatPrice(item.product.price)}
 				</p>
 			</div>
 			<div>
