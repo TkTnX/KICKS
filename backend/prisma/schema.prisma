@@ -15,7 +15,7 @@ model Product {
   description String
   gender      EGender?
   images      String[]
-  totalSales Int @default(0)
+  totalSales  Int      @default(0)
 
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String
@@ -49,9 +49,8 @@ model Color {
 }
 
 model Size {
-  id          String  @id @default(uuid())
-  size        String
-  isAvailable Boolean
+  id   String @id @default(uuid())
+  size String @unique
 
   products  Product[]
   cartItems CartItem[]

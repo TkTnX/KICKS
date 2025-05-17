@@ -18,7 +18,6 @@ import { useFilterStore } from "@/stores/filterStore"
 
 export const PriceFilter = () => {
 	const [price, setPrice] = useState<string | null>(null)
-	const [value] = useDebounce(price, 1000)
 	const { prices } = useCatalog()
 	const { clearFilters, onSubmit } = useFilters()
 	const { setSelectedFilters } = useFilterStore()
@@ -28,8 +27,8 @@ export const PriceFilter = () => {
 	}
 
 	useEffect(() => {
-		if (value) setSelectedFilters("price", String(value))
-	}, [value])
+		if (price) setSelectedFilters("price", price)
+	}, [price])
 
 	return (
 		<>

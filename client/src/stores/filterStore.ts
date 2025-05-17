@@ -1,6 +1,12 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
-import { IFilters } from "@/types/filters.interface"
+
+
+import { IFilters } from "@/types/filters.interface";
+
+
+
+
 
 interface FilterState {
 	selectedFilters: {
@@ -10,6 +16,7 @@ interface FilterState {
 		price: string | null
 	}
 	setSelectedFilters: (query: keyof IFilters, value: string) => void
+	setInitialFilters: () => void
 }
 
 export const useFilterStore = create<FilterState>((set, get) => ({
@@ -42,5 +49,14 @@ export const useFilterStore = create<FilterState>((set, get) => ({
 			})
 		}
 		return get().selectedFilters
-	}
+	},
+
+	setInitialFilters: () => {
+		set({
+			selectedFilters: {
+				sizes: [],
+				colors: [],
+				gender: null,
+				price: null
+	}})}
 }))

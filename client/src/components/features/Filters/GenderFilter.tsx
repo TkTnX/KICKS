@@ -12,7 +12,6 @@ import { useFilterStore } from "@/stores/filterStore"
 export const GenderFilter = () => {
 	const genders = ["Men", "Women"]
 	const { selectedFilters, setSelectedFilters } = useFilterStore()
-	console.log(selectedFilters)
 	return (
 		<AccordionItem value='gender'>
 			<AccordionTrigger className='font-semibold uppercase'>

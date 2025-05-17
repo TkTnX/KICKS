@@ -1,28 +1,16 @@
-"use client";
+"use client"
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Heart } from "lucide-react";
-import { toast } from "react-toastify";
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { Heart } from "lucide-react"
+import { toast } from "react-toastify"
 
+import { Button } from "@/components/ui/button"
 
+import { useAuth } from "@/hooks/useAuth"
 
-import { Button } from "@/components/ui/button";
+import favoriteItemService from "@/services/favoriteItem.service"
 
-
-
-import { useAuth } from "@/hooks/useAuth";
-
-
-
-import favoriteItemService from "@/services/favoriteItem.service";
-
-
-
-import { cn } from "@/lib/utils";
-
-
-
-
+import { cn } from "@/lib/utils"
 
 type Props = {
 	productId: string
@@ -52,7 +40,7 @@ export const AddToFavorites = ({ productId, iconSize, className }: Props) => {
 			<Heart
 				size={iconSize ? iconSize : 16}
 				className={cn("group-hover:fill-white ", {
-					"fill-red-500 !stroke-red-500": user?.favoriteItems.find(
+					"fill-red-500 !stroke-red-500": user?.favoriteItems?.find(
 						p => p.productId === productId
 					)
 				})}

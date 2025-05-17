@@ -7,6 +7,20 @@ class SizeService {
 		const { data } = await axiosInstance.get(URL_CONFIG.size.index)
 		return data
 	}
+
+	async create(size: string): Promise<ISize> {
+		const { data } = await axiosInstance.post(URL_CONFIG.size.index, {
+			size
+		})
+		return data
+	}
+
+	async delete(id: string): Promise<ISize> {
+		const { data } = await axiosInstance.delete(
+			`${URL_CONFIG.size.index}/${id}`
+		)
+		return data
+	}
 }
 
 export default new SizeService()

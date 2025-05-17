@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { Button } from "@/components/ui/button"
 import { ColorDropdown } from "@/components/ui/dropdowns/ColorDropdown"
-import { CreateColorModal } from "@/components/ui/modals/CreateColorModal"
+import { CreateColorModal } from "@/components/ui/modals"
 
 import colorService from "@/services/color.service"
 

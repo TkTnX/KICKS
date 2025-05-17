@@ -21,7 +21,6 @@ export const HeaderActions = () => {
 
 	return (
 		<div className='flex items-center gap-4  lg:gap-10'>
-			{/* TODO: Сделать открытие поиска */}
 			{user && user.role === "ADMIN" ? (
 				<Link
 					href={"/dashboard"}

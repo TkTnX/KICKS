@@ -1,16 +1,17 @@
 import { EGender, Prisma } from 'generated/prisma';
-
 export const getWhere = (params: Record<string, string>) => {
   const where: Prisma.ProductWhereInput = {
-    ...(params.color && { colors: { some: { value: params.color } } }),
-    ...(params.size && { sizes: { some: { size: params.size } } }),
+    ...(params.colors && {
+      colors: { some: { value: { in: params.colors.split(',') } } },
+    }),
+    ...(params.sizes && {
+      sizes: { some: { id: { in: params.sizes.split(',') } } },
+    }),
     ...(params.category && { category: { name: params.category } }),
     ...(params.gender && {
-      gender: {
-        in: params.gender.split(',').map((g) => g.toUpperCase()) as EGender[],
-      },
+      gender: params.gender.toLowerCase() as EGender,
     }),
-    ...(params.price && { price: { gte: +params.price } }),
+    ...(params.price && { price: { lte: +params.price } }),
     ...(params.query && { title: params.query }),
   };
   return where;
