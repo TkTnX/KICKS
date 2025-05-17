@@ -62,7 +62,6 @@ export class ReviewService {
 
   async create(productId: string, userId: string, dto: CreateReviewDto) {
     const product = await this.productService.findById(productId);
-    console.log(dto);
     const review = await this.prisma.review.create({
       data: { ...dto, userId, productId: product.id },
     });

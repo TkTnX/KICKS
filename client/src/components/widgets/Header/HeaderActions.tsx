@@ -1,9 +1,11 @@
 "use client"
 
-import { Search, ShoppingBasket, User } from "lucide-react"
+import { ShoppingBasket, User } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+
+import { SearchForm } from "@/components/features/Search"
 
 import { useAuth } from "@/hooks/useAuth"
 
@@ -28,9 +30,7 @@ export const HeaderActions = () => {
 					Go to Dashboard
 				</Link>
 			) : (
-				<button className='hover:opacity-80 transition'>
-					<Search className='size-5 sm:size-6' size={24} />
-				</button>
+				<SearchForm />
 			)}
 
 			{user ? (

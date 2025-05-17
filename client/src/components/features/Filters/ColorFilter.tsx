@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-
 import {
 	AccordionContent,
 	AccordionItem,
@@ -9,14 +7,13 @@ import {
 } from "@/components/ui/accordion"
 
 import { useCatalog } from "@/hooks/useCatalog"
-import { useFilters } from "@/hooks/useFilters"
 
 import { cn } from "@/lib/utils"
+import { useFilterStore } from "@/stores/filterStore"
 
 export const ColorFilter = () => {
-	const [choosedColors, setChoosedColors] = useState<string[]>([])
-	const { handleChangeFilters } = useFilters()
 	const { availableColors } = useCatalog()
+	const { selectedFilters, setSelectedFilters } = useFilterStore()
 
 	return (
 		<AccordionItem value='color'>
@@ -26,19 +23,12 @@ export const ColorFilter = () => {
 			<AccordionContent className='flex flex-wrap sm:grid  sm:grid-cols-3 lg:grid-cols-5 gap-2 lg:gap-4 '>
 				{availableColors?.map(color => (
 					<button
-						onClick={() =>
-							handleChangeFilters(
-								choosedColors,
-								setChoosedColors,
-								color,
-								"color"
-							)
-						}
+						onClick={() => setSelectedFilters("colors", color)}
 						className={cn(
 							`w-10 h-10 bg-[${color}] hover:opacity-50 transition   rounded-md`,
 							{
 								"border-2 border-dark-gray":
-									choosedColors.includes(color)
+									selectedFilters.colors.includes(color)
 							}
 						)}
 						style={{ backgroundColor: color }}

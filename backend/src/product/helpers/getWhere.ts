@@ -11,6 +11,7 @@ export const getWhere = (params: Record<string, string>) => {
       },
     }),
     ...(params.price && { price: { gte: +params.price } }),
+    ...(params.query && { title: params.query }),
   };
   return where;
 };

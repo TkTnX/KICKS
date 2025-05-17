@@ -1,7 +1,5 @@
 "use client"
 
-import { useState } from "react"
-
 import {
 	AccordionContent,
 	AccordionItem,
@@ -9,13 +7,12 @@ import {
 } from "@/components/ui/accordion"
 import { Checkbox } from "@/components/ui/checkbox"
 
-import { useFilters } from "@/hooks/useFilters"
+import { useFilterStore } from "@/stores/filterStore"
 
 export const GenderFilter = () => {
 	const genders = ["Men", "Women"]
-	const [choosedGender, setChoosedGender] = useState<string[]>([])
-	const { handleChangeFilters } = useFilters()
-
+	const { selectedFilters, setSelectedFilters } = useFilterStore()
+	console.log(selectedFilters)
 	return (
 		<AccordionItem value='gender'>
 			<AccordionTrigger className='font-semibold uppercase'>
@@ -28,15 +25,10 @@ export const GenderFilter = () => {
 						className='flex items-center gap-4 cursor-pointer'
 					>
 						<Checkbox
-							checked={choosedGender.includes(gender)}
-							onClick={() =>
-								handleChangeFilters(
-									choosedGender,
-									setChoosedGender,
-									gender,
-									"gender"
-								)
-							}
+							onClick={() => {
+								setSelectedFilters("gender", gender)
+							}}
+							checked={selectedFilters.gender === gender}
 							className='rounded-sm  transition flex items-center justify-center text-dark-gray '
 						/>
 						{gender}

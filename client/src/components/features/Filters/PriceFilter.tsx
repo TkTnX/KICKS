@@ -8,25 +8,27 @@ import {
 	AccordionItem,
 	AccordionTrigger
 } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 import { useCatalog } from "@/hooks/useCatalog"
 import { useFilters } from "@/hooks/useFilters"
 
+import { useFilterStore } from "@/stores/filterStore"
+
 export const PriceFilter = () => {
 	const [price, setPrice] = useState<string | null>(null)
 	const [value] = useDebounce(price, 1000)
 	const { prices } = useCatalog()
-	const { setParams } = useFilters()
-	const { clearFilters } = useFilters()
+	const { clearFilters, onSubmit } = useFilters()
+	const { setSelectedFilters } = useFilterStore()
 
 	const handlePriceChange = (price: string) => {
 		setPrice(price)
 	}
+
 	useEffect(() => {
-		if (value) {
-			setParams({ price: value })
-		}
+		if (value) setSelectedFilters("price", String(value))
 	}, [value])
 
 	return (
@@ -50,12 +52,20 @@ export const PriceFilter = () => {
 					</div>
 				</AccordionContent>
 			</AccordionItem>
-			<button
-				onClick={clearFilters}
-				className='text-sm opacity-80  hover:opacity-50'
-			>
-				Reset
-			</button>
+			<div className='flex items-center gap-4'>
+				<Button
+					onClick={onSubmit}
+					className='bg-blue hover:bg-blue/60 font-sans'
+				>
+					Submit
+				</Button>
+				<button
+					onClick={clearFilters}
+					className='text-sm opacity-80  hover:opacity-50'
+				>
+					Reset
+				</button>
+			</div>
 		</>
 	)
 }
