@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 
 import { ProfileInformation } from "@/components/entities/ProfileInformation/ProfileInformation"
 
@@ -18,12 +19,20 @@ export const Profile = () => {
 							height={100}
 							className='object-cover rounded-full'
 							alt={user?.name || "avatar"}
-							src={user?.image || "/images/no-avatar.jpg"}
+							src={
+								(user &&
+									user.image &&
+									`${process.env.NEXT_PUBLIC_BACKEND_URL}${user?.image}`) ||
+								"/images/no-avatar.jpg"
+							}
 						/>
 						<h3 className='mt-2'>{user?.name}</h3>
-						<button className='text-sm text-blue mt-1'>
+						<Link
+							href={"/profile/edit"}
+							className='text-sm text-blue mt-1'
+						>
 							Edit profile
-						</button>
+						</Link>
 					</div>
 					<div>
 						<p>

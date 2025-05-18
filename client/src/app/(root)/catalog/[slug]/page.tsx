@@ -4,11 +4,17 @@ import categoriesService from "@/services/categories.service"
 
 import { CatalogCategory } from "./CatalogCategory"
 
-export const metadata: Metadata = {
-	title: "Catalog",
-	description: "Catalog page"
-}
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+	const slug = (await params).slug
 
+	return {
+		title: `${slug.toLocaleUpperCase()} | KICKS` || "Category page"
+	}
+}
 const CatalogCategoryPage = async ({
 	params
 }: {

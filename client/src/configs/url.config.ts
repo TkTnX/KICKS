@@ -19,6 +19,7 @@ export const URL_CONFIG = {
 		lastThree: "/reviews/last-three"
 	},
 	users: {
+		index: "/users",
 		me: "/users/me"
 	},
 	cart: {

@@ -14,7 +14,6 @@ class OrdersService {
 		const { data } = await axiosInstance.get(
 			`${URL_CONFIG.orders.index}/${orderId}`
 		)
-		console.log(data)
 		return data
 	}
 	async getAllByUserId(): Promise<IOrder[]> {

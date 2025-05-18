@@ -11,7 +11,6 @@ import { DashboardSidebarButton } from "./DashboardSidebarButton"
 
 export const DashboardHeader = () => {
 	const { user, setUser, getMe } = useAuth()
-
 	useEffect(() => {
 		const fetchUser = async () => {
 			const user = await getMe()

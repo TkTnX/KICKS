@@ -1,5 +1,4 @@
 import { Metadata } from "next"
-import { useEffect } from "react"
 
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs"
 import { ProductItem } from "@/components/ui/ProductItem"

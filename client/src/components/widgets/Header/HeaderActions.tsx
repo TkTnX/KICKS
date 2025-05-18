@@ -3,7 +3,7 @@
 import { ShoppingBasket, User } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect } from "react"
 
 import { SearchForm } from "@/components/features/Search"
 
@@ -29,14 +29,16 @@ export const HeaderActions = () => {
 					Go to Dashboard
 				</Link>
 			) : (
-				<SearchForm />
+				<Suspense>
+					<SearchForm />
+				</Suspense>
 			)}
 
 			{user ? (
 				<Link href='/profile' className='hover:opacity-80 transition'>
 					{user.image ? (
 						<Image
-							src={user.image}
+							src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${user.image}`}
 							width={24}
 							height={24}
 							alt={user.name || user.email}

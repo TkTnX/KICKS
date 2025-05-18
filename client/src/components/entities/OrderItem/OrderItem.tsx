@@ -6,8 +6,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { DeleteOrderButton } from "./DeleteOrderButton"
-import { EOrderStatus, IOrder } from "@/types"
 import { formatPrice } from "@/helpers/formatPrice"
+import { EOrderStatus, IOrder } from "@/types"
 
 type Props = {
 	order: IOrder
@@ -37,7 +37,10 @@ export const OrderItem = ({ order }: Props) => {
 			</p>
 			<div className='flex items-center gap-2 md:flex-1 '>
 				<Image
-					src={order.user.image ?? "/images/no-avatar.jpg"}
+					src={
+						`${process.env.NEXT_PUBLIC_BACKEND_URL}${order.user.image}` ||
+						"/images/no-avatar.jpg"
+					}
 					alt='USER AVATAR'
 					width={24}
 					height={24}

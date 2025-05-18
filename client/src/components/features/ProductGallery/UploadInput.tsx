@@ -15,7 +15,7 @@ type Props = {
 	form?: UseFormReturn<any>
 	setImages: Dispatch<SetStateAction<string[]>>
 	images: string[]
-	product: IProduct | null
+	product?: IProduct | null
 	folder: string
 }
 

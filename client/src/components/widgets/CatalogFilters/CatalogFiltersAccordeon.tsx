@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import {
 	CategoryFilter,
 	ColorFilter,
@@ -14,11 +16,13 @@ export const CatalogFiltersAccordeon = () => {
 			type='multiple'
 			className='w-full'
 		>
-			<SizeFilter />
-			<ColorFilter />
-			<CategoryFilter />
-			<GenderFilter />
-			<PriceFilter />
+			<Suspense>
+				<SizeFilter />
+				<ColorFilter />
+				<CategoryFilter />
+				<GenderFilter />
+				<PriceFilter />
+			</Suspense>
 		</Accordion>
 	)
 }

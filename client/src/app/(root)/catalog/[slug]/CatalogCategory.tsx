@@ -3,6 +3,7 @@
 import { CatalogControls } from "@/components/features/CatalogControls/CatalogControls"
 
 import { ICategory } from "@/types"
+import { Suspense } from "react"
 
 export const CatalogCategory = ({ category }: { category: ICategory }) => {
 	return (
@@ -14,7 +15,9 @@ export const CatalogCategory = ({ category }: { category: ICategory }) => {
 				</p>
 			</div>
 
-			<CatalogControls />
+			<Suspense>
+				<CatalogControls />
+			</Suspense>
 		</div>
 	)
 }

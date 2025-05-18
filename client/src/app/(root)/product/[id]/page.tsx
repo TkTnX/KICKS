@@ -7,8 +7,18 @@ import { YouMayAlsoLike } from "@/components/widgets/YouMayAlsoLike"
 
 import productsService from "@/services/products.service"
 
-export const metadata: Metadata = {
-	title: "Product Page"
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ id: string }>
+}): Promise<Metadata> {
+	const id = (await params).id
+	const product = await productsService.getById(id)
+
+	return {
+		title: product.title || "Product page",
+		description: product?.description || "Product details"
+	}
 }
 
 const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {

@@ -2,33 +2,18 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
 import ResponsivePagination, { dropEllipsis } from "react-responsive-pagination"
 import "react-responsive-pagination/themes/classic-light-dark.css"
 
 import { useCatalog } from "@/hooks/useCatalog"
 
-function useWindowWidth() {
-	const [width, setWidth] = useState<number>(
-		typeof window !== "undefined" ? 600 : 0
-	)
 
-	useEffect(() => {
-		const handleResize = () => setWidth(window.innerWidth)
-		window.addEventListener("resize", handleResize)
-		handleResize()
-		return () => window.removeEventListener("resize", handleResize)
-	}, [])
-
-	return width - 300
-}
 
 export const CatalogPagination = () => {
 	const { page, pages } = useCatalog()
 	const router = useRouter()
 	const searchParams = useSearchParams()
 	if (pages <= 1) return null
-	// const windowWidth = useWindowWidth()
 	const handleChangePage = (page: number) => {
 		if (page < 1 || page > pages) return
 		const params = new URLSearchParams(searchParams)
@@ -41,7 +26,6 @@ export const CatalogPagination = () => {
 			<ResponsivePagination
 				current={page}
 				total={pages}
-				// maxWidth={windowWidth}
 				narrowBehaviour={dropEllipsis}
 				className='gap-4 flex items-center w-full justify-center flex-wrap'
 				activeItemClassName='bg-dark-gray text-white rounded-md'

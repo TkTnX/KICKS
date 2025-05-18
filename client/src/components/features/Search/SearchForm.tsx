@@ -1,3 +1,4 @@
+'use client'
 import { Search as SearchIcon } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { FormEvent, useState } from "react"

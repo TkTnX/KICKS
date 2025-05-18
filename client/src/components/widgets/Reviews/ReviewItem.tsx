@@ -48,7 +48,10 @@ export const ReviewItem = ({ review, isProfile = false }: Props) => {
 						</p>
 					</div>
 					<Image
-						src={review.user.image ?? "/images/no-avatar.jpg"}
+						src={
+							`${process.env.NEXT_PUBLIC_BACKEND_URL}${review.user.image}` ||
+							"/images/no-avatar.jpg"
+						}
 						alt='USER AVATAR'
 						width={64}
 						height={64}
